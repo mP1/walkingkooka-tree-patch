@@ -22,7 +22,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
-import walkingkooka.util.Optionals;
 
 /**
  * Represents a TEST node-patch operation.
@@ -57,7 +56,7 @@ final class TestNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exte
      */
     @Override
     final N apply1(final N node, final NodePointer<N, NAME> start) {
-        Optionals.ifPresentOrElse(this.path.traverse(node),
+        this.path.traverse(node).ifPresentOrElse(
                 this::test,
                 this::throwFailed);
         return node;
