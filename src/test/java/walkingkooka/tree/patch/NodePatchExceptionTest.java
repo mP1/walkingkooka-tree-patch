@@ -18,13 +18,27 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.type.JavaVisibility;
 
 public final class NodePatchExceptionTest implements StandardThrowableTesting<NodePatchException> {
 
-    // ClassTesting2............................................................................
+    @Override
+    public NodePatchException createThrowable(final String message) {
+        return new NodePatchException(message);
+    }
+
+    @Override
+    public NodePatchException createThrowable(final String message, final Throwable cause) {
+        return new NodePatchException(message, cause);
+    }
 
     @Override
     public Class<NodePatchException> type() {
         return NodePatchException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

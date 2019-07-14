@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.StandardThrowableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,32 +31,10 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
     private final static String MESSAGE = "message123";
 
     @Test
-    public void testWithNullMessageFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new ApplyNodePatchException(null, this.empty());
-        });
-    }
-
-    @Test
-    public void testWithEmptyMessageFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new ApplyNodePatchException("", this.empty());
-        });
-    }
-
-    @Test
     public void testWithNullPatchFails() {
         assertThrows(NullPointerException.class, () -> {
             new ApplyNodePatchException("message", null);
         });
-    }
-
-    @Override
-    public void testWithEmptyMessageAndNonNullCauseFails() {
-    }
-
-    @Override
-    public void testWithMessage() {
     }
 
     @Override
@@ -80,30 +59,9 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
     }
 
     @Test
-    public void testWithNullMessagePathAndCause() {
-        assertThrows(NullPointerException.class, () -> {
-            new ApplyNodePatchException(null, this.empty(), new Exception());
-        });
-    }
-
-    @Test
-    public void testWithEmptyMessagePathAndCause() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new ApplyNodePatchException("", this.empty(), new Exception());
-        });
-    }
-
-    @Test
-    public void testWithNullPathAndCause() {
+    public void testWithMessageAndNullPathAndCause() {
         assertThrows(NullPointerException.class, () -> {
             new ApplyNodePatchException(MESSAGE, null, new Exception());
-        });
-    }
-
-    @Test
-    public void testWithPathAndNullCause() {
-        assertThrows(NullPointerException.class, () -> {
-            new ApplyNodePatchException(MESSAGE, this.empty(), null);
         });
     }
 
@@ -127,10 +85,23 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         assertSame(patch, exception.patch(), "patch");
     }
 
-    // ClassTesting2............................................................................
+    @Override
+    public ApplyNodePatchException createThrowable(final String message) {
+        return new ApplyNodePatchException(message, this.empty());
+    }
+
+    @Override
+    public ApplyNodePatchException createThrowable(final String message, final Throwable cause) {
+        return new ApplyNodePatchException(message, this.empty(), cause);
+    }
 
     @Override
     public Class<ApplyNodePatchException> type() {
         return ApplyNodePatchException.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }
