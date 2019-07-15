@@ -304,6 +304,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     static {
         HasJsonNode.register("patch",
                 NodePatch::fromJsonNode,
+                NodePatch.class,
                 AddNodePatch.class,
                 CopyNodePatch.class,
                 EmptyNodePatch.class,
