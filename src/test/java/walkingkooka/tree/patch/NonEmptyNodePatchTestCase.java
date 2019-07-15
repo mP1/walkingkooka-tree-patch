@@ -20,6 +20,7 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -87,7 +88,7 @@ public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<Json
     }
 
     final void fromJsonNodeFails2(final String json) {
-        this.fromJsonNodeFails(json.replace("$OP", this.operation()));
+        this.fromJsonNodeFails(json.replace("$OP", this.operation()), JsonNodeException.class);
     }
 
     final void toJsonNodeAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,

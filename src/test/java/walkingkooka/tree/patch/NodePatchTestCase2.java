@@ -23,6 +23,7 @@ import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.JavaVisibility;
@@ -131,27 +132,22 @@ public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeN
 
     @Test
     public final void testFromJsonBooleanNodeFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true));
-    }
-
-    @Test
-    public final void testFromJsonNullNodeFails() {
-        this.fromJsonNodeFails(JsonNode.nullNode());
+        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNumberNodeFails() {
-        this.fromJsonNodeFails(JsonNode.number(123));
+        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonObjectNodeFails() {
-        this.fromJsonNodeFails(JsonNode.object());
+        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonStringNodeFails() {
-        this.fromJsonNodeFails(JsonNode.string("string123"));
+        this.fromJsonNodeFails(JsonNode.string("string123"), JsonNodeException.class);
     }
 
     final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
