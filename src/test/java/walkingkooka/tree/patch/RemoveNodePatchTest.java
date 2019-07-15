@@ -20,6 +20,7 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -90,7 +91,8 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
         this.fromJsonNodeFails("[{\n" +
                 "  \"op\": \"remove\",\n" +
                 "  \"from\": \"/123\"\n" +
-                "}]");
+                "}]",
+                JsonNodeException.class);
     }
 
     @Test
@@ -98,7 +100,8 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
         this.fromJsonNodeFails("[{\n" +
                 "  \"op\": \"remove\",\n" +
                 "  \"value-type\": \"json-property-name\"\n" +
-                "}]");
+                "}]",
+                JsonNodeException.class);
     }
 
     @Test
@@ -106,7 +109,8 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
         this.fromJsonNodeFails("[{\n" +
                 "  \"op\": \"remove\",\n" +
                 "  \"value\": true\n" +
-                "}]");
+                "}]",
+                JsonNodeException.class);
     }
 
     @Test

@@ -211,7 +211,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      * }
      * </pre>
      */
-    public static NodePatch<?, ?> fromJsonNode(final JsonNode node) {
+    static NodePatch<?, ?> fromJsonNode(final JsonNode node) {
         checkNode(node);
 
         return fromJsonNode0(node, NodePatchFromJsonFormat.hasJsonNode());
