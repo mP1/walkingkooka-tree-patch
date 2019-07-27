@@ -20,8 +20,8 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.visit.VisitorTesting;
 import walkingkooka.type.JavaVisibility;
+import walkingkooka.visit.VisitorTesting;
 
 public abstract class NodePatchFromJsonObjectNodePropertyVisitorTestCase<V extends NodePatchFromJsonObjectNodePropertyVisitor> extends NodePatchTestCase<V>
         implements VisitorTesting<V, JsonNode> {

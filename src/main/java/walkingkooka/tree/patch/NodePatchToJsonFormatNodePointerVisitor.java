@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.pointer.NamedChildNodePointer;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitor;
-import walkingkooka.tree.visit.Visiting;
+import walkingkooka.visit.Visiting;
 
 import java.util.Optional;
 
