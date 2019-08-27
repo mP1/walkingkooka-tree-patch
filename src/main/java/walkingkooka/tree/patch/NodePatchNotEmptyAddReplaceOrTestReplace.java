@@ -26,25 +26,25 @@ import walkingkooka.tree.pointer.NodePointer;
 /**
  * Represents a REPLACE operation within a patch.
  */
-final class ReplaceNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
+final class NodePatchNotEmptyAddReplaceOrTestReplace<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNotEmptyAddReplaceOrTest<N, NAME> {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> ReplaceNodePatch<N, NAME> with(final NodePointer<N, NAME> path,
-                                                                                             final N value) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchNotEmptyAddReplaceOrTestReplace<N, NAME> with(final NodePointer<N, NAME> path,
+                                                                                                                     final N value) {
         checkPath(path);
         checkValue(value);
 
-        return new ReplaceNodePatch<>(path, value, null);
+        return new NodePatchNotEmptyAddReplaceOrTestReplace<>(path, value, null);
     }
 
-    private ReplaceNodePatch(final NodePointer<N, NAME> path,
-                             final N value,
-                             final NonEmptyNodePatch<N, NAME> next) {
+    private NodePatchNotEmptyAddReplaceOrTestReplace(final NodePointer<N, NAME> path,
+                                                     final N value,
+                                                     final NodePatchNonEmpty<N, NAME> next) {
         super(path, value, next);
     }
 
     @Override
-    ReplaceNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
-        return new ReplaceNodePatch<>(this.path,
+    NodePatchNotEmptyAddReplaceOrTestReplace<N, NAME> append0(final NodePatchNonEmpty<N, NAME> next) {
+        return new NodePatchNotEmptyAddReplaceOrTestReplace<>(this.path,
                 this.value,
                 next);
     }
@@ -66,7 +66,7 @@ final class ReplaceNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> e
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof ReplaceNodePatch;
+        return other instanceof NodePatchNotEmptyAddReplaceOrTestReplace;
     }
 
     @Override

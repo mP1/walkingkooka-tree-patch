@@ -29,15 +29,15 @@ import java.util.Objects;
 /**
  * Base class for both add and replace.
  */
-abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
+abstract class NodePatchNotEmptyAddReplaceOrTest<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNonEmpty<N, NAME> {
 
     static void checkValue(final Node<?, ?, ?, ?> node) {
         Objects.requireNonNull(node, "node");
     }
 
-    AddReplaceOrTestNodePatch(final NodePointer<N, NAME> path,
-                              final N value,
-                              final NonEmptyNodePatch<N, NAME> next) {
+    NodePatchNotEmptyAddReplaceOrTest(final NodePointer<N, NAME> path,
+                                      final N value,
+                                      final NodePatchNonEmpty<N, NAME> next) {
         super(path, next);
         this.value = value.removeParent();
     }
@@ -52,12 +52,12 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
     }
 
     @Override
-    final boolean equals1(final NonEmptyNodePatch<?, ?> other) {
+    final boolean equals1(final NodePatchNonEmpty<?, ?> other) {
         return this.path.equals(other.path) &&
                 this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final AddReplaceOrTestNodePatch<?, ?> other) {
+    private boolean equals2(final NodePatchNotEmptyAddReplaceOrTest<?, ?> other) {
         return this.value.equals(other.value);
     }
 

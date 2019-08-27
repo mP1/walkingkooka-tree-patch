@@ -17,10 +17,18 @@
 
 package walkingkooka.tree.patch;
 
-public final class NodePatchToJsonFormatTest extends NodePatchTestCase4<NodePatchToJsonFormat> {
+import walkingkooka.type.JavaVisibility;
+
+public abstract class NodePatchTestCase4<T> extends NodePatchTestCase<T> {
+
+    NodePatchTestCase4() {
+        super();
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
-    public Class<NodePatchToJsonFormat> type() {
-        return NodePatchToJsonFormat.class;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

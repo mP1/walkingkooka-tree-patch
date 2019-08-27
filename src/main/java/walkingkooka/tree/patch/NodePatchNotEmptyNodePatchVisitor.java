@@ -28,16 +28,15 @@ import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.visit.Visitor;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * A visitor used by all {@link NodePatch} sub classes to build a {@link NodePatch} from a {@link JsonNode}.
  */
-abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNode> {
+abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
 
-    NodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
-                                               final NodePatchFromJsonFormat format,
-                                               final FromJsonNodeContext context) {
+    NodePatchNotEmptyNodePatchVisitor(final JsonObjectNode patch,
+                                      final NodePatchFromJsonFormat format,
+                                      final FromJsonNodeContext context) {
         super();
         this.patch = patch;
         this.format = format;

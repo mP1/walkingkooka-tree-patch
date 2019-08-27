@@ -29,22 +29,22 @@ import java.util.Objects;
 /**
  * Represents an REMOVE operation within a patch.
  */
-final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
+final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNonEmpty<N, NAME> {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> RemoveNodePatch<N, NAME> with(final NodePointer<N, NAME> path) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchNotEmptyRemove<N, NAME> with(final NodePointer<N, NAME> path) {
         checkPath(path);
 
-        return new RemoveNodePatch<>(path, null);
+        return new NodePatchNotEmptyRemove<>(path, null);
     }
 
-    private RemoveNodePatch(final NodePointer<N, NAME> path,
-                            final NonEmptyNodePatch<N, NAME> next) {
+    private NodePatchNotEmptyRemove(final NodePointer<N, NAME> path,
+                                    final NodePatchNonEmpty<N, NAME> next) {
         super(path, next);
     }
 
     @Override
-    RemoveNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
-        return new RemoveNodePatch<>(this.path, next);
+    NodePatchNotEmptyRemove<N, NAME> append0(final NodePatchNonEmpty<N, NAME> next) {
+        return new NodePatchNotEmptyRemove<>(this.path, next);
     }
 
     @Override
@@ -61,11 +61,11 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof RemoveNodePatch;
+        return other instanceof NodePatchNotEmptyRemove;
     }
 
     @Override
-    boolean equals1(final NonEmptyNodePatch<?, ?> other) {
+    boolean equals1(final NodePatchNonEmpty<?, ?> other) {
         return this.path.equals(other.path);
     }
 

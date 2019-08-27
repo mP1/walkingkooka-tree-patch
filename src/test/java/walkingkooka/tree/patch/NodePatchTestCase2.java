@@ -17,194 +17,84 @@
 
 package walkingkooka.tree.patch;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
-import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.tree.pointer.NodePointer;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase<P>
-        implements HashCodeEqualsDefinedTesting<P>,
-        JsonNodeMappingTesting<P>,
-        TypeNameTesting<P> {
+public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
 
     NodePatchTestCase2() {
         super();
     }
 
-    @Test
-    public final void testApplyNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().apply(null);
+    final NodePointer<JsonNode, JsonNodeName> path1() {
+        return NodePointer.named(this.property1(), JsonNode.class);
+    }
+
+    final JsonNodeName property1() {
+        return JsonNodeName.with("a1");
+    }
+
+    final JsonNode value1() {
+        return JsonNode.string("value1");
+    }
+
+    final NodePointer<JsonNode, JsonNodeName> path2() {
+        return NodePointer.named(this.property2(), JsonNode.class);
+    }
+
+    final JsonNodeName property2() {
+        return JsonNodeName.with("b2");
+    }
+
+    final JsonNode value2() {
+        return JsonNode.string("value2");
+    }
+
+    final NodePointer<JsonNode, JsonNodeName> path3() {
+        return NodePointer.named(this.property3(), JsonNode.class);
+    }
+
+    final JsonNodeName property3() {
+        return JsonNodeName.with("c3");
+    }
+
+    final JsonNode value3() {
+        return JsonNode.string("value3");
+    }
+
+    final NodePointer<JsonNode, JsonNodeName> pointer(final String path) {
+        return NodePointer.parse(path, JsonNodeName::with, JsonNode.class);
+    }
+
+    final void applyAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+                             final String before,
+                             final String expected) {
+        this.applyAndCheck(patch,
+                JsonNode.parse(before),
+                JsonNode.parse(expected));
+    }
+
+    final void applyAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+                             final JsonNode before,
+                             final JsonNode expected) {
+        assertEquals(expected,
+                patch.apply(before),
+                () -> "patch " + patch + " failed");
+    }
+
+    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
+                                             final String json) {
+        return this.applyFails(patch, JsonNode.parse(json));
+    }
+
+    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
+                                             final JsonNode before) {
+        return assertThrows(ApplyNodePatchException.class, () -> {
+            patch.apply(before);
         });
-    }
-
-    @Test
-    public final void testAddNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().add(null, JsonNode.string("value"));
-        });
-    }
-
-    @Test
-    public final void testAddNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().add(this.path(), null);
-        });
-    }
-
-    @Test
-    public final void testCopyNullFromFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().copy(null, this.path());
-        });
-    }
-
-    @Test
-    public final void testCopyNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().copy(this.path(), null);
-        });
-    }
-
-    @Test
-    public final void testCopyFromSameAsPathFails() {
-        final NodePointer<JsonNode, JsonNodeName> path = this.path();
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createPatch().copy(path, path);
-        });
-    }
-
-    @Test
-    public final void testMoveNullFromFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().move(null, this.path());
-        });
-    }
-
-    @Test
-    public final void testMoveNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().move(this.path(), null);
-        });
-    }
-
-    @Test
-    public final void testMoveFromSameAsPathFails() {
-        final NodePointer<JsonNode, JsonNodeName> path = this.path();
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createPatch().move(path, path);
-        });
-    }
-
-    @Test
-    public final void testReplaceNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().replace(null, this.value());
-        });
-    }
-
-    @Test
-    public final void testReplaceNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().replace(this.path(), null);
-        });
-    }
-
-    @Test
-    public final void testRemoveNullFromFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().remove(null);
-        });
-    }
-
-    // HasJsonNode..................................................................................
-
-    @Test
-    public final void testFromJsonBooleanNodeFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonNumberNodeFails() {
-        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonObjectNodeFails() {
-        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
-    }
-
-    @Test
-    public final void testFromJsonStringNodeFails() {
-        this.fromJsonNodeFails(JsonNode.string("string123"), JsonNodeException.class);
-    }
-
-    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
-                                   final String json) {
-        this.toJsonPatchAndCheck(patch,
-                JsonNode.parse(json));
-    }
-
-    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
-                                   final JsonNode node) {
-        assertEquals(node,
-                patch.toJsonPatch(),
-                () -> patch + " toJsonPatch");
-    }
-
-    // NodePatchTestCase2..................................................................................
-
-    abstract P createPatch();
-
-    @Override
-    public final P createObject() {
-        return this.createPatch();
-    }
-
-    private NodePointer<JsonNode, JsonNodeName> path() {
-        return NodePointer.any(JsonNode.class);
-    }
-
-    private JsonNode value() {
-        return JsonNode.nullNode();
-    }
-
-    // ClassTesting.................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    // HasJsonNodeTesting.................................................................................
-
-    @Override
-    public final P fromJsonNode(final JsonNode from,
-                                final FromJsonNodeContext context) {
-        return Cast.to(NodePatch.fromJsonNode(from, context));
-    }
-
-    @Override
-    public final P createJsonNodeMappingValue() {
-        return this.createPatch();
-    }
-
-    // TypeNameTesting.................................................................................
-
-    @Override
-    public final String typeNameSuffix() {
-        return NodePatch.class.getSimpleName();
     }
 }

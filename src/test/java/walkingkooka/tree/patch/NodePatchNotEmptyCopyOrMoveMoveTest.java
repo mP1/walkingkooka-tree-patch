@@ -23,51 +23,51 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class CopyNodePatchTest extends CopyOrMoveNodePatchTestCase<CopyNodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyCopyOrMoveMoveTest extends NodePatchNotEmptyCopyOrMoveTestCase<NodePatchNotEmptyCopyOrMoveMove<JsonNode, JsonNodeName>> {
 
     @Test
-    public void testCopyChild() {
+    public void testMoveChild() {
         this.applyAndCheck(this.createPatch(),
-                "{\"b2\": \"COPIED\"}",
-                "{\"a1\": \"COPIED\", \"b2\": \"COPIED\"}");
+                "{\"b2\": \"value1\"}",
+                "{\"a1\": \"value1\"}");
     }
 
     @Test
-    public void testCopyChild2() {
+    public void testMoveChild2() {
         this.applyAndCheck(this.createPatch(),
-                "{\"b2\": \"COPIED\", \"c3\": \"value3\"}",
-                "{\"a1\": \"COPIED\", \"b2\": \"COPIED\", \"c3\": \"value3\"}");
+                "{\"b2\": \"value1\", \"c3\": \"value3\"}",
+                "{\"a1\": \"value1\", \"c3\": \"value3\"}");
     }
 
     @Test
-    public void testCopyDifferentBranches() {
+    public void testMoveDifferentBranches() {
         this.applyAndCheck(this.createPatch("/a1/b2", "/a1/c3"),
-                "{\"a1\": { \"b2\": \"COPIED\"}}",
-                "{\"a1\": { \"b2\": \"COPIED\", \"c3\": \"COPIED\"}}");
+                "{\"a1\": { \"b2\": \"value1\"}}",
+                "{\"a1\": { \"c3\": \"value1\"}}");
     }
 
     @Override
-    CopyNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> from,
-                                                      final NodePointer<JsonNode, JsonNodeName> path) {
-        return CopyNodePatch.with(from, path);
+    NodePatchNotEmptyCopyOrMoveMove<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> from,
+                                                                        final NodePointer<JsonNode, JsonNodeName> path) {
+        return NodePatchNotEmptyCopyOrMoveMove.with(from, path);
     }
 
     @Override
     String operation() {
-        return "copy";
+        return "move";
     }
 
     // ClassTesting2............................................................................
 
     @Override
-    public Class<CopyNodePatch<JsonNode, JsonNodeName>> type() {
-        return Cast.to(CopyNodePatch.class);
+    public Class<NodePatchNotEmptyCopyOrMoveMove<JsonNode, JsonNodeName>> type() {
+        return Cast.to(NodePatchNotEmptyCopyOrMoveMove.class);
     }
 
-    // TypeNameTesting.................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
-        return "Copy";
+    public final String typeNameSuffix() {
+        return "Move";
     }
 }

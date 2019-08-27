@@ -17,21 +17,14 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.tree.json.JsonObjectNode;
+public final class NodePatchFromJsonFormatTest extends NodePatchTestCase4<NodePatchFromJsonFormat> {
 
-public final class RemoveNodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchFromJsonObjectNodePropertyVisitorTestCase<RemoveNodePatchFromJsonObjectNodePropertyVisitor> {
     @Override
-    RemoveNodePatchFromJsonObjectNodePropertyVisitor createVisitor(final JsonObjectNode patch) {
-        return new RemoveNodePatchFromJsonObjectNodePropertyVisitor(patch, null, null);
+    public void testCheckToStringOverridden() {
     }
 
     @Override
-    public String typeNamePrefix() {
-        return RemoveNodePatch.class.getSimpleName();
-    }
-
-    @Override
-    public Class<RemoveNodePatchFromJsonObjectNodePropertyVisitor> type() {
-        return RemoveNodePatchFromJsonObjectNodePropertyVisitor.class;
+    public Class<NodePatchFromJsonFormat> type() {
+        return NodePatchFromJsonFormat.class;
     }
 }

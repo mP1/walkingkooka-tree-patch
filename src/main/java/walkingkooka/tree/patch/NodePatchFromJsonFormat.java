@@ -40,12 +40,12 @@ abstract class NodePatchFromJsonFormat {
         super();
     }
 
-    abstract void accept(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+    abstract void accept(final NodePatchNotEmptyNodePatchVisitor visitor,
                          final JsonObjectNode node);
 
-    abstract Function<String, ? extends Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+    abstract Function<String, ? extends Name> nameFactory(final NodePatchNotEmptyNodePatchVisitor visitor,
                                                           final FromJsonNodeContext context);
 
-    abstract Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor,
+    abstract Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
                                           final FromJsonNodeContext context);
 }

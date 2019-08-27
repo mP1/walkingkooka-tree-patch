@@ -46,8 +46,8 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Returns an empty patch.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> EmptyNodePatch<N, NAME> empty(final Class<N> type) {
-        return EmptyNodePatch.get(type);
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchEmpty<N, NAME> empty(final Class<N> type) {
+        return NodePatchEmpty.get(type);
     }
 
     /**
@@ -64,7 +64,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     public NodePatch<N, NAME> add(final NodePointer<N, NAME> path,
                                   final N value) {
-        return this.append(AddNodePatch.with(path, value));
+        return this.append(NodePatchNotEmptyAddReplaceOrTestAdd.with(path, value));
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     public NodePatch<N, NAME> copy(final NodePointer<N, NAME> from,
                                    final NodePointer<N, NAME> path) {
-        return this.append(CopyNodePatch.with(from, path));
+        return this.append(NodePatchNotEmptyCopyOrMoveCopy.with(from, path));
     }
 
     /**
@@ -80,14 +80,14 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     public NodePatch<N, NAME> move(final NodePointer<N, NAME> from,
                                    final NodePointer<N, NAME> path) {
-        return this.append(MoveNodePatch.with(from, path));
+        return this.append(NodePatchNotEmptyCopyOrMoveMove.with(from, path));
     }
 
     /**
      * Adds an REMOVE operation to this patch.
      */
     public NodePatch<N, NAME> remove(final NodePointer<N, NAME> path) {
-        return this.append(RemoveNodePatch.with(path));
+        return this.append(NodePatchNotEmptyRemove.with(path));
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     public NodePatch<N, NAME> replace(final NodePointer<N, NAME> path,
                                       final N value) {
-        return this.append(ReplaceNodePatch.with(path, value));
+        return this.append(NodePatchNotEmptyAddReplaceOrTestReplace.with(path, value));
     }
 
     /**
@@ -103,21 +103,21 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     public NodePatch<N, NAME> test(final NodePointer<N, NAME> path,
                                    final N value) {
-        return this.append(TestNodePatch.with(path, value));
+        return this.append(NodePatchNotEmptyAddReplaceOrTestTest.with(path, value));
     }
 
     /**
      * Used to append a new patch operation to a previous creating a collection of patch ops.
      */
-    final NonEmptyNodePatch<N, NAME> append(final NonEmptyNodePatch<N, NAME> patch) {
-        final NonEmptyNodePatch<N, NAME> next = this.nextOrNull();
+    final NodePatchNonEmpty<N, NAME> append(final NodePatchNonEmpty<N, NAME> patch) {
+        final NodePatchNonEmpty<N, NAME> next = this.nextOrNull();
         return this.append0(null != next ? next.append(patch) : patch);
     }
 
     /**
      * Used to concatenate multiple patch components.
      */
-    abstract NonEmptyNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> patch);
+    abstract NodePatchNonEmpty<N, NAME> append0(final NodePatchNonEmpty<N, NAME> patch);
 
     // Function................................................................................................
 
@@ -156,7 +156,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Returns the next component in the patch or null if the end has been reached.
      */
-    abstract NonEmptyNodePatch<N, NAME> nextOrNull();
+    abstract NodePatchNonEmpty<N, NAME> nextOrNull();
 
     // Object................................................................................................
 
@@ -242,7 +242,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     private static NodePatch<?, ?> fromJsonNode1(final JsonArrayNode array,
                                                  final NodePatchFromJsonFormat format,
                                                  final FromJsonNodeContext context) {
-        NodePatch<?, ?> patch = EmptyNodePatch.getWildcard();
+        NodePatch<?, ?> patch = NodePatchEmpty.getWildcard();
 
         for (JsonNode child : array.children()) {
             patch = patch.append(Cast.to(fromJsonNode2(child.objectOrFail(), format, context)));
@@ -261,30 +261,30 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Factory that switches on the op and then creates a {@link NodePatch}.
      */
-    private static NonEmptyNodePatch<?, ?> fromJsonNode2(final JsonObjectNode node,
+    private static NodePatchNonEmpty<?, ?> fromJsonNode2(final JsonObjectNode node,
                                                          final NodePatchFromJsonFormat format,
                                                          final FromJsonNodeContext context) {
-        NonEmptyNodePatch<?, ?> patch = null;
+        NodePatchNonEmpty<?, ?> patch = null;
 
         final String op = node.getOrFail(OP_PROPERTY).stringValueOrFail();
         switch (op) {
             case ADD:
-                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.add(node, format, context);
+                patch = NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor.add(node, format, context);
                 break;
             case COPY:
-                patch = CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.copy(node, format, context);
+                patch = NodePatchNotEmptyCopyOrMoveNodePatchVisitor.copy(node, format, context);
                 break;
             case MOVE:
-                patch = CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.move(node, format, context);
+                patch = NodePatchNotEmptyCopyOrMoveNodePatchVisitor.move(node, format, context);
                 break;
             case REMOVE:
-                patch = RemoveNodePatchFromJsonObjectNodePropertyVisitor.remove(node, format, context);
+                patch = NodePatchNotEmptyRemoveNodePatchVisitor.remove(node, format, context);
                 break;
             case REPLACE:
-                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.replace(node, format, context);
+                patch = NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor.replace(node, format, context);
                 break;
             case TEST:
-                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.test(node, format, context);
+                patch = NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor.test(node, format, context);
                 break;
             default:
                 NeverError.unhandledCase(op, ADD, COPY, MOVE, REMOVE, REPLACE, TEST);
@@ -315,13 +315,13 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 NodePatch::fromJsonNode,
                 NodePatch::toJsonNode,
                 NodePatch.class,
-                AddNodePatch.class,
-                CopyNodePatch.class,
-                EmptyNodePatch.class,
-                MoveNodePatch.class,
-                RemoveNodePatch.class,
-                ReplaceNodePatch.class,
-                TestNodePatch.class);
+                NodePatchNotEmptyAddReplaceOrTestAdd.class,
+                NodePatchNotEmptyCopyOrMoveCopy.class,
+                NodePatchEmpty.class,
+                NodePatchNotEmptyCopyOrMoveMove.class,
+                NodePatchNotEmptyRemove.class,
+                NodePatchNotEmptyAddReplaceOrTestReplace.class,
+                NodePatchNotEmptyAddReplaceOrTestTest.class);
     }
 
     final JsonArrayNode toJsonNode(final ToJsonNodeContext context) {

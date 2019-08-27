@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveNodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase<NodePatchNotEmptyRemove<JsonNode, JsonNodeName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -198,16 +198,16 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
     }
 
     @Override
-    RemoveNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
-        return RemoveNodePatch.with(path);
+    NodePatchNotEmptyRemove<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+        return NodePatchNotEmptyRemove.with(path);
     }
 
-    private RemoveNodePatch<JsonNode, JsonNodeName> createPatch(final JsonNodeName property) {
-        return RemoveNodePatch.with(NodePointer.named(property, JsonNode.class));
+    private NodePatchNotEmptyRemove<JsonNode, JsonNodeName> createPatch(final JsonNodeName property) {
+        return NodePatchNotEmptyRemove.with(NodePointer.named(property, JsonNode.class));
     }
 
-    private RemoveNodePatch<JsonNode, JsonNodeName> createPatch(final String path) {
-        return RemoveNodePatch.with(this.pointer(path));
+    private NodePatchNotEmptyRemove<JsonNode, JsonNodeName> createPatch(final String path) {
+        return NodePatchNotEmptyRemove.with(this.pointer(path));
     }
 
     @Override
@@ -218,14 +218,14 @@ public final class RemoveNodePatchTest extends NonEmptyNodePatchTestCase<RemoveN
     // ClassTesting2............................................................................
 
     @Override
-    public Class<RemoveNodePatch<JsonNode, JsonNodeName>> type() {
-        return Cast.to(RemoveNodePatch.class);
+    public Class<NodePatchNotEmptyRemove<JsonNode, JsonNodeName>> type() {
+        return Cast.to(NodePatchNotEmptyRemove.class);
     }
 
-    // TypeNameTesting.................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public final String typeNameSuffix() {
         return "Remove";
     }
 }

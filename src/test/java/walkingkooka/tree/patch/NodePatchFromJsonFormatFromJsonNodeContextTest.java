@@ -19,9 +19,8 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.type.JavaVisibility;
 
-public final class NodePatchFromJsonFormatFromJsonNodeContextTest extends NodePatchTestCase<NodePatchFromJsonFormatFromJsonNodeContext> {
+public final class NodePatchFromJsonFormatFromJsonNodeContextTest extends NodePatchTestCase4<NodePatchFromJsonFormatFromJsonNodeContext> {
 
     @Test
     public void testToString() {
@@ -31,10 +30,5 @@ public final class NodePatchFromJsonFormatFromJsonNodeContextTest extends NodePa
     @Override
     public Class<NodePatchFromJsonFormatFromJsonNodeContext> type() {
         return NodePatchFromJsonFormatFromJsonNodeContext.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -17,17 +17,10 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.type.JavaVisibility;
-
-public final class NodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchTestCase<NodePatchFromJsonObjectNodePropertyVisitor> {
+public final class NodePatchNotEmptyNodePatchVisitorTest extends NodePatchTestCase4<NodePatchNotEmptyNodePatchVisitor> {
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
-    public Class<NodePatchFromJsonObjectNodePropertyVisitor> type() {
-        return NodePatchFromJsonObjectNodePropertyVisitor.class;
+    public Class<NodePatchNotEmptyNodePatchVisitor> type() {
+        return NodePatchNotEmptyNodePatchVisitor.class;
     }
 }
