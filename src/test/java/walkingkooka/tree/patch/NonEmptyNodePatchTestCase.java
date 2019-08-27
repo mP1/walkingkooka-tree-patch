@@ -18,7 +18,6 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
@@ -107,13 +106,13 @@ public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<Json
     }
 
     final void fromJsonPatchAndCheck(final String from,
-                                     final HasJsonNode has) {
-        this.fromJsonPatchAndCheck(JsonNode.parse(from), has);
+                                     final NodePatch<JsonNode, JsonNodeName> value) {
+        this.fromJsonPatchAndCheck(JsonNode.parse(from), value);
     }
 
     final void fromJsonPatchAndCheck(final JsonNode from,
-                                     final HasJsonNode has) {
-        assertEquals(has,
+                                     final NodePatch<JsonNode, JsonNodeName> value) {
+        assertEquals(value,
                 this.fromJsonPatch(from),
                 () -> "fromJsonPatch failed " + from);
     }

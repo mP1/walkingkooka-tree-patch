@@ -19,14 +19,15 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.visit.Visitor;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -35,10 +36,12 @@ import java.util.function.Function;
 abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNode> {
 
     NodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
-                                               final NodePatchFromJsonFormat format) {
+                                               final NodePatchFromJsonFormat format,
+                                               final FromJsonNodeContext context) {
         super();
         this.patch = patch;
         this.format = format;
+        this.context = context;
     }
 
     @Override
@@ -63,7 +66,7 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
                     this.visitValue(property);
                     break;
                 default:
-                    HasJsonNode.unknownPropertyPresent(propertyName, property.removeParent());
+                    FromJsonNodeContext.unknownPropertyPresent(propertyName, property.removeParent());
             }
         }
     }
@@ -91,7 +94,7 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
                     this.visitValue(property);
                     break;
                 default:
-                    HasJsonNode.unknownPropertyPresent(propertyName, property.removeParent());
+                    FromJsonNodeContext.unknownPropertyPresent(propertyName, property.removeParent());
             }
         }
     }
@@ -105,14 +108,14 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
     /**
      * Getter that returns a factory that assumes {@link NodePatch#PATH_NAME_TYPE_PROPERTY} holds the type name.
      */
-    final Function<JsonNode, Name> pathNameFactory() {
+    final BiFunction<JsonNode, FromJsonNodeContext, Name> pathNameFactory() {
         if(null == this.pathNameFactory) {
             this.pathNameFactory =  NodePatch.PATH_NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(this.patch, Name.class);
         }
         return this.pathNameFactory;
     }
 
-    private Function<JsonNode, Name> pathNameFactory;
+    private BiFunction<JsonNode, FromJsonNodeContext, Name> pathNameFactory;
 
     // FROM ........................................................................................................
 
@@ -141,12 +144,14 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
                                        final JsonNodeName property) {
         try {
             return NodePointer.parse(path,
-                    this.format.nameFactory(this),
+                    this.format.nameFactory(this, this.context),
                     Node.class);
         } catch (final RuntimeException cause) {
             throw new IllegalArgumentException("Invalid " + property + " in " + this.patch, cause);
         }
     }
+
+    final FromJsonNodeContext context;
 
     // VALUE ........................................................................................................
 
@@ -170,7 +175,7 @@ abstract class NodePatchFromJsonObjectNodePropertyVisitor extends Visitor<JsonNo
      * Reports that an unknown property is present.
      */
     final void unknownPropertyPresent(final JsonNodeName property) {
-        HasJsonNode.unknownPropertyPresent(property, this.patch);
+        FromJsonNodeContext.unknownPropertyPresent(property, this.patch);
     }
 
     /**

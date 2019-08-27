@@ -21,10 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.test.HashCodeEqualsDefinedTesting;
 import walkingkooka.test.TypeNameTesting;
-import walkingkooka.tree.json.HasJsonNodeTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeMappingTesting;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.JavaVisibility;
 
@@ -33,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase<P>
         implements HashCodeEqualsDefinedTesting<P>,
-        HasJsonNodeTesting<P>,
+        JsonNodeMappingTesting<P>,
         TypeNameTesting<P> {
 
     NodePatchTestCase2() {
@@ -190,12 +191,13 @@ public abstract class NodePatchTestCase2<P extends NodePatch<JsonNode, JsonNodeN
     // HasJsonNodeTesting.................................................................................
 
     @Override
-    public final P fromJsonNode(final JsonNode from) {
-        return Cast.to(NodePatch.fromJsonNode(from));
+    public final P fromJsonNode(final JsonNode from,
+                                final FromJsonNodeContext context) {
+        return Cast.to(NodePatch.fromJsonNode(from, context));
     }
 
     @Override
-    public final P createHasJsonNode() {
+    public final P createJsonNodeMappingValue() {
         return this.createPatch();
     }
 

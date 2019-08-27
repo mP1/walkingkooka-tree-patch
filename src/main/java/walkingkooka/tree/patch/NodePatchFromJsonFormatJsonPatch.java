@@ -21,20 +21,21 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 
 import java.util.function.Function;
 
 /**
  * Used to read patch operations using factories to create {@link Name} and {@link Node values} from portions of the json.
  */
-final class JsonPatchNodePatchFromJsonFormat<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchFromJsonFormat {
+final class NodePatchFromJsonFormatJsonPatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchFromJsonFormat {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> JsonPatchNodePatchFromJsonFormat with(final Function<String, NAME> nameFactory,
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchFromJsonFormatJsonPatch with(final Function<String, NAME> nameFactory,
                                                                                                     final Function<JsonNode, N> valueFactory) {
-        return new JsonPatchNodePatchFromJsonFormat<>(nameFactory, valueFactory);
+        return new NodePatchFromJsonFormatJsonPatch<>(nameFactory, valueFactory);
     }
 
-    private JsonPatchNodePatchFromJsonFormat(final Function<String, NAME> nameFactory,
+    private NodePatchFromJsonFormatJsonPatch(final Function<String, NAME> nameFactory,
                                              final Function<JsonNode, N> valueFactory) {
         super();
         this.nameFactory = nameFactory;
@@ -48,12 +49,14 @@ final class JsonPatchNodePatchFromJsonFormat<N extends Node<N, NAME, ?, ?>, NAME
     }
 
     @Override
-    Function<String, NAME> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor) {
+    Function<String, NAME> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+                                       final FromJsonNodeContext context) {
         return this.nameFactory;
     }
 
     @Override
-    Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor) {
+    Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor,
+                                 final FromJsonNodeContext context) {
         return this.valueFactory.apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY));
     }
 

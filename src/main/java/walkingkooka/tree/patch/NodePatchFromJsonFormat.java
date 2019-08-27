@@ -21,18 +21,19 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 
 import java.util.function.Function;
 
 abstract class NodePatchFromJsonFormat {
 
-    static NodePatchFromJsonFormat hasJsonNode() {
-        return HasJsonNodeNodePatchFromJsonFormat.INSTANCE;
+    static NodePatchFromJsonFormat fromJsonNodeContext() {
+        return NodePatchFromJsonFormatFromJsonNodeContext.INSTANCE;
     }
 
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchFromJsonFormat jsonPatch(final Function<String, NAME> nameFactory,
                                                                                                 final Function<JsonNode, N> valueFactory) {
-        return JsonPatchNodePatchFromJsonFormat.with(nameFactory, valueFactory);
+        return NodePatchFromJsonFormatJsonPatch.with(nameFactory, valueFactory);
     }
 
     NodePatchFromJsonFormat() {
@@ -42,7 +43,9 @@ abstract class NodePatchFromJsonFormat {
     abstract void accept(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
                          final JsonObjectNode node);
 
-    abstract Function<String, ? extends Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor);
+    abstract Function<String, ? extends Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+                                                          final FromJsonNodeContext context);
 
-    abstract Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor);
+    abstract Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor,
+                                          final FromJsonNodeContext context);
 }

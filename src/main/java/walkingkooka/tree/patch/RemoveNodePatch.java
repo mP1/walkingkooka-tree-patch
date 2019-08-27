@@ -21,6 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -74,7 +75,7 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
                 .append(toString(this.path));
     }
 
-    // HasJsonNode...............................................................................
+    // JsonNodeContext..................................................................................................
 
     private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(REMOVE));
@@ -95,7 +96,10 @@ final class RemoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ex
      */
     @Override
     JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                               final NodePatchToJsonFormat format) {
-        return this.setPath(format.setPathNameType(object, this.path));
+                               final NodePatchToJsonFormat format,
+                               final ToJsonNodeContext context) {
+        return this.setPath(format.setPathNameType(object,
+                this.path,
+                context));
     }
 }

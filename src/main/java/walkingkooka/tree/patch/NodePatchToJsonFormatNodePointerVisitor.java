@@ -19,8 +19,8 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NamedChildNodePointer;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitor;
@@ -33,22 +33,26 @@ import java.util.Optional;
  */
 final class NodePatchToJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointerVisitor<N, NAME> {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> Optional<JsonStringNode> pathNameType(final NodePointer<N, NAME> path) {
-        final NodePatchToJsonFormatNodePointerVisitor<N, NAME> visitor = new NodePatchToJsonFormatNodePointerVisitor<>();
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> Optional<JsonStringNode> pathNameType(final NodePointer<N, NAME> path,
+                                                                                                    final ToJsonNodeContext context) {
+        final NodePatchToJsonFormatNodePointerVisitor<N, NAME> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(context);
         visitor.accept(path);
         return visitor.pathNameType;
     }
 
     // VisibleForTesting
-    NodePatchToJsonFormatNodePointerVisitor() {
+    NodePatchToJsonFormatNodePointerVisitor(final ToJsonNodeContext context) {
         super();
+        this.context = context;
     }
 
     @Override
     protected Visiting startVisit(final NamedChildNodePointer<N, NAME> node) {
-        this.pathNameType = HasJsonNode.typeName(node.name().getClass());
+        this.pathNameType = this.context.typeName(node.name().getClass());
         return Visiting.SKIP;
     }
+
+    private final ToJsonNodeContext context;
 
     // VisibleForTesting
     Optional<JsonStringNode> pathNameType = Optional.empty();
