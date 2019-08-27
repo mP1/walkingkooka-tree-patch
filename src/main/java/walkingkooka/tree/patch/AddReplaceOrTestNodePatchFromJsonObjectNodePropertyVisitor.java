@@ -21,36 +21,41 @@ import walkingkooka.Cast;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
     static AddNodePatch<?, ?> add(final JsonObjectNode patch,
-                                  final NodePatchFromJsonFormat format) {
-        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
+                                  final NodePatchFromJsonFormat format,
+                                  final FromJsonNodeContext context) {
+        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format, context);
         visitor.accept(patch);
         return AddNodePatch.with(visitor.path(), Cast.to(visitor.value()));
     }
 
     static ReplaceNodePatch<?, ?> replace(final JsonObjectNode patch,
-                                          final NodePatchFromJsonFormat format) {
-        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
+                                          final NodePatchFromJsonFormat format,
+                                          final FromJsonNodeContext context) {
+        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format, context);
         visitor.accept(patch);
-        return ReplaceNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor)));
+        return ReplaceNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
     }
 
     static TestNodePatch<?, ?> test(final JsonObjectNode patch,
-                                    final NodePatchFromJsonFormat format) {
-        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format);
+                                    final NodePatchFromJsonFormat format,
+                                    final FromJsonNodeContext context) {
+        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format, context);
         visitor.accept(patch);
-        return TestNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor)));
+        return TestNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
     }
 
     AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
-                                                               final NodePatchFromJsonFormat format) {
-        super(patch, format);
+                                                               final NodePatchFromJsonFormat format,
+                                                               final FromJsonNodeContext context) {
+        super(patch, format, context);
     }
 
     @Override
@@ -70,7 +75,7 @@ final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor extends N
     }
 
     Node<?, ?, ?, ?> value() {
-        return this.format.valueOrFail(this);
+        return this.format.valueOrFail(this, this.context);
     }
 
     /**
@@ -81,12 +86,12 @@ final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor extends N
     /**
      * Returns a factory that uses the {@link NodePatch#VALUE_TYPE_PROPERTY} when creating values from json.
      */
-    final Function<JsonNode, Node<?, ?, ?, ?>> valueFactory() {
-        if(null == this.valueFactory) {
+    final BiFunction<JsonNode, FromJsonNodeContext, Node<?, ?, ?, ?>> valueFactory() {
+        if (null == this.valueFactory) {
             this.valueFactory = Cast.to(NodePatch.VALUE_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(this.patch, Node.class));
         }
         return this.valueFactory;
     }
 
-    private Function<JsonNode, Node<?, ?, ?, ?>> valueFactory;
+    private BiFunction<JsonNode, FromJsonNodeContext, Node<?, ?, ?, ?>> valueFactory;
 }

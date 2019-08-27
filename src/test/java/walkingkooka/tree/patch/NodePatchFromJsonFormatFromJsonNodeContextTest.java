@@ -18,29 +18,19 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
-import walkingkooka.naming.Names;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.TestNode;
-import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.type.JavaVisibility;
 
-import java.util.function.Function;
-
-public final class JsonPatchNodePatchFromJsonFormatTest extends NodePatchTestCase<JsonPatchNodePatchFromJsonFormat<TestNode, StringName>> {
+public final class NodePatchFromJsonFormatFromJsonNodeContextTest extends NodePatchTestCase<NodePatchFromJsonFormatFromJsonNodeContext> {
 
     @Test
     public void testToString() {
-        final Function<String, StringName> nameFactory = Names::string;
-        final Function<JsonNode, TestNode> valueFactory = (ignored) -> null;
-
-        this.toStringAndCheck(JsonPatchNodePatchFromJsonFormat.with(nameFactory, valueFactory),
-                nameFactory + " " + valueFactory);
+        this.toStringAndCheck(NodePatchFromJsonFormatFromJsonNodeContext.INSTANCE, FromJsonNodeContext.class.getSimpleName());
     }
 
     @Override
-    public Class<JsonPatchNodePatchFromJsonFormat<TestNode, StringName>> type() {
-        return Cast.to(JsonPatchNodePatchFromJsonFormat.class);
+    public Class<NodePatchFromJsonFormatFromJsonNodeContext> type() {
+        return NodePatchFromJsonFormatFromJsonNodeContext.class;
     }
 
     @Override

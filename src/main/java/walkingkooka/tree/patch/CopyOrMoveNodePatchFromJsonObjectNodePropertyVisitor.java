@@ -20,30 +20,36 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
 
     static CopyNodePatch<?, ?> copy(final JsonObjectNode patch,
-                                    final NodePatchFromJsonFormat format) {
+                                    final NodePatchFromJsonFormat format,
+                                    final FromJsonNodeContext context) {
         final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
-                format);
+                format,
+                context);
         visitor.accept(patch);
         return CopyNodePatch.with(Cast.to(visitor.from()), visitor.path());
     }
 
     static MoveNodePatch<?, ?> move(final JsonObjectNode patch,
-                                    final NodePatchFromJsonFormat format) {
+                                    final NodePatchFromJsonFormat format,
+                                    final FromJsonNodeContext context) {
         final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
-                format);
+                format,
+                context);
         visitor.accept(patch);
         return MoveNodePatch.with(Cast.to(visitor.from()), visitor.path());
     }
 
     // VisibleForTesting
     CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
-                                                         final NodePatchFromJsonFormat format) {
-        super(patch, format);
+                                                         final NodePatchFromJsonFormat format,
+                                                         final FromJsonNodeContext context) {
+        super(patch, format, context);
     }
 
     // FROM ........................................................................................

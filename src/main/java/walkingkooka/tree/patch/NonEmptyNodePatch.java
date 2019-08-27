@@ -26,6 +26,7 @@ import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.List;
@@ -181,12 +182,13 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * </pre>
      */
     @Override
-    final JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format) {
+    final JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format,
+                                    final ToJsonNodeContext context) {
         final List<JsonNode> elements = Lists.array();
 
         NonEmptyNodePatch<N, NAME> patch = this;
         do {
-            elements.add(patch.toJsonNode1(patch.jsonObjectWithOp(), format));
+            elements.add(patch.toJsonNode1(patch.jsonObjectWithOp(), format, context));
             patch = patch.nextOrNull();
         } while (null != patch);
 
@@ -202,7 +204,8 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * Sub classes must return an object representing just this object. The object will already have the op and path properties set.
      */
     abstract JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                        final NodePatchToJsonFormat format);
+                                        final NodePatchToJsonFormat format,
+                                        final ToJsonNodeContext context);
 
     /**
      * Adds the path and path component type properites to the given object.

@@ -79,7 +79,7 @@ final class TestNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exte
         return TEST;
     }
 
-    // HasJsonNode...............................................................................
+    // ToJsonNodeContext................................................................................................
 
     private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(TEST));

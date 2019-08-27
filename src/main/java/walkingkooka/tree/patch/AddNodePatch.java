@@ -64,7 +64,7 @@ final class AddNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exten
         return ADD;
     }
 
-    // HasJsonNode...............................................................................
+    // ToJsonNodeContext................................................................................................
 
     private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(ADD));

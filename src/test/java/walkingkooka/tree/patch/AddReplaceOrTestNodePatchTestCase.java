@@ -35,22 +35,22 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
 
     @Test
     public final void testFromJsonNodeFromPropertyFails() {
-        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"from\": \"/A1\", \"path\": \"/a1\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"from\": \"/A1\", \"path\": \"/a1\", \"value-type\": \"json\", \"value\": \"value1\"}]");
     }
 
     @Test
     public final void testFromJsonNodePathNameTypeMissingFails() {
-        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path\": \"/a1\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path\": \"/a1\", \"value-type\": \"json\", \"value\": \"value1\"}]");
     }
 
     @Test
     public final void testFromJsonNodePathMissingFails() {
-        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"value-type\": \"json\", \"value\": \"value1\"}]");
     }
 
     @Test
     public final void testFromJsonNodePathInvalidFails() {
-        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"!!!\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"!!!\", \"value-type\": \"json\", \"value\": \"value1\"}]");
     }
 
     @Test
@@ -60,7 +60,7 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
 
     @Test
     public final void testFromJsonNodeValueMissingFails() {
-        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json-string\"}]");
+        this.fromJsonNodeFails2("[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json\"}]");
     }
 
     @Test
@@ -69,7 +69,7 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
                         "  \"op\": \"$OP\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
                         "  \"path\": \"/a1\",\n" +
-                        "  \"value-type\": \"json-string\",\n" +
+                        "  \"value-type\": \"json\",\n" +
                         "  \"value\": \"value1\"\n" +
                         "}]",
                 this.createPatch());
@@ -81,7 +81,7 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
                         "  \"op\": \"$OP\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
                         "  \"path\": \"/b2\",\n" +
-                        "  \"value-type\": \"json-string\",\n" +
+                        "  \"value-type\": \"json\",\n" +
                         "  \"value\": \"value2\"\n" +
                         "}]",
                 this.createPatch(this.path2(), this.value2()));
@@ -94,7 +94,7 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
                         "  \"path-name-type\": \"json-property-name\",\n" +
                         "  \"path\": \"/b2\",\n" +
                         "  \"value\": \"value2\",\n" +
-                        "  \"value-type\": \"json-string\"\n" +
+                        "  \"value-type\": \"json\"\n" +
                         "}]",
                 this.createPatch(this.path2(), this.value2()));
     }
@@ -105,7 +105,7 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
                         "  \"op\": \"$OP\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
                         "  \"path\": \"/123\",\n" +
-                        "  \"value-type\": \"json-string\",\n" +
+                        "  \"value-type\": \"json\",\n" +
                         "  \"value\": \"value1\"\n" +
                         "}]",
                 this.createPatch(NodePointer.indexed(123, JsonNode.class)));
@@ -114,13 +114,13 @@ public abstract class AddReplaceOrTestNodePatchTestCase<P extends AddReplaceOrTe
     @Test
     public final void testToJsonNode() {
         this.toJsonNodeAndCheck2(this.createPatch(),
-                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json-string\", \"value\": \"value1\"}]");
+                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json\", \"value\": \"value1\"}]");
     }
 
     @Test
     public final void testToJsonNode2() {
         this.toJsonNodeAndCheck2(this.createPatch(this.path2(), this.value2()),
-                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/b2\", \"value-type\": \"json-string\", \"value\": \"value2\"}]");
+                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/b2\", \"value-type\": \"json\", \"value\": \"value2\"}]");
     }
 
     @Test

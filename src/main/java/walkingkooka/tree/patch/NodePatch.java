@@ -22,12 +22,14 @@ import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
 import walkingkooka.test.HashCodeEqualsDefined;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.FromJsonNodeException;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.FromJsonNodeException;
+import walkingkooka.tree.json.map.JsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
@@ -38,8 +40,7 @@ import java.util.function.Function;
  * A {@link NodePatch} supports operations for a {@link Node} that match the functionality of json-patch with json.<br>
  * <A href="http://jsonpatch.com">jsonpatch.com</A>
  */
-public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HasJsonNode,
-        HashCodeEqualsDefined,
+public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements HashCodeEqualsDefined,
         Function<N, N> {
 
     /**
@@ -170,7 +171,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     // HasJsonNode...............................................................................
 
     /**
-     * Similar to {@link #fromJsonNode(JsonNode)} but names and values are created using the two factories.
+     * Similar to {@link #fromJsonNode(JsonNode, FromJsonNodeContext)} but names and values are created using the two factories.
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatch<N, NAME> fromJsonPatch(final JsonNode node,
                                                                                                       final Function<String, NAME> nameFactory,
@@ -179,14 +180,16 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(valueFactory, "valueFactory");
 
-        return Cast.to(fromJsonNode0(node, NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory)));
+        return Cast.to(fromJsonNode0(node,
+                NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
+                FromJsonNodeContext.basic()));
     }
 
     /**
-     * Creates a json-patch json which is identical to the {@link #toJsonNode()} but without the type properties.
+     * Creates a json-patch json which is identical to the {@link #toJsonNode(ToJsonNodeContext)} but without the type properties.
      */
     public final JsonArrayNode toJsonPatch() {
-        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH);
+        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContext.basic());
     }
 
     // HasJsonNode...............................................................................
@@ -211,10 +214,13 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      * }
      * </pre>
      */
-    static NodePatch<?, ?> fromJsonNode(final JsonNode node) {
+    static NodePatch<?, ?> fromJsonNode(final JsonNode node,
+                                        final FromJsonNodeContext context) {
         checkNode(node);
 
-        return fromJsonNode0(node, NodePatchFromJsonFormat.hasJsonNode());
+        return fromJsonNode0(node,
+                NodePatchFromJsonFormat.fromJsonNodeContext(),
+                context);
     }
 
     private static void checkNode(final JsonNode node) {
@@ -222,9 +228,10 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     private static NodePatch<?, ?> fromJsonNode0(final JsonNode node,
-                                                 final NodePatchFromJsonFormat format) {
+                                                 final NodePatchFromJsonFormat format,
+                                                 final FromJsonNodeContext context) {
         try {
-            return fromJsonNode1(node.arrayOrFail(), format);
+            return fromJsonNode1(node.arrayOrFail(), format, context);
         } catch (final FromJsonNodeException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
@@ -233,11 +240,12 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     private static NodePatch<?, ?> fromJsonNode1(final JsonArrayNode array,
-                                                 final NodePatchFromJsonFormat format) {
+                                                 final NodePatchFromJsonFormat format,
+                                                 final FromJsonNodeContext context) {
         NodePatch<?, ?> patch = EmptyNodePatch.getWildcard();
 
         for (JsonNode child : array.children()) {
-            patch = patch.append(Cast.to(fromJsonNode2(child.objectOrFail(), format)));
+            patch = patch.append(Cast.to(fromJsonNode2(child.objectOrFail(), format, context)));
         }
 
         return patch;
@@ -254,28 +262,29 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      * Factory that switches on the op and then creates a {@link NodePatch}.
      */
     private static NonEmptyNodePatch<?, ?> fromJsonNode2(final JsonObjectNode node,
-                                                         final NodePatchFromJsonFormat format) {
+                                                         final NodePatchFromJsonFormat format,
+                                                         final FromJsonNodeContext context) {
         NonEmptyNodePatch<?, ?> patch = null;
 
         final String op = node.getOrFail(OP_PROPERTY).stringValueOrFail();
         switch (op) {
             case ADD:
-                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.add(node, format);
+                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.add(node, format, context);
                 break;
             case COPY:
-                patch = CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.copy(node, format);
+                patch = CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.copy(node, format, context);
                 break;
             case MOVE:
-                patch = CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.move(node, format);
+                patch = CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.move(node, format, context);
                 break;
             case REMOVE:
-                patch = RemoveNodePatchFromJsonObjectNodePropertyVisitor.remove(node, format);
+                patch = RemoveNodePatchFromJsonObjectNodePropertyVisitor.remove(node, format, context);
                 break;
             case REPLACE:
-                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.replace(node, format);
+                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.replace(node, format, context);
                 break;
             case TEST:
-                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.test(node, format);
+                patch = AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor.test(node, format, context);
                 break;
             default:
                 NeverError.unhandledCase(op, ADD, COPY, MOVE, REMOVE, REPLACE, TEST);
@@ -302,8 +311,9 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     final static JsonNodeName VALUE_PROPERTY = JsonNodeName.with(VALUE);
 
     static {
-        HasJsonNode.register("patch",
+        JsonNodeContext.register("patch",
                 NodePatch::fromJsonNode,
+                NodePatch::toJsonNode,
                 NodePatch.class,
                 AddNodePatch.class,
                 CopyNodePatch.class,
@@ -314,10 +324,10 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 TestNodePatch.class);
     }
 
-    @Override
-    public final JsonArrayNode toJsonNode() {
-        return this.toJsonNode0(NodePatchToJsonFormat.HAS_JSON_NODE);
+    final JsonArrayNode toJsonNode(final ToJsonNodeContext context) {
+        return this.toJsonNode0(NodePatchToJsonFormat.JSON_NODE_CONTEXT,
+                context);
     }
 
-    abstract JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format);
+    abstract JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format, final ToJsonNodeContext context);
 }

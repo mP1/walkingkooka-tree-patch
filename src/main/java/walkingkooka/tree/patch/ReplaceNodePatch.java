@@ -74,7 +74,7 @@ final class ReplaceNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> e
         return REPLACE;
     }
 
-    // HasJsonNode...............................................................................
+    // ToJsonNodeContext................................................................................................
 
     private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(REPLACE));

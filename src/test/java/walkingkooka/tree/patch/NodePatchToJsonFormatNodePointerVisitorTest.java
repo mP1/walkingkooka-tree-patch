@@ -23,6 +23,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitorTesting;
 import walkingkooka.type.JavaVisibility;
@@ -51,27 +53,27 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
 
     private void pathNameTypeAndCheck(final String path, final String typeName) {
         assertEquals(Optional.ofNullable(typeName).map(JsonNode::string),
-                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class)),
+                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class), ToJsonNodeContext.basic()),
                 () -> "path: " + CharSequences.quoteAndEscape(path));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(new NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>(), "");
+        this.toStringAndCheck(new NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>(null), "");
     }
 
     @Test
     public void testToString2() {
         final JsonStringNode type = JsonNode.string(this.getClass().getName());
 
-        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>();
+        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(ToJsonNodeContext.basic());
         visitor.pathNameType = Optional.of(type);
         this.toStringAndCheck(visitor, type.toString());
     }
 
     @Override
     public NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> createVisitor() {
-        return new NodePatchToJsonFormatNodePointerVisitor<>();
+        return new NodePatchToJsonFormatNodePointerVisitor<>(ToJsonNodeContext.basic());
     }
 
     @Override

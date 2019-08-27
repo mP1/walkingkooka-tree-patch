@@ -20,8 +20,8 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -75,7 +75,7 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
      */
     abstract String operation();
 
-    // HasJsonNode...............................................................................
+    // ToJsonNodeContext................................................................................................
 
     /**
      * <pre>
@@ -90,11 +90,13 @@ abstract class AddReplaceOrTestNodePatch<N extends Node<N, NAME, ?, ?>, NAME ext
      */
     @Override
     final JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                     final NodePatchToJsonFormat format) {
+                                     final NodePatchToJsonFormat format,
+                                     final ToJsonNodeContext context) {
         final N value = this.value;
 
-        return format.setValueType(this.setPath(format.setPathNameType(object, this.path)),
-                value)
-                .set(VALUE_PROPERTY, HasJsonNode.toJsonNodeObject(value));
+        return format.setValueType(this.setPath(format.setPathNameType(object, this.path, context)),
+                value,
+                context)
+                .set(VALUE_PROPERTY, context.toJsonNode(value));
     }
 }

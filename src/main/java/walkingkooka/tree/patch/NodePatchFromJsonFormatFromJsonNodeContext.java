@@ -20,20 +20,21 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.HasJsonNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.map.JsonNodeContext;
 
 import java.util.function.Function;
 
 /**
  * Creates {@link NodePatch} taking the name and value types from properties.
  */
-final class HasJsonNodeNodePatchFromJsonFormat extends NodePatchFromJsonFormat {
+final class NodePatchFromJsonFormatFromJsonNodeContext extends NodePatchFromJsonFormat {
 
-    static final HasJsonNodeNodePatchFromJsonFormat INSTANCE = new HasJsonNodeNodePatchFromJsonFormat();
+    static final NodePatchFromJsonFormatFromJsonNodeContext INSTANCE = new NodePatchFromJsonFormatFromJsonNodeContext();
 
-    private HasJsonNodeNodePatchFromJsonFormat() {
+    private NodePatchFromJsonFormatFromJsonNodeContext() {
         super();
     }
 
@@ -44,17 +45,20 @@ final class HasJsonNodeNodePatchFromJsonFormat extends NodePatchFromJsonFormat {
     }
 
     @Override
-    Function<String, Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor) {
-        return (string) -> visitor.pathNameFactory().apply(JsonNode.string(string));
+    Function<String, Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+                                       final FromJsonNodeContext context) {
+        return (string) -> visitor.pathNameFactory()
+                .apply(JsonNode.string(string), context);
     }
 
     @Override
-    Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor) {
-        return Cast.to(visitor.valueFactory().apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY)));
+    Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor,
+                                 final FromJsonNodeContext context) {
+        return Cast.to(visitor.valueFactory().apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY), context));
     }
 
     @Override
     public String toString() {
-        return HasJsonNode.class.getSimpleName();
+        return FromJsonNodeContext.class.getSimpleName();
     }
 }

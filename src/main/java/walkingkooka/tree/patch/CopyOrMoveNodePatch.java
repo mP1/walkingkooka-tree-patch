@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -80,6 +81,8 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
      */
     abstract String operation();
 
+    // ToJsonNodeContext................................................................................................
+
     /**
      * <pre>
      * {
@@ -94,9 +97,10 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
      */
     @Override
     final JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                                     final NodePatchToJsonFormat format) {
+                                     final NodePatchToJsonFormat format,
+                                     final ToJsonNodeContext context) {
         return this.setPath(
-                format.setPathNameType(object, this.from, this.path)
+                format.setPathNameType(object, this.from, this.path, context)
                         .set(FROM_PROPERTY, pathToJsonNode(this.from)));
     }
 }

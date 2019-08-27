@@ -22,7 +22,7 @@ import walkingkooka.tree.json.JsonObjectNode;
 public final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchFromJsonObjectNodePropertyVisitorTestCase<AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor> {
     @Override
     AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor createVisitor(final JsonObjectNode patch) {
-        return new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, null);
+        return new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, null, null);
     }
 
     @Override
