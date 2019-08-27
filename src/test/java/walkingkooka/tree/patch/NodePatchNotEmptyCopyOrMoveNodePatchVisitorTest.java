@@ -19,19 +19,19 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.tree.json.JsonObjectNode;
 
-public final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitorTest extends NodePatchFromJsonObjectNodePropertyVisitorTestCase<CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor> {
+public final class NodePatchNotEmptyCopyOrMoveNodePatchVisitorTest extends NodePatchNotEmptyNodePatchVisitorTestCase<NodePatchNotEmptyCopyOrMoveNodePatchVisitor> {
     @Override
-    CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor createVisitor(final JsonObjectNode patch) {
-        return new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch, null, null);
+    NodePatchNotEmptyCopyOrMoveNodePatchVisitor createVisitor(final JsonObjectNode patch) {
+        return new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch, null, null);
     }
 
     @Override
     public String typeNamePrefix() {
-        return CopyOrMoveNodePatch.class.getSimpleName();
+        return NodePatchNotEmptyCopyOrMove.class.getSimpleName();
     }
 
     @Override
-    public Class<CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor> type() {
-        return CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor.class;
+    public Class<NodePatchNotEmptyCopyOrMoveNodePatchVisitor> type() {
+        return NodePatchNotEmptyCopyOrMoveNodePatchVisitor.class;
     }
 }

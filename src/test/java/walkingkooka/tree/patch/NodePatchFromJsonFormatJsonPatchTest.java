@@ -23,11 +23,10 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.function.Function;
 
-public final class NodePatchFromJsonFormatJsonPatchTest extends NodePatchTestCase<NodePatchFromJsonFormatJsonPatch<TestNode, StringName>> {
+public final class NodePatchFromJsonFormatJsonPatchTest extends NodePatchTestCase4<NodePatchFromJsonFormatJsonPatch<TestNode, StringName>> {
 
     @Test
     public void testToString() {
@@ -41,10 +40,5 @@ public final class NodePatchFromJsonFormatJsonPatchTest extends NodePatchTestCas
     @Override
     public Class<NodePatchFromJsonFormatJsonPatch<TestNode, StringName>> type() {
         return Cast.to(NodePatchFromJsonFormatJsonPatch.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

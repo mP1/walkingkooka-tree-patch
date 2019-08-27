@@ -30,12 +30,12 @@ import java.util.Objects;
 /**
  * An empty patch, which also acts at the starting point for building a multi step patch.
  */
-final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatch<N, NAME> {
+final class NodePatchEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatch<N, NAME> {
 
     /**
      * Creates an empty patch to begin addition of new operations.
      */
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> EmptyNodePatch<N, NAME> get(final Class<N> type) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchEmpty<N, NAME> get(final Class<N> type) {
         Objects.requireNonNull(type, "type");
         return Cast.to(INSTANCE);
     }
@@ -43,19 +43,19 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     /**
      * Creates an empty patch to begin addition of new operations.
      */
-    static EmptyNodePatch<?, ?> getWildcard() {
+    static NodePatchEmpty<?, ?> getWildcard() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton instance
      */
-    private final static EmptyNodePatch<?, ?> INSTANCE = new EmptyNodePatch<>();
+    private final static NodePatchEmpty<?, ?> INSTANCE = new NodePatchEmpty<>();
 
     /**
      * Private ctor use singleton getter.
      */
-    private EmptyNodePatch() {
+    private NodePatchEmpty() {
         super();
     }
 
@@ -63,7 +63,7 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
      * Adding a patch to this returns the patch.
      */
     @Override
-    NonEmptyNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
+    NodePatchNonEmpty<N, NAME> append0(final NodePatchNonEmpty<N, NAME> next) {
         return next;
     }
 
@@ -76,7 +76,7 @@ final class EmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     @Override
-    NonEmptyNodePatch<N, NAME> nextOrNull() {
+    NodePatchNonEmpty<N, NAME> nextOrNull() {
         return null; // end of patch.
     }
 

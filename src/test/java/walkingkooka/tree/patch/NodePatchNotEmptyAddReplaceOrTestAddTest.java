@@ -23,7 +23,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class AddNodePatchTest extends AddReplaceOrTestNodePatchTestCase<AddNodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyAddReplaceOrTestAddTest extends NodePatchNotEmptyAddReplaceOrTestTestCase<NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -75,16 +75,16 @@ public final class AddNodePatchTest extends AddReplaceOrTestNodePatchTestCase<Ad
     }
 
     @Override
-    AddNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
-        return AddNodePatch.with(path, value);
+    NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
+        return NodePatchNotEmptyAddReplaceOrTestAdd.with(path, value);
     }
 
-    private AddNodePatch<JsonNode, JsonNodeName> createPatch(final JsonNodeName property, final JsonNode value) {
-        return AddNodePatch.with(NodePointer.named(property, JsonNode.class), value);
+    private NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName> createPatch(final JsonNodeName property, final JsonNode value) {
+        return NodePatchNotEmptyAddReplaceOrTestAdd.with(NodePointer.named(property, JsonNode.class), value);
     }
 
-    private AddNodePatch<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
-        return AddNodePatch.with(this.pointer(path), value);
+    private NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
+        return NodePatchNotEmptyAddReplaceOrTestAdd.with(this.pointer(path), value);
     }
 
     @Override
@@ -95,14 +95,14 @@ public final class AddNodePatchTest extends AddReplaceOrTestNodePatchTestCase<Ad
     // ClassTesting2............................................................................
 
     @Override
-    public Class<AddNodePatch<JsonNode, JsonNodeName>> type() {
-        return Cast.to(AddNodePatch.class);
+    public Class<NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName>> type() {
+        return Cast.to(NodePatchNotEmptyAddReplaceOrTestAdd.class);
     }
 
-    // TypeNameTesting.................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public final String typeNameSuffix() {
         return "Add";
     }
 }

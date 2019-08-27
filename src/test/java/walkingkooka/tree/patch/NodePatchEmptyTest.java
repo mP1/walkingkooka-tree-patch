@@ -25,18 +25,18 @@ import walkingkooka.tree.json.JsonNodeName;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchEmptyTest extends NodePatchTestCase3<NodePatchEmpty<JsonNode, JsonNodeName>> {
 
     @Test
     public void testWithNullTypeFails() {
         assertThrows(NullPointerException.class, () -> {
-            EmptyNodePatch.get(null);
+            NodePatchEmpty.get(null);
         });
     }
 
     @Test
     public void testWith() {
-        final EmptyNodePatch<JsonNode, JsonNodeName> patch = EmptyNodePatch.get(JsonNode.class);
+        final NodePatchEmpty<JsonNode, JsonNodeName> patch = NodePatchEmpty.get(JsonNode.class);
         assertNotNull(patch);
     }
 
@@ -51,24 +51,24 @@ public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<
     @Test
     public void testFromJsonNode() {
         this.fromJsonNodeAndCheck(JsonNode.array(),
-                EmptyNodePatch.get(JsonNode.class));
+                NodePatchEmpty.get(JsonNode.class));
     }
 
     @Test
     public void testToJsonNode() {
-        this.toJsonNodeAndCheck(EmptyNodePatch.get(JsonNode.class),
+        this.toJsonNodeAndCheck(NodePatchEmpty.get(JsonNode.class),
                 JsonNode.array());
     }
 
     @Test
     public void testToJsonPatch() {
-        this.toJsonPatchAndCheck(EmptyNodePatch.get(JsonNode.class),
+        this.toJsonPatchAndCheck(NodePatchEmpty.get(JsonNode.class),
                 JsonNode.array());
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(EmptyNodePatch.get(JsonNode.class), "");
+        this.toStringAndCheck(NodePatchEmpty.get(JsonNode.class), "");
     }
 
     // HasJsonNode..................................................................................
@@ -79,24 +79,24 @@ public final class EmptyNodePatchTest extends NodePatchTestCase2<EmptyNodePatch<
                 NodePatch.empty(JsonNode.class));
     }
 
-    // NodePatchTestCase2..................................................................................
+    // NodePatchTestCase3..................................................................................
 
     @Override
-    EmptyNodePatch<JsonNode, JsonNodeName> createPatch() {
-        return EmptyNodePatch.get(JsonNode.class);
+    NodePatchEmpty<JsonNode, JsonNodeName> createPatch() {
+        return NodePatchEmpty.get(JsonNode.class);
     }
 
     // ClassTesting2............................................................................
 
     @Override
-    public Class<EmptyNodePatch<JsonNode, JsonNodeName>> type() {
-        return Cast.to(EmptyNodePatch.class);
+    public Class<NodePatchEmpty<JsonNode, JsonNodeName>> type() {
+        return Cast.to(NodePatchEmpty.class);
     }
 
-    // TypeNameTesting.................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public final String typeNameSuffix() {
         return "Empty";
     }
 }

@@ -26,25 +26,25 @@ import walkingkooka.tree.pointer.NodePointer;
 /**
  * Represents an ADD operation within a patch.
  */
-final class AddNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends AddReplaceOrTestNodePatch<N, NAME> {
+final class NodePatchNotEmptyAddReplaceOrTestAdd<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNotEmptyAddReplaceOrTest<N, NAME> {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> AddNodePatch<N, NAME> with(final NodePointer<N, NAME> path,
-                                                                                         final N value) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchNotEmptyAddReplaceOrTestAdd<N, NAME> with(final NodePointer<N, NAME> path,
+                                                                                                                 final N value) {
         checkPath(path);
         checkValue(value);
 
-        return new AddNodePatch<>(path, value, null);
+        return new NodePatchNotEmptyAddReplaceOrTestAdd<>(path, value, null);
     }
 
-    private AddNodePatch(final NodePointer<N, NAME> pointer,
-                         final N value,
-                         final NonEmptyNodePatch<N, NAME> next) {
+    private NodePatchNotEmptyAddReplaceOrTestAdd(final NodePointer<N, NAME> pointer,
+                                                 final N value,
+                                                 final NodePatchNonEmpty<N, NAME> next) {
         super(pointer, value, next);
     }
 
     @Override
-    AddNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> next) {
-        return new AddNodePatch<>(this.path,
+    NodePatchNotEmptyAddReplaceOrTestAdd<N, NAME> append0(final NodePatchNonEmpty<N, NAME> next) {
+        return new NodePatchNotEmptyAddReplaceOrTestAdd<>(this.path,
                 this.value,
                 next);
     }
@@ -56,7 +56,7 @@ final class AddNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> exten
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof AddNodePatch;
+        return other instanceof NodePatchNotEmptyAddReplaceOrTestAdd;
     }
 
     @Override

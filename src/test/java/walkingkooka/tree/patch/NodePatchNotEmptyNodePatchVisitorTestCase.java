@@ -20,13 +20,12 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.type.JavaVisibility;
 import walkingkooka.visit.VisitorTesting;
 
-public abstract class NodePatchFromJsonObjectNodePropertyVisitorTestCase<V extends NodePatchFromJsonObjectNodePropertyVisitor> extends NodePatchTestCase<V>
+public abstract class NodePatchNotEmptyNodePatchVisitorTestCase<V extends NodePatchNotEmptyNodePatchVisitor> extends NodePatchTestCase4<V>
         implements VisitorTesting<V, JsonNode> {
 
-    NodePatchFromJsonObjectNodePropertyVisitorTestCase() {
+    NodePatchNotEmptyNodePatchVisitorTestCase() {
         super();
     }
 
@@ -45,12 +44,7 @@ public abstract class NodePatchFromJsonObjectNodePropertyVisitorTestCase<V exten
     abstract V createVisitor(final JsonObjectNode patch);
 
     @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
     public final String typeNameSuffix() {
-        return NodePatchFromJsonObjectNodePropertyVisitor.class.getSimpleName();
+        return "NodePatchVisitor";
     }
 }

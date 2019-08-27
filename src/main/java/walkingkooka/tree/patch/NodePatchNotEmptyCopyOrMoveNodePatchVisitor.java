@@ -23,32 +23,32 @@ import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
-final class CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
+final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmptyNodePatchVisitor {
 
-    static CopyNodePatch<?, ?> copy(final JsonObjectNode patch,
-                                    final NodePatchFromJsonFormat format,
-                                    final FromJsonNodeContext context) {
-        final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
+    static NodePatchNotEmptyCopyOrMoveCopy<?, ?> copy(final JsonObjectNode patch,
+                                                      final NodePatchFromJsonFormat format,
+                                                      final FromJsonNodeContext context) {
+        final NodePatchNotEmptyCopyOrMoveNodePatchVisitor visitor = new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch,
                 format,
                 context);
         visitor.accept(patch);
-        return CopyNodePatch.with(Cast.to(visitor.from()), visitor.path());
+        return NodePatchNotEmptyCopyOrMoveCopy.with(Cast.to(visitor.from()), visitor.path());
     }
 
-    static MoveNodePatch<?, ?> move(final JsonObjectNode patch,
-                                    final NodePatchFromJsonFormat format,
-                                    final FromJsonNodeContext context) {
-        final CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor visitor = new CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(patch,
+    static NodePatchNotEmptyCopyOrMoveMove<?, ?> move(final JsonObjectNode patch,
+                                                      final NodePatchFromJsonFormat format,
+                                                      final FromJsonNodeContext context) {
+        final NodePatchNotEmptyCopyOrMoveNodePatchVisitor visitor = new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch,
                 format,
                 context);
         visitor.accept(patch);
-        return MoveNodePatch.with(Cast.to(visitor.from()), visitor.path());
+        return NodePatchNotEmptyCopyOrMoveMove.with(Cast.to(visitor.from()), visitor.path());
     }
 
     // VisibleForTesting
-    CopyOrMoveNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
-                                                         final NodePatchFromJsonFormat format,
-                                                         final FromJsonNodeContext context) {
+    NodePatchNotEmptyCopyOrMoveNodePatchVisitor(final JsonObjectNode patch,
+                                                final NodePatchFromJsonFormat format,
+                                                final FromJsonNodeContext context) {
         super(patch, format, context);
     }
 

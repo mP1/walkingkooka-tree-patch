@@ -23,17 +23,15 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonStringNode;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
 import walkingkooka.tree.json.map.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitorTesting;
-import walkingkooka.type.JavaVisibility;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatchTestCase<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>>
+public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatchTestCase4<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>>
         implements NodePointerVisitorTesting<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>, JsonNode, JsonNodeName> {
 
     @Test
@@ -84,10 +82,5 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
     @Override
     public Class<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>> type() {
         return Cast.to(NodePatchToJsonFormatNodePointerVisitor.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -24,56 +24,50 @@ import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
-
 /**
- * Represents a MOVE patch operation.
+ * Represents a COPY patch operation.
  */
-final class MoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends CopyOrMoveNodePatch<N, NAME> {
+final class NodePatchNotEmptyCopyOrMoveCopy<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNotEmptyCopyOrMove<N, NAME> {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> MoveNodePatch<N, NAME> with(final NodePointer<N, NAME> from,
-                                                                                          final NodePointer<N, NAME> path) {
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchNotEmptyCopyOrMoveCopy<N, NAME> with(final NodePointer<N, NAME> from,
+                                                                                                            final NodePointer<N, NAME> path) {
         checkFromAndPath(from, path);
 
-        return new MoveNodePatch<>(from, path, null);
+        return new NodePatchNotEmptyCopyOrMoveCopy<>(from, path, null);
     }
 
-    private MoveNodePatch(final NodePointer<N, NAME> from,
-                          final NodePointer<N, NAME> path,
-                          final NonEmptyNodePatch<N, NAME> next) {
+    private NodePatchNotEmptyCopyOrMoveCopy(final NodePointer<N, NAME> from,
+                                            final NodePointer<N, NAME> path,
+                                            final NodePatchNonEmpty<N, NAME> next) {
         super(from, path, next);
     }
 
     @Override
-    MoveNodePatch<N, NAME> append0(final NonEmptyNodePatch<N, NAME> patch) {
-        return new MoveNodePatch<>(this.from, this.path, patch);
+    NodePatchNotEmptyCopyOrMoveCopy<N, NAME> append0(final NodePatchNonEmpty<N, NAME> patch) {
+        return new NodePatchNotEmptyCopyOrMoveCopy<>(this.from, this.path, patch);
     }
 
-    /**
-     * Identical to COPY but the original node is removed.
-     */
     @Override
     N apply1(final N node, final NodePointer<N, NAME> start) {
         final N copying = this.from.traverse(node)
                 .orElseThrow(() -> new NodePointerException("Unable to navigate to find node to copy from: " + node));
-        return this.add0(this.remove0(node, this.from, start),
-                copying,
-                start);
+        return this.add0(node, copying, start);
     }
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof MoveNodePatch;
+        return other instanceof NodePatchNotEmptyCopyOrMoveCopy;
     }
 
     @Override
     String operation() {
-        return MOVE;
+        return COPY;
     }
 
     // HasJsonNode...............................................................................
 
     private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
-            .set(OP_PROPERTY, JsonNode.string(MOVE));
+            .set(OP_PROPERTY, JsonNode.string(COPY));
 
     @Override
     JsonObjectNode jsonObjectWithOp() {

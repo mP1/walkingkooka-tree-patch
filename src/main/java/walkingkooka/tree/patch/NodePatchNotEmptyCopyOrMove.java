@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * Base class for both copy and move operations.
  */
-abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NonEmptyNodePatch<N, NAME> {
+abstract class NodePatchNotEmptyCopyOrMove<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNonEmpty<N, NAME> {
 
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> void checkFromAndPath(final NodePointer<N, NAME> from,
                                                                                     final NodePointer<N, NAME> path) {
@@ -41,9 +41,9 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
         }
     }
 
-    CopyOrMoveNodePatch(final NodePointer<N, NAME> from,
-                        final NodePointer<N, NAME> path,
-                        final NonEmptyNodePatch<N, NAME> next) {
+    NodePatchNotEmptyCopyOrMove(final NodePointer<N, NAME> from,
+                                final NodePointer<N, NAME> path,
+                                final NodePatchNonEmpty<N, NAME> next) {
         super(path, next);
         this.from = from;
     }
@@ -58,12 +58,12 @@ abstract class CopyOrMoveNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends N
     }
 
     @Override
-    final boolean equals1(final NonEmptyNodePatch<?, ?> other) {
+    final boolean equals1(final NodePatchNonEmpty<?, ?> other) {
         return this.path.equals(other.path) &&
                 this.equals2(Cast.to(other));
     }
 
-    private boolean equals2(final CopyOrMoveNodePatch<?, ?> other) {
+    private boolean equals2(final NodePatchNotEmptyCopyOrMove<?, ?> other) {
         return this.from.equals(other.from);
     }
 

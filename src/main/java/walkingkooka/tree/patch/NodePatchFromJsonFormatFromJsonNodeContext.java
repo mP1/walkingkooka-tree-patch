@@ -23,7 +23,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.JsonNodeContext;
 
 import java.util.function.Function;
 
@@ -39,20 +38,20 @@ final class NodePatchFromJsonFormatFromJsonNodeContext extends NodePatchFromJson
     }
 
     @Override
-    void accept(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+    void accept(final NodePatchNotEmptyNodePatchVisitor visitor,
                 final JsonObjectNode node) {
         visitor.acceptNodePatch(node);
     }
 
     @Override
-    Function<String, Name> nameFactory(final NodePatchFromJsonObjectNodePropertyVisitor visitor,
+    Function<String, Name> nameFactory(final NodePatchNotEmptyNodePatchVisitor visitor,
                                        final FromJsonNodeContext context) {
         return (string) -> visitor.pathNameFactory()
                 .apply(JsonNode.string(string), context);
     }
 
     @Override
-    Node<?, ?, ?, ?> valueOrFail(final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor,
+    Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
                                  final FromJsonNodeContext context) {
         return Cast.to(visitor.valueFactory().apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY), context));
     }

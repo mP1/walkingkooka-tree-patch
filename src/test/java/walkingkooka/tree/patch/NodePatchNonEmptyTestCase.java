@@ -28,9 +28,9 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NonEmptyNodePatchTestCase<P extends NonEmptyNodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase2<P> {
+public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<JsonNode, JsonNodeName>> extends NodePatchTestCase3<P> {
 
-    NonEmptyNodePatchTestCase() {
+    NodePatchNonEmptyTestCase() {
         super();
     }
 

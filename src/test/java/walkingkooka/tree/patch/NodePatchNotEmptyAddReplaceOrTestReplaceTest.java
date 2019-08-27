@@ -23,7 +23,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCase<ReplaceNodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyAddReplaceOrTestReplaceTest extends NodePatchNotEmptyAddReplaceOrTestTestCase<NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -78,20 +78,20 @@ public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCas
     }
 
     @Override
-    ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
-        return ReplaceNodePatch.with(path, value);
+    NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
+        return NodePatchNotEmptyAddReplaceOrTestReplace.with(path, value);
     }
 
-    private ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final JsonNodeName property, final JsonNode value) {
-        return ReplaceNodePatch.with(NodePointer.named(property, JsonNode.class), value);
+    private NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final JsonNodeName property, final JsonNode value) {
+        return NodePatchNotEmptyAddReplaceOrTestReplace.with(NodePointer.named(property, JsonNode.class), value);
     }
 
-    private ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final String path, final String value) {
+    private NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final String path, final String value) {
         return this.createPatch(path, JsonNode.parse(value));
     }
 
-    private ReplaceNodePatch<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
-        return ReplaceNodePatch.with(this.pointer(path), value);
+    private NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
+        return NodePatchNotEmptyAddReplaceOrTestReplace.with(this.pointer(path), value);
     }
 
     @Override
@@ -102,14 +102,14 @@ public final class ReplaceNodePatchTest extends AddReplaceOrTestNodePatchTestCas
     // ClassTesting2............................................................................
 
     @Override
-    public Class<ReplaceNodePatch<JsonNode, JsonNodeName>> type() {
-        return Cast.to(ReplaceNodePatch.class);
+    public Class<NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName>> type() {
+        return Cast.to(NodePatchNotEmptyAddReplaceOrTestReplace.class);
     }
 
-    // TypeNameTesting.................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public final String typeNameSuffix() {
         return "Replace";
     }
 }

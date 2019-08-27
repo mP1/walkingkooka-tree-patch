@@ -27,7 +27,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, JsonNodeName>> {
 
     @Test
     public void testFromJsonPatchNullJsonNodeFails() {
@@ -60,7 +60,7 @@ public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, J
 
     @Test
     public void testTest() {
-        final JsonNode node = this.parse("{\"a1\": \"value1\"}");
+        final JsonNode node = JsonNode.parse("{\"a1\": \"value1\"}");
 
         this.applyAndCheck(NodePatch.empty(JsonNode.class)
                         .test(this.pointer("/a1"), this.value1()),
@@ -70,7 +70,7 @@ public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, J
 
     @Test
     public void testTestTest() {
-        final JsonNode node = this.parse("{\"a1\": \"value1\", \"b2\": \"value2\"}");
+        final JsonNode node = JsonNode.parse("{\"a1\": \"value1\", \"b2\": \"value2\"}");
 
         this.applyAndCheck(NodePatch.empty(JsonNode.class)
                         .test(this.pointer("/a1"), this.value1())
@@ -205,7 +205,7 @@ public final class NodePatchTest extends NodePatchTestCase<NodePatch<JsonNode, J
         return JsonNode.string(string);
     }
 
-    // ClassTesting2........................................................................
+    // ClassTesting2....................................................................................................
 
     @Override
     public Class<NodePatch<JsonNode, JsonNodeName>> type() {

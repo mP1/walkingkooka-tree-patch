@@ -35,7 +35,7 @@ import java.util.Objects;
 /**
  * Base class for all non empty patch containing several helpers and a template for the function.
  */
-abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatch<N, NAME> {
+abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatch<N, NAME> {
 
     // helpers......................................................................
 
@@ -46,7 +46,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
     /**
      * Package private to limit sub-classing.
      */
-    NonEmptyNodePatch(final NodePointer<N, NAME> path, final NonEmptyNodePatch<N, NAME> next) {
+    NodePatchNonEmpty(final NodePointer<N, NAME> path, final NodePatchNonEmpty<N, NAME> next) {
         super();
         this.path = path;
         this.next = next;
@@ -107,14 +107,14 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * Returns the next component of the patch which could be null if this is the last.
      */
     @Override
-    final NonEmptyNodePatch<N, NAME> nextOrNull() {
+    final NodePatchNonEmpty<N, NAME> nextOrNull() {
         return this.next;
     }
 
     /**
      * A null marks the last component in a patch sequence.
      */
-    final NonEmptyNodePatch<N, NAME> next;
+    final NodePatchNonEmpty<N, NAME> next;
 
     // HashCodeEqualsDefined................................................................................................
 
@@ -125,11 +125,11 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
 
     abstract boolean canBeEqual(final Object other);
 
-    private boolean equals0(final NonEmptyNodePatch<?, ?> other) {
+    private boolean equals0(final NodePatchNonEmpty<?, ?> other) {
         return this.equals1(other) && Objects.equals(this.next, other.next);
     }
 
-    abstract boolean equals1(final NonEmptyNodePatch<?, ?> other);
+    abstract boolean equals1(final NodePatchNonEmpty<?, ?> other);
 
     // Object............................................................................................
 
@@ -186,7 +186,7 @@ abstract class NonEmptyNodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Nam
                                     final ToJsonNodeContext context) {
         final List<JsonNode> elements = Lists.array();
 
-        NonEmptyNodePatch<N, NAME> patch = this;
+        NodePatchNonEmpty<N, NAME> patch = this;
         do {
             elements.add(patch.toJsonNode1(patch.jsonObjectWithOp(), format, context));
             patch = patch.nextOrNull();

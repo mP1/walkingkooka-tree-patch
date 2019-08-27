@@ -26,35 +26,35 @@ import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.function.BiFunction;
 
-final class AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor extends NodePatchFromJsonObjectNodePropertyVisitor {
+final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchNotEmptyNodePatchVisitor {
 
-    static AddNodePatch<?, ?> add(final JsonObjectNode patch,
-                                  final NodePatchFromJsonFormat format,
-                                  final FromJsonNodeContext context) {
-        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format, context);
+    static NodePatchNotEmptyAddReplaceOrTestAdd<?, ?> add(final JsonObjectNode patch,
+                                                          final NodePatchFromJsonFormat format,
+                                                          final FromJsonNodeContext context) {
+        final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor = new NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(patch, format, context);
         visitor.accept(patch);
-        return AddNodePatch.with(visitor.path(), Cast.to(visitor.value()));
+        return NodePatchNotEmptyAddReplaceOrTestAdd.with(visitor.path(), Cast.to(visitor.value()));
     }
 
-    static ReplaceNodePatch<?, ?> replace(final JsonObjectNode patch,
-                                          final NodePatchFromJsonFormat format,
-                                          final FromJsonNodeContext context) {
-        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format, context);
+    static NodePatchNotEmptyAddReplaceOrTestReplace<?, ?> replace(final JsonObjectNode patch,
+                                                                  final NodePatchFromJsonFormat format,
+                                                                  final FromJsonNodeContext context) {
+        final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor = new NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(patch, format, context);
         visitor.accept(patch);
-        return ReplaceNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
+        return NodePatchNotEmptyAddReplaceOrTestReplace.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
     }
 
-    static TestNodePatch<?, ?> test(final JsonObjectNode patch,
-                                    final NodePatchFromJsonFormat format,
-                                    final FromJsonNodeContext context) {
-        final AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor visitor = new AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(patch, format, context);
+    static NodePatchNotEmptyAddReplaceOrTestTest<?, ?> test(final JsonObjectNode patch,
+                                                            final NodePatchFromJsonFormat format,
+                                                            final FromJsonNodeContext context) {
+        final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor = new NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(patch, format, context);
         visitor.accept(patch);
-        return TestNodePatch.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
+        return NodePatchNotEmptyAddReplaceOrTestTest.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
     }
 
-    AddReplaceOrTestNodePatchFromJsonObjectNodePropertyVisitor(final JsonObjectNode patch,
-                                                               final NodePatchFromJsonFormat format,
-                                                               final FromJsonNodeContext context) {
+    NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(final JsonObjectNode patch,
+                                                      final NodePatchFromJsonFormat format,
+                                                      final FromJsonNodeContext context) {
         super(patch, format, context);
     }
 
