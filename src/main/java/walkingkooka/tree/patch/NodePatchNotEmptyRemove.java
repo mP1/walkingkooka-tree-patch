@@ -21,7 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.map.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;

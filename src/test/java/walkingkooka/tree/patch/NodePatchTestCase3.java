@@ -24,8 +24,8 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
-import walkingkooka.tree.json.map.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.JavaVisibility;
 

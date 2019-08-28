@@ -18,7 +18,7 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.json.map.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContext;
 
 public final class NodePatchFromJsonFormatFromJsonNodeContextTest extends NodePatchTestCase4<NodePatchFromJsonFormatFromJsonNodeContext> {
 
