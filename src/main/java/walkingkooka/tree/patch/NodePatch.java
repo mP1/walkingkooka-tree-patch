@@ -27,9 +27,11 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
 import walkingkooka.tree.json.marshall.FromJsonNodeException;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
@@ -182,14 +184,14 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
         return Cast.to(fromJsonNode0(node,
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                FromJsonNodeContext.basic()));
+                FromJsonNodeContexts.basic()));
     }
 
     /**
      * Creates a json-patch json which is identical to the {@link #toJsonNode(ToJsonNodeContext)} but without the type properties.
      */
     public final JsonArrayNode toJsonPatch() {
-        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContext.basic());
+        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContexts.basic());
     }
 
     // HasJsonNode...............................................................................
