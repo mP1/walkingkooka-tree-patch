@@ -184,14 +184,22 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
         return Cast.to(fromJsonNode0(node,
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                FromJsonNodeContexts.basic()));
+                FromJsonNodeContexts.basic(NodePatch::objectPreProcessor)));
+    }
+
+    private static JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
+        return object;
     }
 
     /**
      * Creates a json-patch json which is identical to the {@link #toJsonNode(ToJsonNodeContext)} but without the type properties.
      */
     public final JsonArrayNode toJsonPatch() {
-        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContexts.basic());
+        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContexts.basic(NodePatch::objectPostProcessor));
+    }
+
+    private static JsonObjectNode objectPostProcessor(final Object value, final JsonObjectNode object) {
+        return object;
     }
 
     // HasJsonNode...............................................................................

@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.json.marshall.ToJsonNodeContext;
 import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
@@ -76,7 +77,11 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
     }
 
     private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic();
+        return ToJsonNodeContexts.basic(this::objectPostProcessor);
+    }
+
+    private JsonObjectNode objectPostProcessor(final Object value, final JsonObjectNode object) {
+        return object;
     }
 
     @Override
