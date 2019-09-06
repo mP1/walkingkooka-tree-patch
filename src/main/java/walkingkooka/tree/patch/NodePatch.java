@@ -184,11 +184,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
         return Cast.to(fromJsonNode0(node,
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                FromJsonNodeContexts.basic(NodePatch::objectPreProcessor)));
-    }
-
-    private static JsonObjectNode objectPreProcessor(final JsonObjectNode object, final Class<?> type) {
-        return object;
+                FromJsonNodeContexts.basic()));
     }
 
     /**
