@@ -195,11 +195,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      * Creates a json-patch json which is identical to the {@link #toJsonNode(ToJsonNodeContext)} but without the type properties.
      */
     public final JsonArrayNode toJsonPatch() {
-        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContexts.basic(NodePatch::objectPostProcessor));
-    }
-
-    private static JsonObjectNode objectPostProcessor(final Object value, final JsonObjectNode object) {
-        return object;
+        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContexts.basic());
     }
 
     // HasJsonNode...............................................................................
