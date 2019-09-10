@@ -19,7 +19,7 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefinedTesting;
+import walkingkooka.test.HashCodeEqualsDefinedTesting2;
 import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase2<P>
-        implements HashCodeEqualsDefinedTesting<P>,
+        implements HashCodeEqualsDefinedTesting2<P>,
         JsonNodeMappingTesting<P>,
         TypeNameTesting<P> {
 
