@@ -86,12 +86,14 @@ final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchN
     /**
      * Returns a factory that uses the {@link NodePatch#VALUE_TYPE_PROPERTY} when creating values from json.
      */
-    final BiFunction<JsonNode, FromJsonNodeContext, Node<?, ?, ?, ?>> valueFactory() {
+    final BiFunction<JsonNode, FromJsonNodeContext, Node<?, ?, ?, ?>> valueFactory(final FromJsonNodeContext context) {
         if (null == this.valueFactory) {
-            this.valueFactory = Cast.to(NodePatch.VALUE_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(this.patch, Node.class));
+            this.valueFactory = context.fromJsonNodeWithType(NodePatch.VALUE_TYPE_PROPERTY, this.patch, NODE_TYPE);
         }
         return this.valueFactory;
     }
+
+    private final static Class<Node<?, ?, ?, ?>> NODE_TYPE = Cast.to(Node.class);
 
     private BiFunction<JsonNode, FromJsonNodeContext, Node<?, ?, ?, ?>> valueFactory;
 }
