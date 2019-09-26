@@ -46,14 +46,15 @@ final class NodePatchFromJsonFormatFromJsonNodeContext extends NodePatchFromJson
     @Override
     Function<String, Name> nameFactory(final NodePatchNotEmptyNodePatchVisitor visitor,
                                        final FromJsonNodeContext context) {
-        return (string) -> visitor.pathNameFactory()
+        return (string) -> visitor.pathNameFactory(context)
                 .apply(JsonNode.string(string), context);
     }
 
     @Override
     Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
                                  final FromJsonNodeContext context) {
-        return Cast.to(visitor.valueFactory().apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY), context));
+        return Cast.to(visitor.valueFactory(context)
+                .apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY), context));
     }
 
     @Override

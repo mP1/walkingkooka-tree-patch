@@ -107,9 +107,9 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     /**
      * Getter that returns a factory that assumes {@link NodePatch#PATH_NAME_TYPE_PROPERTY} holds the type name.
      */
-    final BiFunction<JsonNode, FromJsonNodeContext, Name> pathNameFactory() {
+    final BiFunction<JsonNode, FromJsonNodeContext, Name> pathNameFactory(final FromJsonNodeContext context) {
         if(null == this.pathNameFactory) {
-            this.pathNameFactory =  NodePatch.PATH_NAME_TYPE_PROPERTY.fromJsonNodeWithTypeFactory(this.patch, Name.class);
+            this.pathNameFactory =  context.fromJsonNodeWithType(NodePatch.PATH_NAME_TYPE_PROPERTY, this.patch, Name.class);
         }
         return this.pathNameFactory;
     }
