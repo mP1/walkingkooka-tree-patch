@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/mP1/walkingkooka-tree-patch.svg?branch=master)](https://travis-ci.com/mP1/walkingkooka-tree-patch.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/mP1/walkingkooka-tree-patch/badge.svg?branch=master)](https://coveralls.io/github/mP1/walkingkooka-tree-patch?branch=master)
 
 A `NodePatch` is a `Node` equivalent as what `json-patch` is for json objects or diff patch is for files, namely a set
