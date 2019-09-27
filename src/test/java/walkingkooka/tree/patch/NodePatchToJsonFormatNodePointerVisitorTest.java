@@ -23,8 +23,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonStringNode;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitorTesting;
 
@@ -52,7 +52,7 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
 
     private void pathNameTypeAndCheck(final String path, final String typeName) {
         assertEquals(Optional.ofNullable(typeName).map(JsonNode::string),
-                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class), this.toJsonNodeContext()),
+                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class), this.marshallContext()),
                 () -> "path: " + CharSequences.quoteAndEscape(path));
     }
 
@@ -65,18 +65,18 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
     public void testToString2() {
         final JsonStringNode type = JsonNode.string(this.getClass().getName());
 
-        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(this.toJsonNodeContext());
+        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(this.marshallContext());
         visitor.pathNameType = Optional.of(type);
         this.toStringAndCheck(visitor, type.toString());
     }
 
     @Override
     public NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> createVisitor() {
-        return new NodePatchToJsonFormatNodePointerVisitor<>(this.toJsonNodeContext());
+        return new NodePatchToJsonFormatNodePointerVisitor<>(this.marshallContext());
     }
 
-    private ToJsonNodeContext toJsonNodeContext() {
-        return ToJsonNodeContexts.basic();
+    private JsonNodeMarshallContext marshallContext() {
+        return JsonNodeMarshallContexts.basic();
     }
 
     @Override

@@ -21,7 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.function.Function;
 
@@ -50,13 +50,13 @@ final class NodePatchFromJsonFormatJsonPatch<N extends Node<N, NAME, ?, ?>, NAME
 
     @Override
     Function<String, NAME> nameFactory(final NodePatchNotEmptyNodePatchVisitor visitor,
-                                       final FromJsonNodeContext context) {
+                                       final JsonNodeUnmarshallContext context) {
         return this.nameFactory;
     }
 
     @Override
     Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
-                                 final FromJsonNodeContext context) {
+                                 final JsonNodeUnmarshallContext context) {
         return this.valueFactory.apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY));
     }
 

@@ -21,7 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -95,9 +95,9 @@ final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends 
      * </pre>
      */
     @Override
-    JsonObjectNode toJsonNode1(final JsonObjectNode object,
-                               final NodePatchToJsonFormat format,
-                               final ToJsonNodeContext context) {
+    JsonObjectNode marshall1(final JsonObjectNode object,
+                             final NodePatchToJsonFormat format,
+                             final JsonNodeMarshallContext context) {
         return this.setPath(format.setPathNameType(object,
                 this.path,
                 context));
