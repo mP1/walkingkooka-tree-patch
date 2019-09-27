@@ -22,18 +22,18 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.function.Function;
 
 /**
  * Creates {@link NodePatch} taking the name and value types from properties.
  */
-final class NodePatchFromJsonFormatFromJsonNodeContext extends NodePatchFromJsonFormat {
+final class NodePatchFromJsonFormatJsonNodeUnmarshallContext extends NodePatchFromJsonFormat {
 
-    static final NodePatchFromJsonFormatFromJsonNodeContext INSTANCE = new NodePatchFromJsonFormatFromJsonNodeContext();
+    static final NodePatchFromJsonFormatJsonNodeUnmarshallContext INSTANCE = new NodePatchFromJsonFormatJsonNodeUnmarshallContext();
 
-    private NodePatchFromJsonFormatFromJsonNodeContext() {
+    private NodePatchFromJsonFormatJsonNodeUnmarshallContext() {
         super();
     }
 
@@ -45,20 +45,20 @@ final class NodePatchFromJsonFormatFromJsonNodeContext extends NodePatchFromJson
 
     @Override
     Function<String, Name> nameFactory(final NodePatchNotEmptyNodePatchVisitor visitor,
-                                       final FromJsonNodeContext context) {
+                                       final JsonNodeUnmarshallContext context) {
         return (string) -> visitor.pathNameFactory(context)
                 .apply(JsonNode.string(string), context);
     }
 
     @Override
     Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
-                                 final FromJsonNodeContext context) {
+                                 final JsonNodeUnmarshallContext context) {
         return Cast.to(visitor.valueFactory(context)
                 .apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY), context));
     }
 
     @Override
     public String toString() {
-        return FromJsonNodeContext.class.getSimpleName();
+        return JsonNodeUnmarshallContext.class.getSimpleName();
     }
 }

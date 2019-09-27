@@ -18,17 +18,17 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-public final class NodePatchFromJsonFormatFromJsonNodeContextTest extends NodePatchTestCase4<NodePatchFromJsonFormatFromJsonNodeContext> {
+public final class NodePatchFromJsonFormatJsonNodeUnmarshallContextTest extends NodePatchTestCase4<NodePatchFromJsonFormatJsonNodeUnmarshallContext> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(NodePatchFromJsonFormatFromJsonNodeContext.INSTANCE, FromJsonNodeContext.class.getSimpleName());
+        this.toStringAndCheck(NodePatchFromJsonFormatJsonNodeUnmarshallContext.INSTANCE, JsonNodeUnmarshallContext.class.getSimpleName());
     }
 
     @Override
-    public Class<NodePatchFromJsonFormatFromJsonNodeContext> type() {
-        return NodePatchFromJsonFormatFromJsonNodeContext.class;
+    public Class<NodePatchFromJsonFormatJsonNodeUnmarshallContext> type() {
+        return NodePatchFromJsonFormatJsonNodeUnmarshallContext.class;
     }
 }

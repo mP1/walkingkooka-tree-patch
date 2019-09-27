@@ -24,8 +24,8 @@ import walkingkooka.test.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMappingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.type.JavaVisibility;
 
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase2<P>
         implements HashCodeEqualsDefinedTesting2<P>,
-        JsonNodeMappingTesting<P>,
+        JsonNodeMarshallingTesting<P>,
         TypeNameTesting<P> {
 
     NodePatchTestCase3() {
@@ -133,22 +133,22 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
 
     @Test
     public final void testFromJsonBooleanNodeFails() {
-        this.fromJsonNodeFails(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.booleanNode(true), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonNumberNodeFails() {
-        this.fromJsonNodeFails(JsonNode.number(123), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.number(123), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonObjectNodeFails() {
-        this.fromJsonNodeFails(JsonNode.object(), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.object(), JsonNodeException.class);
     }
 
     @Test
     public final void testFromJsonStringNodeFails() {
-        this.fromJsonNodeFails(JsonNode.string("string123"), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.string("string123"), JsonNodeException.class);
     }
 
     final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
@@ -191,9 +191,9 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
     // HasJsonNodeTesting...............................................................................................
 
     @Override
-    public final P fromJsonNode(final JsonNode from,
-                                final FromJsonNodeContext context) {
-        return Cast.to(NodePatch.fromJsonNode(from, context));
+    public final P unmarshall(final JsonNode from,
+                              final JsonNodeUnmarshallContext context) {
+        return Cast.to(NodePatch.unmarshall(from, context));
     }
 
     @Override

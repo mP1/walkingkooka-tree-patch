@@ -19,7 +19,7 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.tree.json.JsonObjectNode;
 import walkingkooka.tree.json.JsonStringNode;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Optional;
@@ -30,7 +30,7 @@ enum NodePatchToJsonFormat {
         @Override
         JsonObjectNode setPathNameType(final JsonObjectNode object,
                                        final NodePointer<?, ?> path,
-                                       final ToJsonNodeContext context) {
+                                       final JsonNodeMarshallContext context) {
             return this.setPathNameType0(object,
                     NodePatchToJsonFormatNodePointerVisitor.pathNameType(path, context));
         }
@@ -39,7 +39,7 @@ enum NodePatchToJsonFormat {
         JsonObjectNode setPathNameType(final JsonObjectNode object,
                                        final NodePointer<?, ?> from,
                                        final NodePointer<?, ?> path,
-                                       final ToJsonNodeContext context) {
+                                       final JsonNodeMarshallContext context) {
             Optional<JsonStringNode> type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(from, context);
             if (!type.isPresent()) {
                 type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(path, context);
@@ -60,7 +60,7 @@ enum NodePatchToJsonFormat {
         @Override
         JsonObjectNode setValueType(final JsonObjectNode object,
                                     final Object value,
-                                    final ToJsonNodeContext context) {
+                                    final JsonNodeMarshallContext context) {
             return object.set(NodePatch.VALUE_TYPE_PROPERTY,
                     typeOrFail(value, context));
         }
@@ -69,7 +69,7 @@ enum NodePatchToJsonFormat {
          * Accepts a value such as a path or value and returns a {@link JsonStringNode} with the type name.
          */
         private JsonStringNode typeOrFail(final Object value,
-                                          final ToJsonNodeContext context) {
+                                          final JsonNodeMarshallContext context) {
             return context.typeName(value.getClass())
                     .orElseThrow(() -> new IllegalArgumentException("Type not registered as supporting json: " + value));
         }
@@ -78,7 +78,7 @@ enum NodePatchToJsonFormat {
         @Override
         JsonObjectNode setPathNameType(final JsonObjectNode object,
                                        final NodePointer<?, ?> path,
-                                       final ToJsonNodeContext context) {
+                                       final JsonNodeMarshallContext context) {
             return object;
         }
 
@@ -86,28 +86,28 @@ enum NodePatchToJsonFormat {
         JsonObjectNode setPathNameType(final JsonObjectNode object,
                                        final NodePointer<?, ?> from,
                                        final NodePointer<?, ?> path,
-                                       final ToJsonNodeContext context) {
+                                       final JsonNodeMarshallContext context) {
             return object;
         }
 
         @Override
         JsonObjectNode setValueType(final JsonObjectNode object,
                                     final Object value,
-                                    final ToJsonNodeContext context) {
+                                    final JsonNodeMarshallContext context) {
             return object;
         }
     };
 
     abstract JsonObjectNode setPathNameType(final JsonObjectNode object,
                                             final NodePointer<?, ?> path,
-                                            final ToJsonNodeContext context);
+                                            final JsonNodeMarshallContext context);
 
     abstract JsonObjectNode setPathNameType(final JsonObjectNode object,
                                             final NodePointer<?, ?> from,
                                             final NodePointer<?, ?> path,
-                                            final ToJsonNodeContext context);
+                                            final JsonNodeMarshallContext context);
 
     abstract JsonObjectNode setValueType(final JsonObjectNode object,
                                          final Object value,
-                                         final ToJsonNodeContext context);
+                                         final JsonNodeMarshallContext context);
 }

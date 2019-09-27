@@ -19,13 +19,13 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 final class NodePatchNotEmptyRemoveNodePatchVisitor extends NodePatchNotEmptyNodePatchVisitor {
 
     static NodePatchNotEmptyRemove<?, ?> remove(final JsonObjectNode patch,
                                                 final NodePatchFromJsonFormat format,
-                                                final FromJsonNodeContext context) {
+                                                final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyRemoveNodePatchVisitor visitor = new NodePatchNotEmptyRemoveNodePatchVisitor(patch,
                 format,
                 context);
@@ -36,7 +36,7 @@ final class NodePatchNotEmptyRemoveNodePatchVisitor extends NodePatchNotEmptyNod
     // VisibleForTesting
     NodePatchNotEmptyRemoveNodePatchVisitor(final JsonObjectNode node,
                                             final NodePatchFromJsonFormat format,
-                                            final FromJsonNodeContext context) {
+                                            final JsonNodeUnmarshallContext context) {
         super(node, format, context);
     }
 

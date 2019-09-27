@@ -22,7 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.Objects;
@@ -99,8 +99,8 @@ final class NodePatchEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
      * </pre>
      */
     @Override
-    JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format,
-                              final ToJsonNodeContext context) {
+    JsonArrayNode marshall0(final NodePatchToJsonFormat format,
+                            final JsonNodeMarshallContext context) {
         return JsonNode.array();
     }
 }

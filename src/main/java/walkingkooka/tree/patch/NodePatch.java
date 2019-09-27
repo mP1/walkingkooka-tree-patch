@@ -26,12 +26,12 @@ import walkingkooka.tree.json.JsonArrayNode;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
 import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.marshall.FromJsonNodeContext;
-import walkingkooka.tree.json.marshall.FromJsonNodeContexts;
-import walkingkooka.tree.json.marshall.FromJsonNodeException;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContext;
-import walkingkooka.tree.json.marshall.ToJsonNodeContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
@@ -173,7 +173,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     // HasJsonNode...............................................................................
 
     /**
-     * Similar to {@link #fromJsonNode(JsonNode, FromJsonNodeContext)} but names and values are created using the two factories.
+     * Similar to {@link #unmarshall(JsonNode, JsonNodeUnmarshallContext)} but names and values are created using the two factories.
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatch<N, NAME> fromJsonPatch(final JsonNode node,
                                                                                                       final Function<String, NAME> nameFactory,
@@ -182,16 +182,16 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(valueFactory, "valueFactory");
 
-        return Cast.to(fromJsonNode0(node,
+        return Cast.to(unmarshall0(node,
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                FromJsonNodeContexts.basic()));
+                JsonNodeUnmarshallContexts.basic()));
     }
 
     /**
-     * Creates a json-patch json which is identical to the {@link #toJsonNode(ToJsonNodeContext)} but without the type properties.
+     * Creates a json-patch json which is identical to the {@link #marshall(JsonNodeMarshallContext)} but without the type properties.
      */
     public final JsonArrayNode toJsonPatch() {
-        return this.toJsonNode0(NodePatchToJsonFormat.JSON_PATCH, ToJsonNodeContexts.basic());
+        return this.marshall0(NodePatchToJsonFormat.JSON_PATCH, JsonNodeMarshallContexts.basic());
     }
 
     // HasJsonNode...............................................................................
@@ -216,12 +216,12 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      * }
      * </pre>
      */
-    static NodePatch<?, ?> fromJsonNode(final JsonNode node,
-                                        final FromJsonNodeContext context) {
+    static NodePatch<?, ?> unmarshall(final JsonNode node,
+                                      final JsonNodeUnmarshallContext context) {
         checkNode(node);
 
-        return fromJsonNode0(node,
-                NodePatchFromJsonFormat.fromJsonNodeContext(),
+        return unmarshall0(node,
+                NodePatchFromJsonFormat.unmarshallContext(),
                 context);
     }
 
@@ -229,25 +229,25 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
         Objects.requireNonNull(node, "node");
     }
 
-    private static NodePatch<?, ?> fromJsonNode0(final JsonNode node,
-                                                 final NodePatchFromJsonFormat format,
-                                                 final FromJsonNodeContext context) {
+    private static NodePatch<?, ?> unmarshall0(final JsonNode node,
+                                               final NodePatchFromJsonFormat format,
+                                               final JsonNodeUnmarshallContext context) {
         try {
-            return fromJsonNode1(node.arrayOrFail(), format, context);
-        } catch (final FromJsonNodeException cause) {
+            return unmarshall1(node.arrayOrFail(), format, context);
+        } catch (final JsonNodeUnmarshallException cause) {
             throw cause;
         } catch (final RuntimeException cause) {
-            throw new FromJsonNodeException(cause.getMessage(), node, cause);
+            throw new JsonNodeUnmarshallException(cause.getMessage(), node, cause);
         }
     }
 
-    private static NodePatch<?, ?> fromJsonNode1(final JsonArrayNode array,
-                                                 final NodePatchFromJsonFormat format,
-                                                 final FromJsonNodeContext context) {
+    private static NodePatch<?, ?> unmarshall1(final JsonArrayNode array,
+                                               final NodePatchFromJsonFormat format,
+                                               final JsonNodeUnmarshallContext context) {
         NodePatch<?, ?> patch = NodePatchEmpty.getWildcard();
 
         for (JsonNode child : array.children()) {
-            patch = patch.append(Cast.to(fromJsonNode2(child.objectOrFail(), format, context)));
+            patch = patch.append(Cast.to(unmarshall2(child.objectOrFail(), format, context)));
         }
 
         return patch;
@@ -263,9 +263,9 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Factory that switches on the op and then creates a {@link NodePatch}.
      */
-    private static NodePatchNonEmpty<?, ?> fromJsonNode2(final JsonObjectNode node,
-                                                         final NodePatchFromJsonFormat format,
-                                                         final FromJsonNodeContext context) {
+    private static NodePatchNonEmpty<?, ?> unmarshall2(final JsonObjectNode node,
+                                                       final NodePatchFromJsonFormat format,
+                                                       final JsonNodeUnmarshallContext context) {
         NodePatchNonEmpty<?, ?> patch = null;
 
         final String op = node.getOrFail(OP_PROPERTY).stringValueOrFail();
@@ -314,8 +314,8 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
     static {
         JsonNodeContext.register("patch",
-                NodePatch::fromJsonNode,
-                NodePatch::toJsonNode,
+                NodePatch::unmarshall,
+                NodePatch::marshall,
                 NodePatch.class,
                 NodePatchNotEmptyAddReplaceOrTestAdd.class,
                 NodePatchNotEmptyCopyOrMoveCopy.class,
@@ -326,10 +326,10 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 NodePatchNotEmptyAddReplaceOrTestTest.class);
     }
 
-    final JsonArrayNode toJsonNode(final ToJsonNodeContext context) {
-        return this.toJsonNode0(NodePatchToJsonFormat.JSON_NODE_CONTEXT,
+    final JsonArrayNode marshall(final JsonNodeMarshallContext context) {
+        return this.marshall0(NodePatchToJsonFormat.JSON_NODE_CONTEXT,
                 context);
     }
 
-    abstract JsonArrayNode toJsonNode0(final NodePatchToJsonFormat format, final ToJsonNodeContext context);
+    abstract JsonArrayNode marshall0(final NodePatchToJsonFormat format, final JsonNodeMarshallContext context);
 }

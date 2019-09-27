@@ -74,7 +74,7 @@ final class NodePatchNotEmptyAddReplaceOrTestReplace<N extends Node<N, NAME, ?, 
         return REPLACE;
     }
 
-    // ToJsonNodeContext................................................................................................
+    // JsonNodeMarshallContext................................................................................................
 
     private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(REPLACE));

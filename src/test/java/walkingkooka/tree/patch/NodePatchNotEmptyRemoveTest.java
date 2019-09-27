@@ -75,8 +75,8 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     }
 
     @Test
-    public void testFromJsonNodeRequiredPathNameTypeMissingFails() {
-        this.fromJsonNodeAndCheck("[{\n" +
+    public void testJsonNodeUnmarshallRequiredPathNameTypeMissingFails() {
+        this.unmarshallAndCheck("[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
                         "  \"path\": \"/a1\"\n" +
@@ -87,35 +87,35 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     // HasJsonNode..................................................................................................
 
     @Test
-    public void testFromJsonNodeFromPropertyFails() {
-        this.fromJsonNodeFails("[{\n" +
-                "  \"op\": \"remove\",\n" +
-                "  \"from\": \"/123\"\n" +
-                "}]",
+    public void testJsonNodeUnmarshallFromPropertyFails() {
+        this.unmarshallFails("[{\n" +
+                        "  \"op\": \"remove\",\n" +
+                        "  \"from\": \"/123\"\n" +
+                        "}]",
                 JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeValueTypePropertyFails() {
-        this.fromJsonNodeFails("[{\n" +
-                "  \"op\": \"remove\",\n" +
-                "  \"value-type\": \"json-property-name\"\n" +
-                "}]",
+    public void testJsonNodeUnmarshallValueTypePropertyFails() {
+        this.unmarshallFails("[{\n" +
+                        "  \"op\": \"remove\",\n" +
+                        "  \"value-type\": \"json-property-name\"\n" +
+                        "}]",
                 JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodeValuePropertyFails() {
-        this.fromJsonNodeFails("[{\n" +
-                "  \"op\": \"remove\",\n" +
-                "  \"value\": true\n" +
-                "}]",
+    public void testJsonNodeUnmarshallValuePropertyFails() {
+        this.unmarshallFails("[{\n" +
+                        "  \"op\": \"remove\",\n" +
+                        "  \"value\": true\n" +
+                        "}]",
                 JsonNodeException.class);
     }
 
     @Test
-    public void testFromJsonNodePathNameTypeMissing() {
-        this.fromJsonNodeAndCheck("[{\n" +
+    public void testJsonNodeUnmarshallPathNameTypeMissing() {
+        this.unmarshallAndCheck("[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
                         "  \"path\": \"/123\"\n" +
@@ -124,8 +124,8 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     }
 
     @Test
-    public void testToJsonNodePathNameTypeNotRequired() {
-        this.toJsonNodeAndCheck(this.createPatch(NodePointer.indexed(123, JsonNode.class)),
+    public void testJsonNodeMarshallPathNameTypeNotRequired() {
+        this.marshallAndCheck(this.createPatch(NodePointer.indexed(123, JsonNode.class)),
                 "[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path\": \"/123\"\n" +
@@ -133,8 +133,8 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     }
 
     @Test
-    public void testToJsonNodePathNameTypeRequired() {
-        this.toJsonNodeAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
+    public void testJsonNodeMarshallPathNameTypeRequired() {
+        this.marshallAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
                 "[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
@@ -143,8 +143,8 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     }
 
     @Test
-    public void testToJsonNodePathNameTypeRequired2() {
-        this.toJsonNodeAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
+    public void testJsonNodeMarshallPathNameTypeRequired2() {
+        this.marshallAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
                 "[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path\": \"/abc\",\n" +
@@ -153,14 +153,14 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     }
 
     @Test
-    public void testToJsonNodeRoundtrip() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
+    public void testJsonNodeMarshallRoundtrip() {
+        this.marshallWithTypeRoundTripTwiceAndCheck(this.createPatch()
                 .remove(this.path2()));
     }
 
     @Test
-    public void testToJsonNodeRoundtrip2() {
-        this.toJsonNodeWithTypeRoundTripTwiceAndCheck(this.createPatch()
+    public void testJsonNodeMarshallRoundtrip2() {
+        this.marshallWithTypeRoundTripTwiceAndCheck(this.createPatch()
                 .remove(this.path2())
                 .remove(this.path3()));
     }
