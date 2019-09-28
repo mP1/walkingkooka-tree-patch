@@ -24,8 +24,6 @@ import java.util.Objects;
  */
 public class ApplyNodePatchException extends NodePatchException {
 
-    private static final long serialVersionUID = 1L;
-
     public ApplyNodePatchException(final String message,
                                    final NodePatch<?, ?> patch) {
         super(message);
