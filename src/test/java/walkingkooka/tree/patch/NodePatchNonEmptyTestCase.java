@@ -100,10 +100,6 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
                 patch);
     }
 
-    final void fromJsonPatchFails2(final String json) {
-        this.fromJsonPatchFails(json.replace("$OP", this.operation()));
-    }
-
     final void fromJsonPatchAndCheck(final String from,
                                      final NodePatch<JsonNode, JsonNodeName> value) {
         this.fromJsonPatchAndCheck(JsonNode.parse(from), value);
