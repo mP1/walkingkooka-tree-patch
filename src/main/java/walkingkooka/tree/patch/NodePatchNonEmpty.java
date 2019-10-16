@@ -118,6 +118,7 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
 
     // HashCodeEqualsDefined................................................................................................
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public final boolean equals(final Object other) {
         return this == other || this.canBeEqual(other) && this.equals0(Cast.to(other));
