@@ -19,6 +19,7 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
@@ -59,7 +60,7 @@ final class NodePatchToJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?
 
     @Override
     public String toString() {
-        return this.pathNameType.map(p -> p.toString())
+        return this.pathNameType.map(JsonNode::toString)
                 .orElse("");
     }
 }
