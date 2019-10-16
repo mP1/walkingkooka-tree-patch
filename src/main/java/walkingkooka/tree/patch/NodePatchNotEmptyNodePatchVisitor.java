@@ -163,9 +163,9 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     /**
      * Helper that fails if the value is null using the property name in the message detail.
      */
-    final <T> T propertyOrFail(final T value, final JsonNodeName property) {
+    final <T> T valueOrFail(final T value) {
         if (null == value) {
-            throw new IllegalArgumentException("Required property " + property + " missing " + this.patch);
+            throw new IllegalArgumentException("Required property " + NodePatch.VALUE_PROPERTY + " missing " + this.patch);
         }
         return value;
     }

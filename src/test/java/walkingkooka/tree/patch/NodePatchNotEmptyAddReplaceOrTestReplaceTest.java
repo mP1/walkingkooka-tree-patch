@@ -60,7 +60,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestReplaceTest extends NodePatc
 
     @Test
     public void testReplaceGrandChild() {
-        this.applyAndCheck(this.createPatch("/a1/b2", "{\"c3\": \"value3\"}"),
+        this.applyAndCheck(this.createPatch("/a1/b2"),
                 "{\"a1\": {\"b2\": \"old-b2\"}}",
                 "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}");
     }
@@ -86,8 +86,8 @@ public final class NodePatchNotEmptyAddReplaceOrTestReplaceTest extends NodePatc
         return NodePatchNotEmptyAddReplaceOrTestReplace.with(NodePointer.named(property, JsonNode.class), value);
     }
 
-    private NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final String path, final String value) {
-        return this.createPatch(path, JsonNode.parse(value));
+    private NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final String path) {
+        return this.createPatch(path, JsonNode.parse("{\"c3\": \"value3\"}"));
     }
 
     private NodePatchNotEmptyAddReplaceOrTestReplace<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
