@@ -29,9 +29,7 @@ public final class NodePatchEmptyTest extends NodePatchTestCase3<NodePatchEmpty<
 
     @Test
     public void testWithNullTypeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePatchEmpty.get(null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePatchEmpty.get(null));
     }
 
     @Test

@@ -31,23 +31,17 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
 
     @Test
     public void testFromJsonPatchNullJsonNodeFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePatch.fromJsonPatch(null, this.nameFactory(), this.valueFactory());
-        });
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(null, this.nameFactory(), this.valueFactory()));
     }
 
     @Test
     public void testFromJsonPatchNullNameFactoryFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePatch.fromJsonPatch(JsonNode.object(), null, this.valueFactory());
-        });
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), null, this.valueFactory()));
     }
 
     @Test
     public void testFromJsonPatchNulValueFactorylFails() {
-        assertThrows(NullPointerException.class, () -> {
-            NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null);
-        });
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null));
     }
 
     private Function<String, JsonNodeName> nameFactory() {

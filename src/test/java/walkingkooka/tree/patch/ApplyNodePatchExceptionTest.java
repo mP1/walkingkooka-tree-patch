@@ -32,9 +32,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
 
     @Test
     public void testWithNullPatchFails() {
-        assertThrows(NullPointerException.class, () -> {
-            new ApplyNodePatchException("message", null);
-        });
+        assertThrows(NullPointerException.class, () -> new ApplyNodePatchException("message", null));
     }
 
     @Override
@@ -60,9 +58,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
 
     @Test
     public void testWithMessageAndNullPathAndCause() {
-        assertThrows(NullPointerException.class, () -> {
-            new ApplyNodePatchException(MESSAGE, null, new Exception());
-        });
+        assertThrows(NullPointerException.class, () -> new ApplyNodePatchException(MESSAGE, null, new Exception()));
     }
 
     @Test
