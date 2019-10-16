@@ -57,7 +57,7 @@ final class NodePatchFromJsonFormatJsonPatch<N extends Node<N, NAME, ?, ?>, NAME
     @Override
     Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
                                  final JsonNodeUnmarshallContext context) {
-        return this.valueFactory.apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY));
+        return this.valueFactory.apply(visitor.valueOrFail(visitor.value));
     }
 
     private final Function<String, NAME> nameFactory;

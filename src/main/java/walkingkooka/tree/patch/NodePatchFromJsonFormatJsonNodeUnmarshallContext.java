@@ -54,7 +54,7 @@ final class NodePatchFromJsonFormatJsonNodeUnmarshallContext extends NodePatchFr
     Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
                                  final JsonNodeUnmarshallContext context) {
         return Cast.to(visitor.valueFactory(context)
-                .apply(visitor.propertyOrFail(visitor.value, NodePatch.VALUE_PROPERTY), context));
+                .apply(visitor.valueOrFail(visitor.value), context));
     }
 
     @Override
