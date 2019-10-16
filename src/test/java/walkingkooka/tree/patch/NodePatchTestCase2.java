@@ -93,8 +93,6 @@ public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
 
     final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
                                              final JsonNode before) {
-        return assertThrows(ApplyNodePatchException.class, () -> {
-            patch.apply(before);
-        });
+        return assertThrows(ApplyNodePatchException.class, () -> patch.apply(before));
     }
 }

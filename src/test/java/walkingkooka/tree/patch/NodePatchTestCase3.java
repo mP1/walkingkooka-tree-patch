@@ -43,90 +43,66 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
 
     @Test
     public final void testApplyNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().apply(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().apply(null));
     }
 
     @Test
     public final void testAddNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().add(null, JsonNode.string("value"));
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().add(null, JsonNode.string("value")));
     }
 
     @Test
     public final void testAddNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().add(this.path(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().add(this.path(), null));
     }
 
     @Test
     public final void testCopyNullFromFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().copy(null, this.path());
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().copy(null, this.path()));
     }
 
     @Test
     public final void testCopyNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().copy(this.path(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().copy(this.path(), null));
     }
 
     @Test
     public final void testCopyFromSameAsPathFails() {
         final NodePointer<JsonNode, JsonNodeName> path = this.path();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createPatch().copy(path, path);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createPatch().copy(path, path));
     }
 
     @Test
     public final void testMoveNullFromFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().move(null, this.path());
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().move(null, this.path()));
     }
 
     @Test
     public final void testMoveNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().move(this.path(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().move(this.path(), null));
     }
 
     @Test
     public final void testMoveFromSameAsPathFails() {
         final NodePointer<JsonNode, JsonNodeName> path = this.path();
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createPatch().move(path, path);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.createPatch().move(path, path));
     }
 
     @Test
     public final void testReplaceNullPathFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().replace(null, this.value());
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().replace(null, this.value()));
     }
 
     @Test
     public final void testReplaceNullValueFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().replace(this.path(), null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().replace(this.path(), null));
     }
 
     @Test
     public final void testRemoveNullFromFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createPatch().remove(null);
-        });
+        assertThrows(NullPointerException.class, () -> this.createPatch().remove(null));
     }
 
     // HasJsonNode..................................................................................

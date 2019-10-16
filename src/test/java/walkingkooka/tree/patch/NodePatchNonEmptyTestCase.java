@@ -121,9 +121,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     }
 
     final void fromJsonPatchFails(final JsonNode from) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.fromJsonPatch(from);
-        });
+        assertThrows(IllegalArgumentException.class, () -> this.fromJsonPatch(from));
     }
 
     final NodePatch<JsonNode, JsonNodeName> fromJsonPatch(final JsonNode node) {
