@@ -21,7 +21,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonStringNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.pointer.NamedChildNodePointer;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitor;
 import walkingkooka.visit.Visiting;
@@ -47,8 +46,9 @@ final class NodePatchToJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?
     }
 
     @Override
-    protected Visiting startVisit(final NamedChildNodePointer<N, NAME> node) {
-        this.pathNameType = this.context.typeName(node.name().getClass());
+    protected Visiting startVisitNamedChild(final NodePointer<N, NAME> node,
+                                            final NAME name) {
+        this.pathNameType = this.context.typeName(name.getClass());
         return Visiting.SKIP;
     }
 
