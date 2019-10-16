@@ -326,7 +326,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 NodePatchNotEmptyAddReplaceOrTestTest.class);
     }
 
-    final JsonArrayNode marshall(final JsonNodeMarshallContext context) {
+    private JsonArrayNode marshall(final JsonNodeMarshallContext context) {
         return this.marshall0(NodePatchToJsonFormat.JSON_NODE_CONTEXT,
                 context);
     }

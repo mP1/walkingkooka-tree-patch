@@ -74,7 +74,7 @@ final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchN
         this.value = value;
     }
 
-    Node<?, ?, ?, ?> value() {
+    private Node<?, ?, ?, ?> value() {
         return this.format.valueOrFail(this, this.context);
     }
 

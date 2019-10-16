@@ -58,14 +58,14 @@ final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmpt
         this.from = from;
     }
 
-    NodePointer<?, ?> from() {
+    private NodePointer<?, ?> from() {
         return this.pathOrFail(this.from, NodePatch.FROM_PROPERTY);
     }
 
     /**
      * Once all properties are visited this will be converted into a {@link NodePointer}
      */
-    String from;
+    private String from;
 
     @Override
     void visitValueType(final JsonNode valueType) {

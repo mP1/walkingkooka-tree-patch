@@ -100,7 +100,7 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
 
     // PATH NAME TYPE .............................................................................................
 
-    final void visitPathNameType(final JsonNode pathNameType) {
+    private void visitPathNameType(final JsonNode pathNameType) {
         pathNameType.stringValueOrFail();
     }
 
@@ -122,7 +122,7 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
 
     // PATH ........................................................................................................
 
-    final void visitPath(final String path) {
+    private void visitPath(final String path) {
         this.path = path;
     }
 
@@ -133,7 +133,7 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     /**
      * Once all properties are visited this will be converted into a {@link NodePointer}
      */
-    String path;
+    private String path;
 
     /**
      * Creates a {@link NodePointer} from the {@link JsonStringNode} using the property name in any error messages.
