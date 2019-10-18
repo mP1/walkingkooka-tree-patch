@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.type.JavaVisibility;
+import walkingkooka.reflect.JavaVisibility;
 
 public abstract class NodePatchTestCase4<T> extends NodePatchTestCase<T> {
 
