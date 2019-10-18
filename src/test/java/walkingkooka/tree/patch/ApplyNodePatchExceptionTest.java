@@ -18,10 +18,10 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.StandardThrowableTesting;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.StandardThrowableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.type.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
