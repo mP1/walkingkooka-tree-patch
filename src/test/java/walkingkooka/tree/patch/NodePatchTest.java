@@ -21,13 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, JsonNodeName>> {
+public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, JsonPropertyName>> {
 
     @Test
     public void testFromJsonPatchNullJsonNodeFails() {
@@ -44,8 +44,8 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
         assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null));
     }
 
-    private Function<String, JsonNodeName> nameFactory() {
-        return JsonNodeName::with;
+    private Function<String, JsonPropertyName> nameFactory() {
+        return JsonPropertyName::with;
     }
 
     private Function<JsonNode, JsonNode> valueFactory() {
@@ -202,7 +202,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
     // ClassTesting2....................................................................................................
 
     @Override
-    public Class<NodePatch<JsonNode, JsonNodeName>> type() {
+    public Class<NodePatch<JsonNode, JsonPropertyName>> type() {
         return Cast.to(NodePatch.class);
     }
 

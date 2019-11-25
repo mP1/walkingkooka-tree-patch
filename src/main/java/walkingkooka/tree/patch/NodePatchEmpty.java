@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonArray;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
@@ -93,14 +93,14 @@ final class NodePatchEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     // HasJsonNode.............................................................................................
 
     /**
-     * An empty patch is represented as an empty {@link JsonArrayNode}.
+     * An empty patch is represented as an empty {@link JsonArray}.
      * <pre>
      * []
      * </pre>
      */
     @Override
-    JsonArrayNode marshall0(final NodePatchToJsonFormat format,
-                            final JsonNodeMarshallContext context) {
+    JsonArray marshall0(final NodePatchToJsonFormat format,
+                        final JsonNodeMarshallContext context) {
         return JsonNode.array();
     }
 }

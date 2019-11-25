@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -96,9 +96,9 @@ abstract class NodePatchNotEmptyCopyOrMove<N extends Node<N, NAME, ?, ?>, NAME e
      * </pre>
      */
     @Override
-    final JsonObjectNode marshall1(final JsonObjectNode object,
-                                   final NodePatchToJsonFormat format,
-                                   final JsonNodeMarshallContext context) {
+    final JsonObject marshall1(final JsonObject object,
+                               final NodePatchToJsonFormat format,
+                               final JsonNodeMarshallContext context) {
         return this.setPath(
                 format.setPathNameType(object, this.from, this.path, context)
                         .set(FROM_PROPERTY, pathJsonNodeMarshall(this.from)));

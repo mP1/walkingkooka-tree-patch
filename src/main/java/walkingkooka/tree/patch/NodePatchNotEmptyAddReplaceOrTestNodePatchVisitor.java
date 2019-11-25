@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -28,7 +28,7 @@ import java.util.function.BiFunction;
 
 final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchNotEmptyNodePatchVisitor {
 
-    static NodePatchNotEmptyAddReplaceOrTestAdd<?, ?> add(final JsonObjectNode patch,
+    static NodePatchNotEmptyAddReplaceOrTestAdd<?, ?> add(final JsonObject patch,
                                                           final NodePatchFromJsonFormat format,
                                                           final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor = new NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(patch, format, context);
@@ -36,7 +36,7 @@ final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchN
         return NodePatchNotEmptyAddReplaceOrTestAdd.with(visitor.path(), Cast.to(visitor.value()));
     }
 
-    static NodePatchNotEmptyAddReplaceOrTestReplace<?, ?> replace(final JsonObjectNode patch,
+    static NodePatchNotEmptyAddReplaceOrTestReplace<?, ?> replace(final JsonObject patch,
                                                                   final NodePatchFromJsonFormat format,
                                                                   final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor = new NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(patch, format, context);
@@ -44,7 +44,7 @@ final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchN
         return NodePatchNotEmptyAddReplaceOrTestReplace.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
     }
 
-    static NodePatchNotEmptyAddReplaceOrTestTest<?, ?> test(final JsonObjectNode patch,
+    static NodePatchNotEmptyAddReplaceOrTestTest<?, ?> test(final JsonObject patch,
                                                             final NodePatchFromJsonFormat format,
                                                             final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor = new NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(patch, format, context);
@@ -52,7 +52,7 @@ final class NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor extends NodePatchN
         return NodePatchNotEmptyAddReplaceOrTestTest.with(visitor.path(), Cast.to(format.valueOrFail(visitor, context)));
     }
 
-    NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(final JsonObjectNode patch,
+    NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor(final JsonObject patch,
                                                       final NodePatchFromJsonFormat format,
                                                       final JsonNodeUnmarshallContext context) {
         super(patch, format, context);

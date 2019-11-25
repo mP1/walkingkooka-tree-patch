@@ -19,13 +19,13 @@ package walkingkooka.tree.patch;
 
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
 final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmptyNodePatchVisitor {
 
-    static NodePatchNotEmptyCopyOrMoveCopy<?, ?> copy(final JsonObjectNode patch,
+    static NodePatchNotEmptyCopyOrMoveCopy<?, ?> copy(final JsonObject patch,
                                                       final NodePatchFromJsonFormat format,
                                                       final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyCopyOrMoveNodePatchVisitor visitor = new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch,
@@ -35,7 +35,7 @@ final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmpt
         return NodePatchNotEmptyCopyOrMoveCopy.with(Cast.to(visitor.from()), visitor.path());
     }
 
-    static NodePatchNotEmptyCopyOrMoveMove<?, ?> move(final JsonObjectNode patch,
+    static NodePatchNotEmptyCopyOrMoveMove<?, ?> move(final JsonObject patch,
                                                       final NodePatchFromJsonFormat format,
                                                       final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyCopyOrMoveNodePatchVisitor visitor = new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch,
@@ -46,7 +46,7 @@ final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmpt
     }
 
     // VisibleForTesting
-    NodePatchNotEmptyCopyOrMoveNodePatchVisitor(final JsonObjectNode patch,
+    NodePatchNotEmptyCopyOrMoveNodePatchVisitor(final JsonObject patch,
                                                 final NodePatchFromJsonFormat format,
                                                 final JsonNodeUnmarshallContext context) {
         super(patch, format, context);

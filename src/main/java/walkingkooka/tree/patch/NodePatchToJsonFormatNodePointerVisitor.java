@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerVisitor;
@@ -29,11 +29,11 @@ import walkingkooka.visit.Visiting;
 import java.util.Optional;
 
 /**
- * Walks a {@link NodePointerVisitor} returning a {@link JsonStringNode} holding the path {@link Name} type if one is found.
+ * Walks a {@link NodePointerVisitor} returning a {@link JsonString} holding the path {@link Name} type if one is found.
  */
 final class NodePatchToJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointerVisitor<N, NAME> {
 
-    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> Optional<JsonStringNode> pathNameType(final NodePointer<N, NAME> path,
+    static <N extends Node<N, NAME, ?, ?>, NAME extends Name> Optional<JsonString> pathNameType(final NodePointer<N, NAME> path,
                                                                                                     final JsonNodeMarshallContext context) {
         final NodePatchToJsonFormatNodePointerVisitor<N, NAME> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(context);
         visitor.accept(path);
@@ -56,7 +56,7 @@ final class NodePatchToJsonFormatNodePointerVisitor<N extends Node<N, NAME, ?, ?
     private final JsonNodeMarshallContext context;
 
     // VisibleForTesting
-    Optional<JsonStringNode> pathNameType = Optional.empty();
+    Optional<JsonString> pathNameType = Optional.empty();
 
     @Override
     public String toString() {

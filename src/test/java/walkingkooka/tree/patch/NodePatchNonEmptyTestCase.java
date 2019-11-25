@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.util.function.Function;
@@ -28,7 +28,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<JsonNode, JsonNodeName>> extends NodePatchTestCase3<P> {
+public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<JsonNode, JsonPropertyName>> extends NodePatchTestCase3<P> {
 
     NodePatchNonEmptyTestCase() {
         super();
@@ -46,7 +46,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
 
     @Test
     public final void testEqualsWithNext() {
-        final NodePointer<JsonNode, JsonNodeName> path2 = this.path3();
+        final NodePointer<JsonNode, JsonPropertyName> path2 = this.path3();
         final JsonNode value2 = this.value2();
 
         this.checkEquals(this.createPatch().add(path2, value2),
@@ -55,7 +55,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
 
     @Test
     public final void testEqualsWithDifferentNext() {
-        final NodePointer<JsonNode, JsonNodeName> path2 = this.path3();
+        final NodePointer<JsonNode, JsonPropertyName> path2 = this.path3();
         this.checkNotEquals(this.createPatch().add(path2, this.value2()),
                 this.createPatch().add(path2, this.value3()));
     }
@@ -77,10 +77,10 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
         return this.createPatch(this.path1());
     }
 
-    abstract P createPatch(final NodePointer<JsonNode, JsonNodeName> path);
+    abstract P createPatch(final NodePointer<JsonNode, JsonPropertyName> path);
 
     final void unmarshallAndCheck2(final String json,
-                                   final NodePatch<JsonNode, JsonNodeName> patch) {
+                                   final NodePatch<JsonNode, JsonPropertyName> patch) {
         this.unmarshallAndCheck(json.replace("$OP", this.operation()),
                 patch);
     }
@@ -89,24 +89,24 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
         this.unmarshallFails(json.replace("$OP", this.operation()), JsonNodeException.class);
     }
 
-    final void marshallAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,
+    final void marshallAndCheck2(final NodePatch<JsonNode, JsonPropertyName> patch,
                                  final String json) {
         this.marshallAndCheck(patch, json.replace("$OP", this.operation()));
     }
 
     final void fromJsonPatchAndCheck2(final String json,
-                                      final NodePatch<JsonNode, JsonNodeName> patch) {
+                                      final NodePatch<JsonNode, JsonPropertyName> patch) {
         this.fromJsonPatchAndCheck(json.replace("$OP", this.operation()),
                 patch);
     }
 
     final void fromJsonPatchAndCheck(final String from,
-                                     final NodePatch<JsonNode, JsonNodeName> value) {
+                                     final NodePatch<JsonNode, JsonPropertyName> value) {
         this.fromJsonPatchAndCheck(JsonNode.parse(from), value);
     }
 
     final void fromJsonPatchAndCheck(final JsonNode from,
-                                     final NodePatch<JsonNode, JsonNodeName> value) {
+                                     final NodePatch<JsonNode, JsonPropertyName> value) {
         assertEquals(value,
                 this.fromJsonPatch(from),
                 () -> "fromJsonPatch failed " + from);
@@ -120,19 +120,19 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
         assertThrows(IllegalArgumentException.class, () -> this.fromJsonPatch(from));
     }
 
-    final NodePatch<JsonNode, JsonNodeName> fromJsonPatch(final JsonNode node) {
+    final NodePatch<JsonNode, JsonPropertyName> fromJsonPatch(final JsonNode node) {
         return NodePatch.fromJsonPatch(node,
-                JsonNodeName::with,
+                JsonPropertyName::with,
                 Function.identity());
     }
 
-    final void toJsonPatchAndCheck2(final NodePatch<JsonNode, JsonNodeName> patch,
+    final void toJsonPatchAndCheck2(final NodePatch<JsonNode, JsonPropertyName> patch,
                                     final String json) {
         this.toJsonPatchAndCheck(patch,
                 json.replace("$OP", this.operation()));
     }
 
-    final void toJsonPatchRoundtripAndCheck(final NodePatch<JsonNode, JsonNodeName> patch) {
+    final void toJsonPatchRoundtripAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch) {
         final JsonNode json = patch.toJsonPatch();
         this.fromJsonPatchAndCheck(json, patch);
     }

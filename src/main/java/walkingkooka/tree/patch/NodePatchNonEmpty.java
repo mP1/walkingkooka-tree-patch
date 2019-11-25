@@ -22,10 +22,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonArray;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -183,8 +183,8 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * </pre>
      */
     @Override
-    final JsonArrayNode marshall0(final NodePatchToJsonFormat format,
-                                  final JsonNodeMarshallContext context) {
+    final JsonArray marshall0(final NodePatchToJsonFormat format,
+                              final JsonNodeMarshallContext context) {
         final List<JsonNode> elements = Lists.array();
 
         NodePatchNonEmpty<N, NAME> patch = this;
@@ -199,26 +199,26 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
     /**
      * Sub classes must return an object with the op and path set.
      */
-    abstract JsonObjectNode jsonObjectWithOp();
+    abstract JsonObject jsonObjectWithOp();
 
     /**
      * Sub classes must return an object representing just this object. The object will already have the op and path properties set.
      */
-    abstract JsonObjectNode marshall1(final JsonObjectNode object,
-                                      final NodePatchToJsonFormat format,
-                                      final JsonNodeMarshallContext context);
+    abstract JsonObject marshall1(final JsonObject object,
+                                  final NodePatchToJsonFormat format,
+                                  final JsonNodeMarshallContext context);
 
     /**
      * Adds the path and path component type properites to the given object.
      */
-    final JsonObjectNode setPath(final JsonObjectNode object) {
+    final JsonObject setPath(final JsonObject object) {
         return object.set(NodePatch.PATH_PROPERTY, pathJsonNodeMarshall(this.path));
     }
 
     /**
-     * Makes a {@link JsonStringNode} from a {@link NodePointer}
+     * Makes a {@link JsonString} from a {@link NodePointer}
      */
-    static JsonStringNode pathJsonNodeMarshall(final NodePointer<?, ?> path) {
+    static JsonString pathJsonNodeMarshall(final NodePointer<?, ?> path) {
         return JsonNode.string(path.toString());
     }
 }

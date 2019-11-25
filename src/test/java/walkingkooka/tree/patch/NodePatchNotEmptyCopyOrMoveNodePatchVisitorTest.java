@@ -17,11 +17,11 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 
 public final class NodePatchNotEmptyCopyOrMoveNodePatchVisitorTest extends NodePatchNotEmptyNodePatchVisitorTestCase<NodePatchNotEmptyCopyOrMoveNodePatchVisitor> {
     @Override
-    NodePatchNotEmptyCopyOrMoveNodePatchVisitor createVisitor(final JsonObjectNode patch) {
+    NodePatchNotEmptyCopyOrMoveNodePatchVisitor createVisitor(final JsonObject patch) {
         return new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch, null, null);
     }
 

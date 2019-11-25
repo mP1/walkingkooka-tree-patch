@@ -20,10 +20,10 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class NodePatchNotEmptyCopyOrMoveCopyTest extends NodePatchNotEmptyCopyOrMoveTestCase<NodePatchNotEmptyCopyOrMoveCopy<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyCopyOrMoveCopyTest extends NodePatchNotEmptyCopyOrMoveTestCase<NodePatchNotEmptyCopyOrMoveCopy<JsonNode, JsonPropertyName>> {
 
     @Test
     public void testCopyChild() {
@@ -47,8 +47,8 @@ public final class NodePatchNotEmptyCopyOrMoveCopyTest extends NodePatchNotEmpty
     }
 
     @Override
-    NodePatchNotEmptyCopyOrMoveCopy<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> from,
-                                                                        final NodePointer<JsonNode, JsonNodeName> path) {
+    NodePatchNotEmptyCopyOrMoveCopy<JsonNode, JsonPropertyName> createPatch(final NodePointer<JsonNode, JsonPropertyName> from,
+                                                                            final NodePointer<JsonNode, JsonPropertyName> path) {
         return NodePatchNotEmptyCopyOrMoveCopy.with(from, path);
     }
 
@@ -60,7 +60,7 @@ public final class NodePatchNotEmptyCopyOrMoveCopyTest extends NodePatchNotEmpty
     // ClassTesting2............................................................................
 
     @Override
-    public Class<NodePatchNotEmptyCopyOrMoveCopy<JsonNode, JsonNodeName>> type() {
+    public Class<NodePatchNotEmptyCopyOrMoveCopy<JsonNode, JsonPropertyName>> type() {
         return Cast.to(NodePatchNotEmptyCopyOrMoveCopy.class);
     }
 

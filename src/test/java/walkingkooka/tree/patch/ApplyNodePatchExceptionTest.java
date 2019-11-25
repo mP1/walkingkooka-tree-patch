@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.StandardThrowableTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,7 +49,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
 
     @Test
     public void testWithPatch() {
-        final NodePatch<JsonNode, JsonNodeName> patch = this.empty();
+        final NodePatch<JsonNode, JsonPropertyName> patch = this.empty();
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch);
         this.checkMessage(exception, MESSAGE);
         this.checkPatch(exception, patch);
@@ -63,7 +63,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
 
     @Test
     public void testWithPatchAndCause() {
-        final NodePatch<JsonNode, JsonNodeName> patch = this.empty();
+        final NodePatch<JsonNode, JsonPropertyName> patch = this.empty();
         final Exception cause = new Exception("cause!");
 
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch, cause);
@@ -72,12 +72,12 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         this.checkCause(exception, cause);
     }
 
-    private NodePatch<JsonNode, JsonNodeName> empty() {
+    private NodePatch<JsonNode, JsonPropertyName> empty() {
         return NodePatch.empty(JsonNode.class);
     }
 
     private void checkPatch(final ApplyNodePatchException exception,
-                            final NodePatch<JsonNode, JsonNodeName> patch) {
+                            final NodePatch<JsonNode, JsonPropertyName> patch) {
         assertSame(patch, exception.patch(), "patch");
     }
 

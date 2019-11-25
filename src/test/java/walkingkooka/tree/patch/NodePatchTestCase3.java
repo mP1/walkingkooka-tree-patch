@@ -24,7 +24,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
@@ -32,7 +32,7 @@ import walkingkooka.tree.pointer.NodePointer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeName>> extends NodePatchTestCase2<P>
+public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonPropertyName>> extends NodePatchTestCase2<P>
         implements HashCodeEqualsDefinedTesting2<P>,
         JsonNodeMarshallingTesting<P>,
         TypeNameTesting<P> {
@@ -68,7 +68,7 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
 
     @Test
     public final void testCopyFromSameAsPathFails() {
-        final NodePointer<JsonNode, JsonNodeName> path = this.path();
+        final NodePointer<JsonNode, JsonPropertyName> path = this.path();
 
         assertThrows(IllegalArgumentException.class, () -> this.createPatch().copy(path, path));
     }
@@ -85,7 +85,7 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
 
     @Test
     public final void testMoveFromSameAsPathFails() {
-        final NodePointer<JsonNode, JsonNodeName> path = this.path();
+        final NodePointer<JsonNode, JsonPropertyName> path = this.path();
 
         assertThrows(IllegalArgumentException.class, () -> this.createPatch().move(path, path));
     }
@@ -127,13 +127,13 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
         this.unmarshallFails(JsonNode.string("string123"), JsonNodeException.class);
     }
 
-    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                                    final String json) {
         this.toJsonPatchAndCheck(patch,
                 JsonNode.parse(json));
     }
 
-    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+    final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                                    final JsonNode node) {
         assertEquals(node,
                 patch.toJsonPatch(),
@@ -149,7 +149,7 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonNodeN
         return this.createPatch();
     }
 
-    private NodePointer<JsonNode, JsonNodeName> path() {
+    private NodePointer<JsonNode, JsonPropertyName> path() {
         return NodePointer.any(JsonNode.class);
     }
 
