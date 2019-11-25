@@ -19,10 +19,10 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public abstract class NodePatchNotEmptyCopyOrMoveTestCase<P extends NodePatchNotEmptyCopyOrMove<JsonNode, JsonNodeName>> extends NodePatchNonEmptyTestCase<P> {
+public abstract class NodePatchNotEmptyCopyOrMoveTestCase<P extends NodePatchNotEmptyCopyOrMove<JsonNode, JsonPropertyName>> extends NodePatchNonEmptyTestCase<P> {
 
     NodePatchNotEmptyCopyOrMoveTestCase() {
         super();
@@ -146,7 +146,7 @@ public abstract class NodePatchNotEmptyCopyOrMoveTestCase<P extends NodePatchNot
     abstract String operation();
 
     @Override
-    final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+    final P createPatch(final NodePointer<JsonNode, JsonPropertyName> path) {
         return this.createPatch(this.path2(), path);
     }
 
@@ -155,6 +155,6 @@ public abstract class NodePatchNotEmptyCopyOrMoveTestCase<P extends NodePatchNot
         return this.createPatch(this.pointer(from), this.pointer(path));
     }
 
-    abstract P createPatch(final NodePointer<JsonNode, JsonNodeName> from,
-                           final NodePointer<JsonNode, JsonNodeName> path);
+    abstract P createPatch(final NodePointer<JsonNode, JsonPropertyName> from,
+                           final NodePointer<JsonNode, JsonPropertyName> path);
 }

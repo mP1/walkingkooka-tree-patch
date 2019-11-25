@@ -17,8 +17,8 @@
 
 package walkingkooka.tree.patch;
 
-import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -28,19 +28,19 @@ enum NodePatchToJsonFormat {
 
     JSON_NODE_CONTEXT {
         @Override
-        JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                       final NodePointer<?, ?> path,
-                                       final JsonNodeMarshallContext context) {
+        JsonObject setPathNameType(final JsonObject object,
+                                   final NodePointer<?, ?> path,
+                                   final JsonNodeMarshallContext context) {
             return this.setPathNameType0(object,
                     NodePatchToJsonFormatNodePointerVisitor.pathNameType(path, context));
         }
 
         @Override
-        JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                       final NodePointer<?, ?> from,
-                                       final NodePointer<?, ?> path,
-                                       final JsonNodeMarshallContext context) {
-            Optional<JsonStringNode> type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(from, context);
+        JsonObject setPathNameType(final JsonObject object,
+                                   final NodePointer<?, ?> from,
+                                   final NodePointer<?, ?> path,
+                                   final JsonNodeMarshallContext context) {
+            Optional<JsonString> type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(from, context);
             if (!type.isPresent()) {
                 type = NodePatchToJsonFormatNodePointerVisitor.pathNameType(path, context);
             }
@@ -50,64 +50,64 @@ enum NodePatchToJsonFormat {
         /**
          * Adds the path component type properties if necessary to the given object.
          */
-        private JsonObjectNode setPathNameType0(final JsonObjectNode object,
-                                                final Optional<JsonStringNode> pathNameType) {
+        private JsonObject setPathNameType0(final JsonObject object,
+                                            final Optional<JsonString> pathNameType) {
             return pathNameType
                     .map(t -> object.set(NodePatch.PATH_NAME_TYPE_PROPERTY, t))
                     .orElse(object);
         }
 
         @Override
-        JsonObjectNode setValueType(final JsonObjectNode object,
-                                    final Object value,
-                                    final JsonNodeMarshallContext context) {
+        JsonObject setValueType(final JsonObject object,
+                                final Object value,
+                                final JsonNodeMarshallContext context) {
             return object.set(NodePatch.VALUE_TYPE_PROPERTY,
                     typeOrFail(value, context));
         }
 
         /**
-         * Accepts a value such as a path or value and returns a {@link JsonStringNode} with the type name.
+         * Accepts a value such as a path or value and returns a {@link JsonString} with the type name.
          */
-        private JsonStringNode typeOrFail(final Object value,
-                                          final JsonNodeMarshallContext context) {
+        private JsonString typeOrFail(final Object value,
+                                      final JsonNodeMarshallContext context) {
             return context.typeName(value.getClass())
                     .orElseThrow(() -> new IllegalArgumentException("Type not registered as supporting json: " + value));
         }
     },
     JSON_PATCH {
         @Override
-        JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                       final NodePointer<?, ?> path,
-                                       final JsonNodeMarshallContext context) {
+        JsonObject setPathNameType(final JsonObject object,
+                                   final NodePointer<?, ?> path,
+                                   final JsonNodeMarshallContext context) {
             return object;
         }
 
         @Override
-        JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                       final NodePointer<?, ?> from,
-                                       final NodePointer<?, ?> path,
-                                       final JsonNodeMarshallContext context) {
+        JsonObject setPathNameType(final JsonObject object,
+                                   final NodePointer<?, ?> from,
+                                   final NodePointer<?, ?> path,
+                                   final JsonNodeMarshallContext context) {
             return object;
         }
 
         @Override
-        JsonObjectNode setValueType(final JsonObjectNode object,
-                                    final Object value,
-                                    final JsonNodeMarshallContext context) {
+        JsonObject setValueType(final JsonObject object,
+                                final Object value,
+                                final JsonNodeMarshallContext context) {
             return object;
         }
     };
 
-    abstract JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                            final NodePointer<?, ?> path,
-                                            final JsonNodeMarshallContext context);
+    abstract JsonObject setPathNameType(final JsonObject object,
+                                        final NodePointer<?, ?> path,
+                                        final JsonNodeMarshallContext context);
 
-    abstract JsonObjectNode setPathNameType(final JsonObjectNode object,
-                                            final NodePointer<?, ?> from,
-                                            final NodePointer<?, ?> path,
-                                            final JsonNodeMarshallContext context);
+    abstract JsonObject setPathNameType(final JsonObject object,
+                                        final NodePointer<?, ?> from,
+                                        final NodePointer<?, ?> path,
+                                        final JsonNodeMarshallContext context);
 
-    abstract JsonObjectNode setValueType(final JsonObjectNode object,
-                                         final Object value,
-                                         final JsonNodeMarshallContext context);
+    abstract JsonObject setValueType(final JsonObject object,
+                                     final Object value,
+                                     final JsonNodeMarshallContext context);
 }

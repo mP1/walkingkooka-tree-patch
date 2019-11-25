@@ -19,10 +19,10 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public abstract class NodePatchNotEmptyAddReplaceOrTestTestCase<P extends NodePatchNotEmptyAddReplaceOrTest<JsonNode, JsonNodeName>> extends NodePatchNonEmptyTestCase<P> {
+public abstract class NodePatchNotEmptyAddReplaceOrTestTestCase<P extends NodePatchNotEmptyAddReplaceOrTest<JsonNode, JsonPropertyName>> extends NodePatchNonEmptyTestCase<P> {
 
     NodePatchNotEmptyAddReplaceOrTestTestCase() {
         super();
@@ -150,9 +150,10 @@ public abstract class NodePatchNotEmptyAddReplaceOrTestTestCase<P extends NodePa
                 "[{\"op\": \"$OP\", \"path\": \"/a1\", \"value\": \"value1\"}]");
     }
 
-    @Override final P createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+    @Override
+    final P createPatch(final NodePointer<JsonNode, JsonPropertyName> path) {
         return this.createPatch(path, this.value1());
     }
 
-    abstract P createPatch(final NodePointer<JsonNode, JsonNodeName> path, final JsonNode value);
+    abstract P createPatch(final NodePointer<JsonNode, JsonPropertyName> path, final JsonNode value);
 }

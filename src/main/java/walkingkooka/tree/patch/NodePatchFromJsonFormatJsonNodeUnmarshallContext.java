@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.function.Function;
@@ -39,7 +39,7 @@ final class NodePatchFromJsonFormatJsonNodeUnmarshallContext extends NodePatchFr
 
     @Override
     void accept(final NodePatchNotEmptyNodePatchVisitor visitor,
-                final JsonObjectNode node) {
+                final JsonObject node) {
         visitor.acceptNodePatch(node);
     }
 

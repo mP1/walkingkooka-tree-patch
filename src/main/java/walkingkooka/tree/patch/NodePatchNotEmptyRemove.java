@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -77,11 +77,11 @@ final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends 
 
     // JsonNodeContext..................................................................................................
 
-    private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
+    private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(REMOVE));
 
     @Override
-    JsonObjectNode jsonObjectWithOp() {
+    JsonObject jsonObjectWithOp() {
         return JSON_OBJECT_WITH_OPERATION;
     }
 
@@ -95,9 +95,9 @@ final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends 
      * </pre>
      */
     @Override
-    JsonObjectNode marshall1(final JsonObjectNode object,
-                             final NodePatchToJsonFormat format,
-                             final JsonNodeMarshallContext context) {
+    JsonObject marshall1(final JsonObject object,
+                         final NodePatchToJsonFormat format,
+                         final JsonNodeMarshallContext context) {
         return this.setPath(format.setPathNameType(object,
                 this.path,
                 context));

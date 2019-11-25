@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.pointer.NodePointer;
 
 /**
@@ -66,11 +66,11 @@ final class NodePatchNotEmptyAddReplaceOrTestAdd<N extends Node<N, NAME, ?, ?>, 
 
     // JsonNodeMarshallContext................................................................................................
 
-    private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
+    private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(ADD));
 
     @Override
-    JsonObjectNode jsonObjectWithOp() {
+    JsonObject jsonObjectWithOp() {
         return JSON_OBJECT_WITH_OPERATION;
     }
 }

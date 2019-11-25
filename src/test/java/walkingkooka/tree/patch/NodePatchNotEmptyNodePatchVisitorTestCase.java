@@ -19,7 +19,7 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.visit.VisitorTesting;
 
 public abstract class NodePatchNotEmptyNodePatchVisitorTestCase<V extends NodePatchNotEmptyNodePatchVisitor> extends NodePatchTestCase4<V>
@@ -31,7 +31,7 @@ public abstract class NodePatchNotEmptyNodePatchVisitorTestCase<V extends NodePa
 
     @Test
     public final void testToString() {
-        final JsonObjectNode patch = JsonNode.object()
+        final JsonObject patch = JsonNode.object()
                 .set(NodePatch.FROM_PROPERTY, JsonNode.string("from123"));
         this.toStringAndCheck(this.createVisitor(patch), patch.toString());
     }
@@ -41,7 +41,7 @@ public abstract class NodePatchNotEmptyNodePatchVisitorTestCase<V extends NodePa
         return this.createVisitor(null);
     }
 
-    abstract V createVisitor(final JsonObjectNode patch);
+    abstract V createVisitor(final JsonObject patch);
 
     @Override
     public final String typeNameSuffix() {

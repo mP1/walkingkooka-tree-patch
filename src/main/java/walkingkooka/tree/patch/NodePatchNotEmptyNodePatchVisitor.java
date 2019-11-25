@@ -20,9 +20,9 @@ package walkingkooka.tree.patch;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.visit.Visitor;
@@ -34,7 +34,7 @@ import java.util.function.BiFunction;
  */
 abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
 
-    NodePatchNotEmptyNodePatchVisitor(final JsonObjectNode patch,
+    NodePatchNotEmptyNodePatchVisitor(final JsonObject patch,
                                       final NodePatchFromJsonFormat format,
                                       final JsonNodeUnmarshallContext context) {
         super();
@@ -48,9 +48,9 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
         this.format.accept(this, node.objectOrFail());
     }
 
-    final void acceptJsonPatch(final JsonObjectNode node) {
+    final void acceptJsonPatch(final JsonObject node) {
         for (JsonNode property : node.children()) {
-            final JsonNodeName propertyName = property.name();
+            final JsonPropertyName propertyName = property.name();
 
             switch (propertyName.value()) {
                 case NodePatch.OP:
@@ -70,9 +70,9 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
         }
     }
 
-    final void acceptNodePatch(final JsonObjectNode node) {
+    final void acceptNodePatch(final JsonObject node) {
         for (JsonNode property : node.children()) {
-            final JsonNodeName propertyName = property.name();
+            final JsonPropertyName propertyName = property.name();
 
             switch (propertyName.value()) {
                 case NodePatch.OP:
@@ -136,11 +136,11 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     private String path;
 
     /**
-     * Creates a {@link NodePointer} from the {@link JsonStringNode} using the property name in any error messages.
+     * Creates a {@link NodePointer} from the {@link JsonString} using the property name in any error messages.
      */
     @SuppressWarnings("unchecked")
     final NodePointer<?, ?> pathOrFail(final String path,
-                                       final JsonNodeName property) {
+                                       final JsonPropertyName property) {
         try {
             return NodePointer.parse(path,
                     this.format.nameFactory(this, this.context),
@@ -173,14 +173,14 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     /**
      * Reports that an unknown property is present.
      */
-    final void unknownPropertyPresent(final JsonNodeName property) {
+    final void unknownPropertyPresent(final JsonPropertyName property) {
         JsonNodeUnmarshallContext.unknownPropertyPresent(property, this.patch);
     }
 
     /**
      * The json object representing the patch.
      */
-    final JsonObjectNode patch;
+    final JsonObject patch;
 
     final NodePatchFromJsonFormat format;
 

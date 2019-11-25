@@ -20,10 +20,10 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class NodePatchNotEmptyAddReplaceOrTestAddTest extends NodePatchNotEmptyAddReplaceOrTestTestCase<NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyAddReplaceOrTestAddTest extends NodePatchNotEmptyAddReplaceOrTestTestCase<NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonPropertyName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -75,15 +75,15 @@ public final class NodePatchNotEmptyAddReplaceOrTestAddTest extends NodePatchNot
     }
 
     @Override
-    NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, JsonNode value) {
+    NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonPropertyName> createPatch(final NodePointer<JsonNode, JsonPropertyName> path, JsonNode value) {
         return NodePatchNotEmptyAddReplaceOrTestAdd.with(path, value);
     }
 
-    private NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName> createPatch(final JsonNodeName property, final JsonNode value) {
+    private NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonPropertyName> createPatch(final JsonPropertyName property, final JsonNode value) {
         return NodePatchNotEmptyAddReplaceOrTestAdd.with(NodePointer.named(property, JsonNode.class), value);
     }
 
-    private NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName> createPatch(final String path, final JsonNode value) {
+    private NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonPropertyName> createPatch(final String path, final JsonNode value) {
         return NodePatchNotEmptyAddReplaceOrTestAdd.with(this.pointer(path), value);
     }
 
@@ -95,7 +95,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestAddTest extends NodePatchNot
     // ClassTesting2............................................................................
 
     @Override
-    public Class<NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonNodeName>> type() {
+    public Class<NodePatchNotEmptyAddReplaceOrTestAdd<JsonNode, JsonPropertyName>> type() {
         return Cast.to(NodePatchNotEmptyAddReplaceOrTestAdd.class);
     }
 

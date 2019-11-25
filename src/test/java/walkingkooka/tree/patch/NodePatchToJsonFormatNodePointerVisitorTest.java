@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonStringNode;
+import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.pointer.NodePointer;
@@ -32,8 +32,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatchTestCase4<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>>
-        implements NodePointerVisitorTesting<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>, JsonNode, JsonNodeName> {
+public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatchTestCase4<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>>
+        implements NodePointerVisitorTesting<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>, JsonNode, JsonPropertyName> {
 
     @Test
     public void testPathNameTypeNameAbsentFromPath() {
@@ -52,26 +52,26 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
 
     private void pathNameTypeAndCheck(final String path, final String typeName) {
         assertEquals(Optional.ofNullable(typeName).map(JsonNode::string),
-                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonNodeName::with, JsonNode.class), this.marshallContext()),
+                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonPropertyName::with, JsonNode.class), this.marshallContext()),
                 () -> "path: " + CharSequences.quoteAndEscape(path));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(new NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>(null), "");
+        this.toStringAndCheck(new NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>(null), "");
     }
 
     @Test
     public void testToString2() {
-        final JsonStringNode type = JsonNode.string(this.getClass().getName());
+        final JsonString type = JsonNode.string(this.getClass().getName());
 
-        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(this.marshallContext());
+        final NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName> visitor = new NodePatchToJsonFormatNodePointerVisitor<>(this.marshallContext());
         visitor.pathNameType = Optional.of(type);
         this.toStringAndCheck(visitor, type.toString());
     }
 
     @Override
-    public NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName> createVisitor() {
+    public NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName> createVisitor() {
         return new NodePatchToJsonFormatNodePointerVisitor<>(this.marshallContext());
     }
 
@@ -85,7 +85,7 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
     }
 
     @Override
-    public Class<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonNodeName>> type() {
+    public Class<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>> type() {
         return Cast.to(NodePatchToJsonFormatNodePointerVisitor.class);
     }
 }

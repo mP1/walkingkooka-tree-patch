@@ -21,10 +21,10 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonArray;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -188,7 +188,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Creates a json-patch json which is identical to the {@link #marshall(JsonNodeMarshallContext)} but without the type properties.
      */
-    public final JsonArrayNode toJsonPatch() {
+    public final JsonArray toJsonPatch() {
         return this.marshall0(NodePatchToJsonFormat.JSON_PATCH, JsonNodeMarshallContexts.basic());
     }
 
@@ -239,7 +239,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
         }
     }
 
-    private static NodePatch<?, ?> unmarshall1(final JsonArrayNode array,
+    private static NodePatch<?, ?> unmarshall1(final JsonArray array,
                                                final NodePatchFromJsonFormat format,
                                                final JsonNodeUnmarshallContext context) {
         NodePatch<?, ?> patch = NodePatchEmpty.getWildcard();
@@ -261,7 +261,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Factory that switches on the op and then creates a {@link NodePatch}.
      */
-    private static NodePatchNonEmpty<?, ?> unmarshall2(final JsonObjectNode node,
+    private static NodePatchNonEmpty<?, ?> unmarshall2(final JsonObject node,
                                                        final NodePatchFromJsonFormat format,
                                                        final JsonNodeUnmarshallContext context) {
         NodePatchNonEmpty<?, ?> patch = null;
@@ -300,15 +300,15 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     final static String VALUE_TYPE = "value-type";
     final static String VALUE = "value";
 
-    final static JsonNodeName OP_PROPERTY = JsonNodeName.with(OP);
+    final static JsonPropertyName OP_PROPERTY = JsonPropertyName.with(OP);
 
-    final static JsonNodeName PATH_NAME_TYPE_PROPERTY = JsonNodeName.with(PATH_NAME_TYPE);
+    final static JsonPropertyName PATH_NAME_TYPE_PROPERTY = JsonPropertyName.with(PATH_NAME_TYPE);
 
-    final static JsonNodeName FROM_PROPERTY = JsonNodeName.with(FROM);
-    final static JsonNodeName PATH_PROPERTY = JsonNodeName.with(PATH);
+    final static JsonPropertyName FROM_PROPERTY = JsonPropertyName.with(FROM);
+    final static JsonPropertyName PATH_PROPERTY = JsonPropertyName.with(PATH);
 
-    final static JsonNodeName VALUE_TYPE_PROPERTY = JsonNodeName.with(VALUE_TYPE);
-    final static JsonNodeName VALUE_PROPERTY = JsonNodeName.with(VALUE);
+    final static JsonPropertyName VALUE_TYPE_PROPERTY = JsonPropertyName.with(VALUE_TYPE);
+    final static JsonPropertyName VALUE_PROPERTY = JsonPropertyName.with(VALUE);
 
     static {
         JsonNodeContext.register("patch",
@@ -324,10 +324,10 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 NodePatchNotEmptyAddReplaceOrTestTest.class);
     }
 
-    private JsonArrayNode marshall(final JsonNodeMarshallContext context) {
+    private JsonArray marshall(final JsonNodeMarshallContext context) {
         return this.marshall0(NodePatchToJsonFormat.JSON_NODE_CONTEXT,
                 context);
     }
 
-    abstract JsonArrayNode marshall0(final NodePatchToJsonFormat format, final JsonNodeMarshallContext context);
+    abstract JsonArray marshall0(final NodePatchToJsonFormat format, final JsonNodeMarshallContext context);
 }

@@ -19,12 +19,12 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.tree.json.JsonArrayNode;
+import walkingkooka.tree.json.JsonArray;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNotEmptyAddReplaceOrTestTestCase<NodePatchNotEmptyAddReplaceOrTestTest<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNotEmptyAddReplaceOrTestTestCase<NodePatchNotEmptyAddReplaceOrTestTest<JsonNode, JsonPropertyName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -35,7 +35,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
     @Test
     public void testPathUnknownFails2() {
         this.applyFails(this.createPatch(),
-                JsonNode.object().set(JsonNodeName.with("A"), this.value1()));
+                JsonNode.object().set(JsonPropertyName.with("A"), this.value1()));
     }
 
     @Test
@@ -70,7 +70,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
     }
 
     private void pathAndValueAndCheck(final int index) {
-        final JsonArrayNode array = JsonNode.array()
+        final JsonArray array = JsonNode.array()
                 .appendChild(JsonNode.string("value-a1"))
                 .appendChild(JsonNode.string("value-b2"))
                 .appendChild(JsonNode.string("value-c3"));
@@ -82,7 +82,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
 
     @Test
     public void testPathAppendFails() {
-        this.applyFails(NodePatchNotEmptyAddReplaceOrTestTest.with(NodePointer.parse("/-", JsonNodeName::with, JsonNode.class), this.value1()),
+        this.applyFails(NodePatchNotEmptyAddReplaceOrTestTest.with(NodePointer.parse("/-", JsonPropertyName::with, JsonNode.class), this.value1()),
                 JsonNode.object());
     }
 
@@ -92,7 +92,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
     }
 
     @Override
-    NodePatchNotEmptyAddReplaceOrTestTest<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path, final JsonNode value) {
+    NodePatchNotEmptyAddReplaceOrTestTest<JsonNode, JsonPropertyName> createPatch(final NodePointer<JsonNode, JsonPropertyName> path, final JsonNode value) {
         return NodePatchNotEmptyAddReplaceOrTestTest.with(path, value);
     }
 
@@ -104,7 +104,7 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
     // ClassTesting2............................................................................
 
     @Override
-    public Class<NodePatchNotEmptyAddReplaceOrTestTest<JsonNode, JsonNodeName>> type() {
+    public Class<NodePatchNotEmptyAddReplaceOrTestTest<JsonNode, JsonPropertyName>> type() {
         return Cast.to(NodePatchNotEmptyAddReplaceOrTestTest.class);
     }
 

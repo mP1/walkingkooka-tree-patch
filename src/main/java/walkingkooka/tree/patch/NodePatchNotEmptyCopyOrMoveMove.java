@@ -20,7 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObjectNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
@@ -72,11 +72,11 @@ final class NodePatchNotEmptyCopyOrMoveMove<N extends Node<N, NAME, ?, ?>, NAME 
 
     // HasJsonNode...............................................................................
 
-    private final static JsonObjectNode JSON_OBJECT_WITH_OPERATION = JsonNode.object()
+    private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
             .set(OP_PROPERTY, JsonNode.string(MOVE));
 
     @Override
-    JsonObjectNode jsonObjectWithOp() {
+    JsonObject jsonObjectWithOp() {
         return JSON_OBJECT_WITH_OPERATION;
     }
 }

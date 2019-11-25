@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase<NodePatchNotEmptyRemove<JsonNode, JsonNodeName>> {
+public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase<NodePatchNotEmptyRemove<JsonNode, JsonPropertyName>> {
 
     @Test
     public void testPathUnknownFails() {
@@ -134,7 +134,7 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
 
     @Test
     public void testJsonNodeMarshallPathNameTypeRequired() {
-        this.marshallAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
+        this.marshallAndCheck(this.createPatch(NodePointer.named(JsonPropertyName.with("abc"), JsonNode.class)),
                 "[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path-name-type\": \"json-property-name\",\n" +
@@ -144,7 +144,7 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
 
     @Test
     public void testJsonNodeMarshallPathNameTypeRequired2() {
-        this.marshallAndCheck(this.createPatch(NodePointer.named(JsonNodeName.with("abc"), JsonNode.class)),
+        this.marshallAndCheck(this.createPatch(NodePointer.named(JsonPropertyName.with("abc"), JsonNode.class)),
                 "[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"path\": \"/abc\",\n" +
@@ -198,15 +198,15 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     }
 
     @Override
-    NodePatchNotEmptyRemove<JsonNode, JsonNodeName> createPatch(final NodePointer<JsonNode, JsonNodeName> path) {
+    NodePatchNotEmptyRemove<JsonNode, JsonPropertyName> createPatch(final NodePointer<JsonNode, JsonPropertyName> path) {
         return NodePatchNotEmptyRemove.with(path);
     }
 
-    private NodePatchNotEmptyRemove<JsonNode, JsonNodeName> createPatch(final JsonNodeName property) {
+    private NodePatchNotEmptyRemove<JsonNode, JsonPropertyName> createPatch(final JsonPropertyName property) {
         return NodePatchNotEmptyRemove.with(NodePointer.named(property, JsonNode.class));
     }
 
-    private NodePatchNotEmptyRemove<JsonNode, JsonNodeName> createPatch(final String path) {
+    private NodePatchNotEmptyRemove<JsonNode, JsonPropertyName> createPatch(final String path) {
         return NodePatchNotEmptyRemove.with(this.pointer(path));
     }
 
@@ -218,7 +218,7 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     // ClassTesting2............................................................................
 
     @Override
-    public Class<NodePatchNotEmptyRemove<JsonNode, JsonNodeName>> type() {
+    public Class<NodePatchNotEmptyRemove<JsonNode, JsonPropertyName>> type() {
         return Cast.to(NodePatchNotEmptyRemove.class);
     }
 

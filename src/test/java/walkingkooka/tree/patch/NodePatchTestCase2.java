@@ -18,7 +18,7 @@
 package walkingkooka.tree.patch;
 
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeName;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,47 +30,47 @@ public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
         super();
     }
 
-    final NodePointer<JsonNode, JsonNodeName> path1() {
+    final NodePointer<JsonNode, JsonPropertyName> path1() {
         return NodePointer.named(this.property1(), JsonNode.class);
     }
 
-    final JsonNodeName property1() {
-        return JsonNodeName.with("a1");
+    final JsonPropertyName property1() {
+        return JsonPropertyName.with("a1");
     }
 
     final JsonNode value1() {
         return JsonNode.string("value1");
     }
 
-    final NodePointer<JsonNode, JsonNodeName> path2() {
+    final NodePointer<JsonNode, JsonPropertyName> path2() {
         return NodePointer.named(this.property2(), JsonNode.class);
     }
 
-    final JsonNodeName property2() {
-        return JsonNodeName.with("b2");
+    final JsonPropertyName property2() {
+        return JsonPropertyName.with("b2");
     }
 
     final JsonNode value2() {
         return JsonNode.string("value2");
     }
 
-    final NodePointer<JsonNode, JsonNodeName> path3() {
+    final NodePointer<JsonNode, JsonPropertyName> path3() {
         return NodePointer.named(this.property3(), JsonNode.class);
     }
 
-    final JsonNodeName property3() {
-        return JsonNodeName.with("c3");
+    final JsonPropertyName property3() {
+        return JsonPropertyName.with("c3");
     }
 
     final JsonNode value3() {
         return JsonNode.string("value3");
     }
 
-    final NodePointer<JsonNode, JsonNodeName> pointer(final String path) {
-        return NodePointer.parse(path, JsonNodeName::with, JsonNode.class);
+    final NodePointer<JsonNode, JsonPropertyName> pointer(final String path) {
+        return NodePointer.parse(path, JsonPropertyName::with, JsonNode.class);
     }
 
-    final void applyAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+    final void applyAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                              final String before,
                              final String expected) {
         this.applyAndCheck(patch,
@@ -78,7 +78,7 @@ public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
                 JsonNode.parse(expected));
     }
 
-    final void applyAndCheck(final NodePatch<JsonNode, JsonNodeName> patch,
+    final void applyAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                              final JsonNode before,
                              final JsonNode expected) {
         assertEquals(expected,
@@ -86,12 +86,12 @@ public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
                 () -> "patch " + patch + " failed");
     }
 
-    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
+    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonPropertyName> patch,
                                              final String json) {
         return this.applyFails(patch, JsonNode.parse(json));
     }
 
-    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonNodeName> patch,
+    final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonPropertyName> patch,
                                              final JsonNode before) {
         return assertThrows(ApplyNodePatchException.class, () -> patch.apply(before));
     }
