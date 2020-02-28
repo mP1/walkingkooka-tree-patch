@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/mP1/walkingkooka-tree-patch.svg?branch=master)](https://travis-ci.com/mP1/walkingkooka-tree-patch.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/mP1/walkingkooka-tree-patch/badge.svg?branch=master)](https://coveralls.io/github/mP1/walkingkooka-tree-patch?branch=master)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A `NodePatch` is a `Node` equivalent as what `json-patch` is for json objects or diff patch is for files, namely a set
 of discrete operations to test and apply changes to some artifact. The advantage over json-patch implementations is that
