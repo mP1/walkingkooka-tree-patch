@@ -29,6 +29,7 @@ import java.util.Objects;
 /**
  * Base class for both copy and move operations.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 abstract class NodePatchNotEmptyCopyOrMove<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNonEmpty<N, NAME> {
 
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> void checkFromAndPath(final NodePointer<N, NAME> from,
