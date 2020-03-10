@@ -118,6 +118,9 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
 
     // HashCodeEqualsDefined................................................................................................
 
+    @Override
+    abstract public int hashCode();
+
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public final boolean equals(final Object other) {

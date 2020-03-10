@@ -29,6 +29,7 @@ import java.util.Objects;
 /**
  * Base class for both add and replace.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 abstract class NodePatchNotEmptyAddReplaceOrTest<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNonEmpty<N, NAME> {
 
     static void checkValue(final Node<?, ?, ?, ?> node) {

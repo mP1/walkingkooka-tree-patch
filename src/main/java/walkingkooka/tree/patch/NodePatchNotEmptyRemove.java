@@ -29,6 +29,7 @@ import java.util.Objects;
 /**
  * Represents an REMOVE operation within a patch.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePatchNonEmpty<N, NAME> {
 
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchNotEmptyRemove<N, NAME> with(final NodePointer<N, NAME> path) {
