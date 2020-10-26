@@ -20,6 +20,8 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 
@@ -28,22 +30,29 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, JsonPropertyName>> {
+    
+    private final static ExpressionNumberContext CONTEXT = ExpressionNumberContexts.fake();
 
     @Test
     public void testFromJsonPatchNullJsonNodeFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(null, this.nameFactory(), this.valueFactory()));
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(null, this.nameFactory(), this.valueFactory(), CONTEXT));
     }
 
     @Test
     public void testFromJsonPatchNullNameFactoryFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), null, this.valueFactory()));
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), null, this.valueFactory(), CONTEXT));
     }
 
     @Test
-    public void testFromJsonPatchNulValueFactorylFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null));
+    public void testFromJsonPatchNullValueFactoryFails() {
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null, CONTEXT));
     }
 
+    @Test
+    public void testFromJsonPatchNullExpressionNumberContextFails() {
+        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), this.valueFactory(), null));
+    }
+    
     private Function<String, JsonPropertyName> nameFactory() {
         return JsonPropertyName::with;
     }

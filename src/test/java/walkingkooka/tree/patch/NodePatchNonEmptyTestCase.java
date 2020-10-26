@@ -18,11 +18,14 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
+import java.math.MathContext;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -123,7 +126,8 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     final NodePatch<JsonNode, JsonPropertyName> fromJsonPatch(final JsonNode node) {
         return NodePatch.fromJsonPatch(node,
                 JsonPropertyName::with,
-                Function.identity());
+                Function.identity(),
+                ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, MathContext.DECIMAL32));
     }
 
     final void toJsonPatchAndCheck2(final NodePatch<JsonNode, JsonPropertyName> patch,

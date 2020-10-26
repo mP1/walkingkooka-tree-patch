@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.json.JsonArray;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
@@ -175,14 +176,15 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatch<N, NAME> fromJsonPatch(final JsonNode node,
                                                                                                       final Function<String, NAME> nameFactory,
-                                                                                                      final Function<JsonNode, N> valueFactory) {
+                                                                                                      final Function<JsonNode, N> valueFactory,
+                                                                                                      final ExpressionNumberContext context) {
         checkNode(node);
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(valueFactory, "valueFactory");
 
         return Cast.to(unmarshall0(node,
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                JsonNodeUnmarshallContexts.basic()));
+                JsonNodeUnmarshallContexts.basic(context)));
     }
 
     /**
