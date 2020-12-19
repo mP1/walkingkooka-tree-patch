@@ -56,10 +56,10 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
                 case NodePatch.OP:
                     break;
                 case NodePatch.FROM:
-                    this.visitFrom(property.stringValueOrFail());
+                    this.visitFrom(property.stringOrFail());
                     break;
                 case NodePatch.PATH:
-                    this.visitPath(property.stringValueOrFail());
+                    this.visitPath(property.stringOrFail());
                     break;
                 case NodePatch.VALUE:
                     this.visitValue(property);
@@ -81,10 +81,10 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
                     this.visitPathNameType(property);
                     break;
                 case NodePatch.FROM:
-                    this.visitFrom(property.stringValueOrFail());
+                    this.visitFrom(property.stringOrFail());
                     break;
                 case NodePatch.PATH:
-                    this.visitPath(property.stringValueOrFail());
+                    this.visitPath(property.stringOrFail());
                     break;
                 case NodePatch.VALUE_TYPE:
                     this.visitValueType(property);
@@ -101,7 +101,7 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     // PATH NAME TYPE .............................................................................................
 
     private void visitPathNameType(final JsonNode pathNameType) {
-        pathNameType.stringValueOrFail();
+        pathNameType.stringOrFail();
     }
 
     /**
