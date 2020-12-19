@@ -268,7 +268,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                                                        final JsonNodeUnmarshallContext context) {
         NodePatchNonEmpty<?, ?> patch = null;
 
-        final String op = node.getOrFail(OP_PROPERTY).stringValueOrFail();
+        final String op = node.getOrFail(OP_PROPERTY).stringOrFail();
         switch (op) {
             case ADD:
                 patch = NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor.add(node, format, context);
