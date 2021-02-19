@@ -91,8 +91,7 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
         this.unmarshallFails("[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"from\": \"/123\"\n" +
-                        "}]",
-                JsonNodeException.class);
+                        "}]");
     }
 
     @Test
@@ -100,8 +99,7 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
         this.unmarshallFails("[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"value-type\": \"json-property-name\"\n" +
-                        "}]",
-                JsonNodeException.class);
+                        "}]");
     }
 
     @Test
@@ -109,8 +107,7 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
         this.unmarshallFails("[{\n" +
                         "  \"op\": \"remove\",\n" +
                         "  \"value\": true\n" +
-                        "}]",
-                JsonNodeException.class);
+                        "}]");
     }
 
     @Test

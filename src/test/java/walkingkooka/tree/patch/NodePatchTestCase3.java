@@ -109,22 +109,22 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonPrope
 
     @Test
     public final void testFromJsonBooleanNodeFails() {
-        this.unmarshallFails(JsonNode.booleanNode(true), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.booleanNode(true));
     }
 
     @Test
     public final void testFromJsonNumberNodeFails() {
-        this.unmarshallFails(JsonNode.number(123), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.number(123));
     }
 
     @Test
     public final void testFromJsonObjectNodeFails() {
-        this.unmarshallFails(JsonNode.object(), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.object());
     }
 
     @Test
     public final void testFromJsonStringNodeFails() {
-        this.unmarshallFails(JsonNode.string("string123"), JsonNodeException.class);
+        this.unmarshallFails(JsonNode.string("string123"));
     }
 
     final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
