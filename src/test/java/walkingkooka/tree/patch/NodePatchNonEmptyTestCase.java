@@ -89,7 +89,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     }
 
     final void unmarshallFails2(final String json) {
-        this.unmarshallFails(json.replace("$OP", this.operation()), JsonNodeException.class);
+        this.unmarshallFails(json.replace("$OP", this.operation()));
     }
 
     final void marshallAndCheck2(final NodePatch<JsonNode, JsonPropertyName> patch,
