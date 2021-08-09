@@ -173,7 +173,7 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonPrope
     }
 
     @Override
-    public final P createJsonNodeMappingValue() {
+    public final P createJsonNodeMarshallingValue() {
         return this.createPatch();
     }
 
