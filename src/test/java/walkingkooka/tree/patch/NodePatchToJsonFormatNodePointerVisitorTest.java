@@ -51,7 +51,7 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
     }
 
     private void pathNameTypeAndCheck(final String path, final String typeName) {
-        assertEquals(Optional.ofNullable(typeName).map(JsonNode::string),
+        this.checkEquals(Optional.ofNullable(typeName).map(JsonNode::string),
                 NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonPropertyName::with, JsonNode.class), this.marshallContext()),
                 () -> "path: " + CharSequences.quoteAndEscape(path));
     }
