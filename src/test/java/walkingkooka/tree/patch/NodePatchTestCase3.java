@@ -135,7 +135,7 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonPrope
 
     final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                                    final JsonNode node) {
-        assertEquals(node,
+        this.checkEquals(node,
                 patch.toJsonPatch(),
                 () -> patch + " toJsonPatch");
     }

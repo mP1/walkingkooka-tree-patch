@@ -81,7 +81,7 @@ public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
     final void applyAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                              final JsonNode before,
                              final JsonNode expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 patch.apply(before),
                 () -> "patch " + patch + " failed");
     }

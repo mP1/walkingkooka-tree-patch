@@ -110,7 +110,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
 
     final void fromJsonPatchAndCheck(final JsonNode from,
                                      final NodePatch<JsonNode, JsonPropertyName> value) {
-        assertEquals(value,
+        this.checkEquals(value,
                 this.fromJsonPatch(from),
                 () -> "fromJsonPatch failed " + from);
     }
