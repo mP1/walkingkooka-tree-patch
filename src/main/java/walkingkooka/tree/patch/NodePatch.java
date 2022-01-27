@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonArray;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
@@ -35,6 +35,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallException;
 import walkingkooka.tree.pointer.NodePointer;
 import walkingkooka.tree.pointer.NodePointerException;
 
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -177,14 +178,22 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatch<N, NAME> fromJsonPatch(final JsonNode node,
                                                                                                       final Function<String, NAME> nameFactory,
                                                                                                       final Function<JsonNode, N> valueFactory,
-                                                                                                      final ExpressionNumberContext context) {
+                                                                                                      final ExpressionNumberKind kind,
+                                                                                                      final MathContext context) {
         checkNode(node);
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(valueFactory, "valueFactory");
 
-        return Cast.to(unmarshall0(node,
-                NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                JsonNodeUnmarshallContexts.basic(context)));
+        return Cast.to(
+                unmarshall0(
+                        node,
+                        NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
+                        JsonNodeUnmarshallContexts.basic(
+                                kind,
+                                context
+                        )
+                )
+        );
     }
 
     /**

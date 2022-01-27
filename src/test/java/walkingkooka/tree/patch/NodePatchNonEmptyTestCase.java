@@ -124,10 +124,13 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     }
 
     final NodePatch<JsonNode, JsonPropertyName> fromJsonPatch(final JsonNode node) {
-        return NodePatch.fromJsonPatch(node,
+        return NodePatch.fromJsonPatch(
+                node,
                 JsonPropertyName::with,
                 Function.identity(),
-                ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, MathContext.DECIMAL32));
+                ExpressionNumberKind.DEFAULT,
+                MathContext.DECIMAL32
+        );
     }
 
     final void toJsonPatchAndCheck2(final NodePatch<JsonNode, JsonPropertyName> patch,
