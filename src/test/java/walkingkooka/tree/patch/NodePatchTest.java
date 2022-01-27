@@ -22,35 +22,88 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 
+import java.math.MathContext;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, JsonPropertyName>> {
-    
-    private final static ExpressionNumberContext CONTEXT = ExpressionNumberContexts.fake();
+
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+    private final static MathContext CONTEXT = MathContext.DECIMAL32;
 
     @Test
     public void testFromJsonPatchNullJsonNodeFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(null, this.nameFactory(), this.valueFactory(), CONTEXT));
+        assertThrows(
+                NullPointerException.class,
+                () -> NodePatch.fromJsonPatch(
+                        null,
+                        this.nameFactory(),
+                        this.valueFactory(),
+                        KIND,
+                        CONTEXT
+                )
+        );
     }
 
     @Test
     public void testFromJsonPatchNullNameFactoryFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), null, this.valueFactory(), CONTEXT));
+        assertThrows(
+                NullPointerException.class,
+                () -> NodePatch.fromJsonPatch(
+                        JsonNode.object(),
+                        null,
+                        this.valueFactory(),
+                        KIND,
+                        CONTEXT
+                )
+        );
     }
 
     @Test
     public void testFromJsonPatchNullValueFactoryFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), null, CONTEXT));
+        assertThrows(
+                NullPointerException.class,
+                () -> NodePatch.fromJsonPatch(
+                        JsonNode.object(),
+                        this.nameFactory(),
+                        null,
+                        KIND,
+                        CONTEXT
+                )
+        );
     }
 
     @Test
-    public void testFromJsonPatchNullExpressionNumberContextFails() {
-        assertThrows(NullPointerException.class, () -> NodePatch.fromJsonPatch(JsonNode.object(), this.nameFactory(), this.valueFactory(), null));
+    public void testFromJsonPatchNullKindFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> NodePatch.fromJsonPatch(
+                        JsonNode.object(),
+                        this.nameFactory(),
+                        this.valueFactory(),
+                        null,
+                        CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public void testFromJsonPatchNullMathContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> NodePatch.fromJsonPatch(
+                        JsonNode.object(),
+                        this.nameFactory(),
+                        this.valueFactory(),
+                        KIND,
+                        null
+                )
+        );
     }
     
     private Function<String, JsonPropertyName> nameFactory() {
