@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>walkingkooka-test</groupId>
-    <artifactId>walkingkooka-tree-json-gwt-jar-test</artifactId>
+    <artifactId>walkingkooka-tree-patch-gwt-jar-test</artifactId>
     <version>1.0</version>
     <packaging>gwt-lib</packaging>
     <description>A basic test that invokes some of the repackaged jar APIs</description>
