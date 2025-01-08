@@ -54,8 +54,7 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
 
     // Function............................................................................................
 
-    @Override
-    final N apply0(final N node, final NodePointer<N, NAME> start) {
+    @Override final N apply0(final N node, final NodePointer<N, NAME> start) {
         try {
             return this.apply1(node, start);
         } catch (final ApplyNodePatchException cause) {
@@ -106,8 +105,7 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
     /**
      * Returns the next component of the patch which could be null if this is the last.
      */
-    @Override
-    final NodePatchNonEmpty<N, NAME> nextOrNull() {
+    @Override final NodePatchNonEmpty<N, NAME> nextOrNull() {
         return this.next;
     }
 
@@ -185,9 +183,8 @@ abstract class NodePatchNonEmpty<N extends Node<N, NAME, ?, ?>, NAME extends Nam
      * }
      * </pre>
      */
-    @Override
-    final JsonArray marshall0(final NodePatchToJsonFormat format,
-                              final JsonNodeMarshallContext context) {
+    @Override final JsonArray marshall0(final NodePatchToJsonFormat format,
+                                        final JsonNodeMarshallContext context) {
         final List<JsonNode> elements = Lists.array();
 
         NodePatchNonEmpty<N, NAME> patch = this;

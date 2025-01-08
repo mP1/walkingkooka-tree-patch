@@ -58,23 +58,21 @@ abstract class NodePatchNotEmptyCopyOrMove<N extends Node<N, NAME, ?, ?>, NAME e
         return Objects.hash(this.from, this.path, this.next);
     }
 
-    @Override
-    final boolean equals1(final NodePatchNonEmpty<?, ?> other) {
+    @Override final boolean equals1(final NodePatchNonEmpty<?, ?> other) {
         return this.path.equals(other.path) &&
-                this.equals2(Cast.to(other));
+            this.equals2(Cast.to(other));
     }
 
     private boolean equals2(final NodePatchNotEmptyCopyOrMove<?, ?> other) {
         return this.from.equals(other.from);
     }
 
-    @Override
-    final void toString0(final StringBuilder b) {
+    @Override final void toString0(final StringBuilder b) {
         b.append(this.operation())
-                .append(" from=")
-                .append(toString(this.from))
-                .append(" path=")
-                .append(toString(this.path));
+            .append(" from=")
+            .append(toString(this.from))
+            .append(" path=")
+            .append(toString(this.path));
     }
 
     /**
@@ -96,12 +94,11 @@ abstract class NodePatchNotEmptyCopyOrMove<N extends Node<N, NAME, ?, ?>, NAME e
      * }
      * </pre>
      */
-    @Override
-    final JsonObject marshall1(final JsonObject object,
-                               final NodePatchToJsonFormat format,
-                               final JsonNodeMarshallContext context) {
+    @Override final JsonObject marshall1(final JsonObject object,
+                                         final NodePatchToJsonFormat format,
+                                         final JsonNodeMarshallContext context) {
         return this.setPath(
-                format.setPathNameType(object, this.from, this.path, context)
-                        .set(FROM_PROPERTY, pathJsonNodeMarshall(this.from)));
+            format.setPathNameType(object, this.from, this.path, context)
+                .set(FROM_PROPERTY, pathJsonNodeMarshall(this.from)));
     }
 }

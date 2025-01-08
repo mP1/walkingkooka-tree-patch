@@ -45,8 +45,8 @@ final class NodePatchNotEmptyAddReplaceOrTestReplace<N extends Node<N, NAME, ?, 
     @Override
     NodePatchNotEmptyAddReplaceOrTestReplace<N, NAME> append0(final NodePatchNonEmpty<N, NAME> next) {
         return new NodePatchNotEmptyAddReplaceOrTestReplace<>(this.path,
-                this.value,
-                next);
+            this.value,
+            next);
     }
 
     /**
@@ -57,11 +57,10 @@ final class NodePatchNotEmptyAddReplaceOrTestReplace<N extends Node<N, NAME, ?, 
      * Replaces a value. Equivalent to a “remove” followed by an “add”.
      * </pre>
      */
-    @Override
-    final N apply1(final N node, final NodePointer<N, NAME> start) {
+    @Override final N apply1(final N node, final NodePointer<N, NAME> start) {
         return this.add0(this.remove0(node, this.path, start),
-                this.value,
-                start);
+            this.value,
+            start);
     }
 
     @Override
@@ -77,7 +76,7 @@ final class NodePatchNotEmptyAddReplaceOrTestReplace<N extends Node<N, NAME, ?, 
     // JsonNodeMarshallContext................................................................................................
 
     private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
-            .set(OP_PROPERTY, JsonNode.string(REPLACE));
+        .set(OP_PROPERTY, JsonNode.string(REPLACE));
 
     @Override
     JsonObject jsonObjectWithOp() {

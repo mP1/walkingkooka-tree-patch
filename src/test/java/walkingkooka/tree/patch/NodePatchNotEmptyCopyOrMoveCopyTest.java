@@ -28,22 +28,22 @@ public final class NodePatchNotEmptyCopyOrMoveCopyTest extends NodePatchNotEmpty
     @Test
     public void testCopyChild() {
         this.applyAndCheck(this.createPatch(),
-                "{\"b2\": \"COPIED\"}",
-                "{\"a1\": \"COPIED\", \"b2\": \"COPIED\"}");
+            "{\"b2\": \"COPIED\"}",
+            "{\"a1\": \"COPIED\", \"b2\": \"COPIED\"}");
     }
 
     @Test
     public void testCopyChild2() {
         this.applyAndCheck(this.createPatch(),
-                "{\"b2\": \"COPIED\", \"c3\": \"value3\"}",
-                "{\"a1\": \"COPIED\", \"b2\": \"COPIED\", \"c3\": \"value3\"}");
+            "{\"b2\": \"COPIED\", \"c3\": \"value3\"}",
+            "{\"a1\": \"COPIED\", \"b2\": \"COPIED\", \"c3\": \"value3\"}");
     }
 
     @Test
     public void testCopyDifferentBranches() {
         this.applyAndCheck(this.createPatch("/a1/b2", "/a1/c3"),
-                "{\"a1\": { \"b2\": \"COPIED\"}}",
-                "{\"a1\": { \"b2\": \"COPIED\", \"c3\": \"COPIED\"}}");
+            "{\"a1\": { \"b2\": \"COPIED\"}}",
+            "{\"a1\": { \"b2\": \"COPIED\", \"c3\": \"COPIED\"}}");
     }
 
     @Override

@@ -52,23 +52,21 @@ abstract class NodePatchNotEmptyAddReplaceOrTest<N extends Node<N, NAME, ?, ?>, 
         return Objects.hash(this.path, this.value, this.next);
     }
 
-    @Override
-    final boolean equals1(final NodePatchNonEmpty<?, ?> other) {
+    @Override final boolean equals1(final NodePatchNonEmpty<?, ?> other) {
         return this.path.equals(other.path) &&
-                this.equals2(Cast.to(other));
+            this.equals2(Cast.to(other));
     }
 
     private boolean equals2(final NodePatchNotEmptyAddReplaceOrTest<?, ?> other) {
         return this.value.equals(other.value);
     }
 
-    @Override
-    final void toString0(final StringBuilder b) {
+    @Override final void toString0(final StringBuilder b) {
         b.append(this.operation())
-                .append(" path=")
-                .append(toString(this.path))
-                .append(" value=")
-                .append(this.value);
+            .append(" path=")
+            .append(toString(this.path))
+            .append(" value=")
+            .append(this.value);
     }
 
     /**
@@ -89,15 +87,14 @@ abstract class NodePatchNotEmptyAddReplaceOrTest<N extends Node<N, NAME, ?, ?>, 
      * }
      * </pre>
      */
-    @Override
-    final JsonObject marshall1(final JsonObject object,
-                               final NodePatchToJsonFormat format,
-                               final JsonNodeMarshallContext context) {
+    @Override final JsonObject marshall1(final JsonObject object,
+                                         final NodePatchToJsonFormat format,
+                                         final JsonNodeMarshallContext context) {
         final N value = this.value;
 
         return format.setValueType(this.setPath(format.setPathNameType(object, this.path, context)),
                 value,
                 context)
-                .set(VALUE_PROPERTY, context.marshall(value));
+            .set(VALUE_PROPERTY, context.marshall(value));
     }
 }

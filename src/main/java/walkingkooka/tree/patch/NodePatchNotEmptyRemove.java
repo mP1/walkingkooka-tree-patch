@@ -48,8 +48,7 @@ final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends 
         return new NodePatchNotEmptyRemove<>(this.path, next);
     }
 
-    @Override
-    final N apply1(final N node, final NodePointer<N, NAME> start) {
+    @Override final N apply1(final N node, final NodePointer<N, NAME> start) {
         return this.remove0(node, this.path, start);
     }
 
@@ -73,13 +72,13 @@ final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends 
     @Override
     void toString0(final StringBuilder b) {
         b.append(REMOVE + " path=")
-                .append(toString(this.path));
+            .append(toString(this.path));
     }
 
     // JsonNodeContext..................................................................................................
 
     private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
-            .set(OP_PROPERTY, JsonNode.string(REMOVE));
+        .set(OP_PROPERTY, JsonNode.string(REMOVE));
 
     @Override
     JsonObject jsonObjectWithOp() {
@@ -100,7 +99,7 @@ final class NodePatchNotEmptyRemove<N extends Node<N, NAME, ?, ?>, NAME extends 
                          final NodePatchToJsonFormat format,
                          final JsonNodeMarshallContext context) {
         return this.setPath(format.setPathNameType(object,
-                this.path,
-                context));
+            this.path,
+            context));
     }
 }

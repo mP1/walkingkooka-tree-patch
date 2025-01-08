@@ -30,10 +30,8 @@ import walkingkooka.tree.pointer.NodePointerVisitorTesting;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatchTestCase4<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>>
-        implements NodePointerVisitorTesting<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>, JsonNode, JsonPropertyName> {
+    implements NodePointerVisitorTesting<NodePatchToJsonFormatNodePointerVisitor<JsonNode, JsonPropertyName>, JsonNode, JsonPropertyName> {
 
     @Test
     public void testPathNameTypeNameAbsentFromPath() {
@@ -52,8 +50,8 @@ public final class NodePatchToJsonFormatNodePointerVisitorTest extends NodePatch
 
     private void pathNameTypeAndCheck(final String path, final String typeName) {
         this.checkEquals(Optional.ofNullable(typeName).map(JsonNode::string),
-                NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonPropertyName::with, JsonNode.class), this.marshallContext()),
-                () -> "path: " + CharSequences.quoteAndEscape(path));
+            NodePatchToJsonFormatNodePointerVisitor.pathNameType(NodePointer.parse(path, JsonPropertyName::with, JsonNode.class), this.marshallContext()),
+            () -> "path: " + CharSequences.quoteAndEscape(path));
     }
 
     @Test

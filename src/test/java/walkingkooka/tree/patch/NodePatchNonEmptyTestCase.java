@@ -18,17 +18,14 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.math.MathContext;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<JsonNode, JsonPropertyName>> extends NodePatchTestCase3<P> {
@@ -53,22 +50,22 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
         final JsonNode value2 = this.value2();
 
         this.checkEquals(this.createPatch().add(path2, value2),
-                this.createPatch().add(path2, value2));
+            this.createPatch().add(path2, value2));
     }
 
     @Test
     public final void testEqualsWithDifferentNext() {
         final NodePointer<JsonNode, JsonPropertyName> path2 = this.path3();
         this.checkNotEquals(this.createPatch().add(path2, this.value2()),
-                this.createPatch().add(path2, this.value3()));
+            this.createPatch().add(path2, this.value3()));
     }
 
     @Test
     public final void testFromJsonUnknownPropertyFails() {
         this.unmarshallFails2("[{\n" +
-                "  \"op\": \"$OP\",\n" +
-                "  \"unexpected-property\": \"fromJson must fail!\"\n" +
-                "}]");
+            "  \"op\": \"$OP\",\n" +
+            "  \"unexpected-property\": \"fromJson must fail!\"\n" +
+            "}]");
     }
 
     @Test
@@ -85,7 +82,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     final void unmarshallAndCheck2(final String json,
                                    final NodePatch<JsonNode, JsonPropertyName> patch) {
         this.unmarshallAndCheck(json.replace("$OP", this.operation()),
-                patch);
+            patch);
     }
 
     final void unmarshallFails2(final String json) {
@@ -100,7 +97,7 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     final void fromJsonPatchAndCheck2(final String json,
                                       final NodePatch<JsonNode, JsonPropertyName> patch) {
         this.fromJsonPatchAndCheck(json.replace("$OP", this.operation()),
-                patch);
+            patch);
     }
 
     final void fromJsonPatchAndCheck(final String from,
@@ -111,8 +108,8 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
     final void fromJsonPatchAndCheck(final JsonNode from,
                                      final NodePatch<JsonNode, JsonPropertyName> value) {
         this.checkEquals(value,
-                this.fromJsonPatch(from),
-                () -> "fromJsonPatch failed " + from);
+            this.fromJsonPatch(from),
+            () -> "fromJsonPatch failed " + from);
     }
 
     final void fromJsonPatchFails(final String from) {
@@ -125,18 +122,18 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
 
     final NodePatch<JsonNode, JsonPropertyName> fromJsonPatch(final JsonNode node) {
         return NodePatch.fromJsonPatch(
-                node,
-                JsonPropertyName::with,
-                Function.identity(),
-                ExpressionNumberKind.DEFAULT,
-                MathContext.DECIMAL32
+            node,
+            JsonPropertyName::with,
+            Function.identity(),
+            ExpressionNumberKind.DEFAULT,
+            MathContext.DECIMAL32
         );
     }
 
     final void toJsonPatchAndCheck2(final NodePatch<JsonNode, JsonPropertyName> patch,
                                     final String json) {
         this.toJsonPatchAndCheck(patch,
-                json.replace("$OP", this.operation()));
+            json.replace("$OP", this.operation()));
     }
 
     final void toJsonPatchRoundtripAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch) {

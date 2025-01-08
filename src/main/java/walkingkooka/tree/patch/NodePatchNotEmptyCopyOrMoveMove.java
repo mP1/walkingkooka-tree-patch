@@ -54,10 +54,10 @@ final class NodePatchNotEmptyCopyOrMoveMove<N extends Node<N, NAME, ?, ?>, NAME 
     @Override
     N apply1(final N node, final NodePointer<N, NAME> start) {
         final N copying = this.from.traverse(node)
-                .orElseThrow(() -> new NodePointerException("Unable to navigate to find node to copy from: " + node));
+            .orElseThrow(() -> new NodePointerException("Unable to navigate to find node to copy from: " + node));
         return this.add0(this.remove0(node, this.from, start),
-                copying,
-                start);
+            copying,
+            start);
     }
 
     @Override
@@ -73,7 +73,7 @@ final class NodePatchNotEmptyCopyOrMoveMove<N extends Node<N, NAME, ?, ?>, NAME 
     // HasJsonNode...............................................................................
 
     private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
-            .set(OP_PROPERTY, JsonNode.string(MOVE));
+        .set(OP_PROPERTY, JsonNode.string(MOVE));
 
     @Override
     JsonObject jsonObjectWithOp() {

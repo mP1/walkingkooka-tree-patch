@@ -66,74 +66,74 @@ public abstract class NodePatchNotEmptyAddReplaceOrTestTestCase<P extends NodePa
     @Test
     public final void testJsonNodeUnmarshall() {
         this.unmarshallAndCheck2("[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/a1\",\n" +
-                        "  \"value-type\": \"json\",\n" +
-                        "  \"value\": \"value1\"\n" +
-                        "}]",
-                this.createPatch());
+                "  \"op\": \"$OP\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/a1\",\n" +
+                "  \"value-type\": \"json\",\n" +
+                "  \"value\": \"value1\"\n" +
+                "}]",
+            this.createPatch());
     }
 
     @Test
     public final void testJsonNodeUnmarshall2() {
         this.unmarshallAndCheck2("[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/b2\",\n" +
-                        "  \"value-type\": \"json\",\n" +
-                        "  \"value\": \"value2\"\n" +
-                        "}]",
-                this.createPatch(this.path2(), this.value2()));
+                "  \"op\": \"$OP\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/b2\",\n" +
+                "  \"value-type\": \"json\",\n" +
+                "  \"value\": \"value2\"\n" +
+                "}]",
+            this.createPatch(this.path2(), this.value2()));
     }
 
     @Test
     public final void testJsonNodeUnmarshall3() {
         this.unmarshallAndCheck2("[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/b2\",\n" +
-                        "  \"value\": \"value2\",\n" +
-                        "  \"value-type\": \"json\"\n" +
-                        "}]",
-                this.createPatch(this.path2(), this.value2()));
+                "  \"op\": \"$OP\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/b2\",\n" +
+                "  \"value\": \"value2\",\n" +
+                "  \"value-type\": \"json\"\n" +
+                "}]",
+            this.createPatch(this.path2(), this.value2()));
     }
 
     @Test
     public final void testJsonNodeUnmarshallMissingPathNameType() {
         this.unmarshallAndCheck2("[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/123\",\n" +
-                        "  \"value-type\": \"json\",\n" +
-                        "  \"value\": \"value1\"\n" +
-                        "}]",
-                this.createPatch(NodePointer.indexed(123, JsonNode.class)));
+                "  \"op\": \"$OP\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/123\",\n" +
+                "  \"value-type\": \"json\",\n" +
+                "  \"value\": \"value1\"\n" +
+                "}]",
+            this.createPatch(NodePointer.indexed(123, JsonNode.class)));
     }
 
     @Test
     public final void testJsonNodeMarshall() {
         this.marshallAndCheck2(this.createPatch(),
-                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json\", \"value\": \"value1\"}]");
+            "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/a1\", \"value-type\": \"json\", \"value\": \"value1\"}]");
     }
 
     @Test
     public final void testJsonNodeMarshall2() {
         this.marshallAndCheck2(this.createPatch(this.path2(), this.value2()),
-                "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/b2\", \"value-type\": \"json\", \"value\": \"value2\"}]");
+            "[{\"op\": \"$OP\", \"path-name-type\": \"json-property-name\", \"path\": \"/b2\", \"value-type\": \"json\", \"value\": \"value2\"}]");
     }
 
     @Test
     public final void testJsonNodeMarshallRoundtrip() {
         this.marshallWithTypeRoundTripTwiceAndCheck(this.createPatch()
-                .add(this.path2(), this.value2()));
+            .add(this.path2(), this.value2()));
     }
 
     @Test
     public final void testJsonNodeMarshallRoundtrip2() {
         this.marshallWithTypeRoundTripTwiceAndCheck(this.createPatch()
-                .add(this.path2(), this.value2())
-                .add(this.path3(), this.value3()));
+            .add(this.path2(), this.value2())
+            .add(this.path3(), this.value3()));
     }
 
     // fromJsonPatch/toJsonPatch..........................................................................................
@@ -141,17 +141,16 @@ public abstract class NodePatchNotEmptyAddReplaceOrTestTestCase<P extends NodePa
     @Test
     public final void testFromJsonPatch() {
         this.fromJsonPatchAndCheck2("[{\"op\": \"$OP\", \"path\": \"/a1\", \"value\": \"value1\"}]",
-                this.createPatch());
+            this.createPatch());
     }
 
     @Test
     public final void testToJsonPatch() {
         this.toJsonPatchAndCheck2(this.createPatch(),
-                "[{\"op\": \"$OP\", \"path\": \"/a1\", \"value\": \"value1\"}]");
+            "[{\"op\": \"$OP\", \"path\": \"/a1\", \"value\": \"value1\"}]");
     }
 
-    @Override
-    final P createPatch(final NodePointer<JsonNode, JsonPropertyName> path) {
+    @Override final P createPatch(final NodePointer<JsonNode, JsonPropertyName> path) {
         return this.createPatch(path, this.value1());
     }
 

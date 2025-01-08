@@ -34,7 +34,7 @@ public final class NodePatchFromJsonFormatJsonPatchTest extends NodePatchTestCas
         final Function<JsonNode, TestNode> valueFactory = (ignored) -> null;
 
         this.toStringAndCheck(NodePatchFromJsonFormatJsonPatch.with(nameFactory, valueFactory),
-                nameFactory + " " + valueFactory);
+            nameFactory + " " + valueFactory);
     }
 
     @Override
