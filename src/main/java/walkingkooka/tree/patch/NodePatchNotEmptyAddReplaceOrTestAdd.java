@@ -45,12 +45,11 @@ final class NodePatchNotEmptyAddReplaceOrTestAdd<N extends Node<N, NAME, ?, ?>, 
     @Override
     NodePatchNotEmptyAddReplaceOrTestAdd<N, NAME> append0(final NodePatchNonEmpty<N, NAME> next) {
         return new NodePatchNotEmptyAddReplaceOrTestAdd<>(this.path,
-                this.value,
-                next);
+            this.value,
+            next);
     }
 
-    @Override
-    final N apply1(final N node, final NodePointer<N, NAME> start) {
+    @Override final N apply1(final N node, final NodePointer<N, NAME> start) {
         return this.add0(node, this.value, start);
     }
 
@@ -67,7 +66,7 @@ final class NodePatchNotEmptyAddReplaceOrTestAdd<N extends Node<N, NAME, ?, ?>, 
     // JsonNodeMarshallContext................................................................................................
 
     private final static JsonObject JSON_OBJECT_WITH_OPERATION = JsonNode.object()
-            .set(OP_PROPERTY, JsonNode.string(ADD));
+        .set(OP_PROPERTY, JsonNode.string(ADD));
 
     @Override
     JsonObject jsonObjectWithOp() {

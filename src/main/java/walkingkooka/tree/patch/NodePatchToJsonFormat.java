@@ -32,7 +32,7 @@ enum NodePatchToJsonFormat {
                                    final NodePointer<?, ?> path,
                                    final JsonNodeMarshallContext context) {
             return this.setPathNameType0(object,
-                    NodePatchToJsonFormatNodePointerVisitor.pathNameType(path, context));
+                NodePatchToJsonFormatNodePointerVisitor.pathNameType(path, context));
         }
 
         @Override
@@ -53,8 +53,8 @@ enum NodePatchToJsonFormat {
         private JsonObject setPathNameType0(final JsonObject object,
                                             final Optional<JsonString> pathNameType) {
             return pathNameType
-                    .map(t -> object.set(NodePatch.PATH_NAME_TYPE_PROPERTY, t))
-                    .orElse(object);
+                .map(t -> object.set(NodePatch.PATH_NAME_TYPE_PROPERTY, t))
+                .orElse(object);
         }
 
         @Override
@@ -62,7 +62,7 @@ enum NodePatchToJsonFormat {
                                 final Object value,
                                 final JsonNodeMarshallContext context) {
             return object.set(NodePatch.VALUE_TYPE_PROPERTY,
-                    typeOrFail(value, context));
+                typeOrFail(value, context));
         }
 
         /**
@@ -71,7 +71,7 @@ enum NodePatchToJsonFormat {
         private JsonString typeOrFail(final Object value,
                                       final JsonNodeMarshallContext context) {
             return context.typeName(value.getClass())
-                    .orElseThrow(() -> new IllegalArgumentException("Type not registered as supporting json: " + value));
+                .orElseThrow(() -> new IllegalArgumentException("Type not registered as supporting json: " + value));
         }
     },
     JSON_PATCH {

@@ -27,8 +27,8 @@ final class NodePatchNotEmptyRemoveNodePatchVisitor extends NodePatchNotEmptyNod
                                                 final NodePatchFromJsonFormat format,
                                                 final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyRemoveNodePatchVisitor visitor = new NodePatchNotEmptyRemoveNodePatchVisitor(patch,
-                format,
-                context);
+            format,
+            context);
         visitor.accept(patch);
         return NodePatchNotEmptyRemove.with(visitor.path());
     }

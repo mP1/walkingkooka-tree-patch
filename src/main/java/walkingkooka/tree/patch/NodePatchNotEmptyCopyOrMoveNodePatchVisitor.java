@@ -29,8 +29,8 @@ final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmpt
                                                       final NodePatchFromJsonFormat format,
                                                       final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyCopyOrMoveNodePatchVisitor visitor = new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch,
-                format,
-                context);
+            format,
+            context);
         visitor.accept(patch);
         return NodePatchNotEmptyCopyOrMoveCopy.with(Cast.to(visitor.from()), visitor.path());
     }
@@ -39,8 +39,8 @@ final class NodePatchNotEmptyCopyOrMoveNodePatchVisitor extends NodePatchNotEmpt
                                                       final NodePatchFromJsonFormat format,
                                                       final JsonNodeUnmarshallContext context) {
         final NodePatchNotEmptyCopyOrMoveNodePatchVisitor visitor = new NodePatchNotEmptyCopyOrMoveNodePatchVisitor(patch,
-                format,
-                context);
+            format,
+            context);
         visitor.accept(patch);
         return NodePatchNotEmptyCopyOrMoveMove.with(Cast.to(visitor.from()), visitor.path());
     }

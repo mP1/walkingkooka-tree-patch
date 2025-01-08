@@ -29,29 +29,29 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
     @Test
     public void testPathUnknownFails() {
         this.applyFails(this.createPatch(),
-                JsonNode.object());
+            JsonNode.object());
     }
 
     @Test
     public void testPathUnknownFails2() {
         this.applyFails(this.createPatch(),
-                JsonNode.object().set(JsonPropertyName.with("A"), this.value1()));
+            JsonNode.object().set(JsonPropertyName.with("A"), this.value1()));
     }
 
     @Test
     public void testIncorrectValueFails() {
         this.applyFails(this.createPatch(),
-                JsonNode.object().set(this.property1(), JsonNode.string("wrong-different-value")));
+            JsonNode.object().set(this.property1(), JsonNode.string("wrong-different-value")));
     }
 
     @Test
     public void testPathAndValueObject() {
         final JsonNode object = JsonNode.object()
-                .set(this.property1(), this.value1());
+            .set(this.property1(), this.value1());
 
         this.applyAndCheck(this.createPatch(),
-                object,
-                object);
+            object,
+            object);
     }
 
     @Test
@@ -71,19 +71,19 @@ public final class NodePatchNotEmptyAddReplaceOrTestTestTest extends NodePatchNo
 
     private void pathAndValueAndCheck(final int index) {
         final JsonArray array = JsonNode.array()
-                .appendChild(JsonNode.string("value-a1"))
-                .appendChild(JsonNode.string("value-b2"))
-                .appendChild(JsonNode.string("value-c3"));
+            .appendChild(JsonNode.string("value-a1"))
+            .appendChild(JsonNode.string("value-b2"))
+            .appendChild(JsonNode.string("value-c3"));
 
         this.applyAndCheck(NodePatchNotEmptyAddReplaceOrTestTest.with(NodePointer.indexed(index, JsonNode.class), array.get(index)),
-                array,
-                array);
+            array,
+            array);
     }
 
     @Test
     public void testPathAppendFails() {
         this.applyFails(NodePatchNotEmptyAddReplaceOrTestTest.with(NodePointer.parse("/-", JsonPropertyName::with, JsonNode.class), this.value1()),
-                JsonNode.object());
+            JsonNode.object());
     }
 
     @Test

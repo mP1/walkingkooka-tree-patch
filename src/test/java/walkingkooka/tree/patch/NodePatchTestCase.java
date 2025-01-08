@@ -21,7 +21,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 
 public abstract class NodePatchTestCase<P> implements ClassTesting<P>,
-        ToStringTesting<P> {
+    ToStringTesting<P> {
 
     NodePatchTestCase() {
         super();

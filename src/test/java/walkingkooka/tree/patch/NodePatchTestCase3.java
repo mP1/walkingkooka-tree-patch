@@ -23,19 +23,17 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.pointer.NodePointer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonPropertyName>> extends NodePatchTestCase2<P>
-        implements HashCodeEqualsDefinedTesting2<P>,
-        JsonNodeMarshallingTesting<P>,
-        TypeNameTesting<P> {
+    implements HashCodeEqualsDefinedTesting2<P>,
+    JsonNodeMarshallingTesting<P>,
+    TypeNameTesting<P> {
 
     NodePatchTestCase3() {
         super();
@@ -130,14 +128,14 @@ public abstract class NodePatchTestCase3<P extends NodePatch<JsonNode, JsonPrope
     final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                                    final String json) {
         this.toJsonPatchAndCheck(patch,
-                JsonNode.parse(json));
+            JsonNode.parse(json));
     }
 
     final void toJsonPatchAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                                    final JsonNode node) {
         this.checkEquals(node,
-                patch.toJsonPatch(),
-                () -> patch + " toJsonPatch");
+            patch.toJsonPatch(),
+            () -> patch + " toJsonPatch");
     }
 
     // NodePatchTestCase3..................................................................................

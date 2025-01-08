@@ -28,45 +28,45 @@ public final class NodePatchNotEmptyAddReplaceOrTestAddTest extends NodePatchNot
     @Test
     public void testPathUnknownFails() {
         this.applyFails(this.createPatch("/1/1/1", this.value1()),
-                JsonNode.object());
+            JsonNode.object());
     }
 
     @Test
     public void testAddChild() {
         final JsonNode object = JsonNode.object()
-                .set(this.property1(), this.value1());
+            .set(this.property1(), this.value1());
 
         this.applyAndCheck(this.createPatch(),
-                object,
-                object);
+            object,
+            object);
     }
 
     @Test
     public void testAddTwoChildren() {
         this.applyAndCheck(this.createPatch().append0(this.createPatch(this.property2(), this.value2())),
-                "{}",
-                "{\"a1\":\"value1\", \"b2\": \"value2\"}");
+            "{}",
+            "{\"a1\":\"value1\", \"b2\": \"value2\"}");
     }
 
     @Test
     public void testAddGrandChild() {
         this.applyAndCheck(this.createPatch("/a1/b2", this.value2()),
-                "{\"a1\": {}}",
-                "{\"a1\": {\"b2\": \"value2\"}}");
+            "{\"a1\": {}}",
+            "{\"a1\": {\"b2\": \"value2\"}}");
     }
 
     @Test
     public void testAddGreatGrandChild() {
         this.applyAndCheck(this.createPatch("/a1/b2/c3", this.value3()),
-                "{\"a1\": {\"b2\":{}}}",
-                "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}");
+            "{\"a1\": {\"b2\":{}}}",
+            "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}");
     }
 
     @Test
     public void testAddMultiStep() {
         this.applyAndCheck(this.createPatch("/a1", JsonNode.object()).append0(this.createPatch("/a1/b2", this.value2())),
-                "{}",
-                "{\"a1\": {\"b2\": \"value2\"}}");
+            "{}",
+            "{\"a1\": {\"b2\": \"value2\"}}");
     }
 
     @Test

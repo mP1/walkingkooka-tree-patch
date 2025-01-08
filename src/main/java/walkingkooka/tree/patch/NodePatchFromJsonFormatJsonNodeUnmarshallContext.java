@@ -47,14 +47,14 @@ final class NodePatchFromJsonFormatJsonNodeUnmarshallContext extends NodePatchFr
     Function<String, Name> nameFactory(final NodePatchNotEmptyNodePatchVisitor visitor,
                                        final JsonNodeUnmarshallContext context) {
         return (string) -> visitor.pathNameFactory(context)
-                .apply(JsonNode.string(string), context);
+            .apply(JsonNode.string(string), context);
     }
 
     @Override
     Node<?, ?, ?, ?> valueOrFail(final NodePatchNotEmptyAddReplaceOrTestNodePatchVisitor visitor,
                                  final JsonNodeUnmarshallContext context) {
         return Cast.to(visitor.valueFactory(context)
-                .apply(visitor.valueOrFail(visitor.value), context));
+            .apply(visitor.valueOrFail(visitor.value), context));
     }
 
     @Override

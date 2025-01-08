@@ -28,22 +28,22 @@ public final class NodePatchNotEmptyCopyOrMoveMoveTest extends NodePatchNotEmpty
     @Test
     public void testMoveChild() {
         this.applyAndCheck(this.createPatch(),
-                "{\"b2\": \"value1\"}",
-                "{\"a1\": \"value1\"}");
+            "{\"b2\": \"value1\"}",
+            "{\"a1\": \"value1\"}");
     }
 
     @Test
     public void testMoveChild2() {
         this.applyAndCheck(this.createPatch(),
-                "{\"b2\": \"value1\", \"c3\": \"value3\"}",
-                "{\"a1\": \"value1\", \"c3\": \"value3\"}");
+            "{\"b2\": \"value1\", \"c3\": \"value3\"}",
+            "{\"a1\": \"value1\", \"c3\": \"value3\"}");
     }
 
     @Test
     public void testMoveDifferentBranches() {
         this.applyAndCheck(this.createPatch("/a1/b2", "/a1/c3"),
-                "{\"a1\": { \"b2\": \"value1\"}}",
-                "{\"a1\": { \"c3\": \"value1\"}}");
+            "{\"a1\": { \"b2\": \"value1\"}}",
+            "{\"a1\": { \"c3\": \"value1\"}}");
     }
 
     @Override

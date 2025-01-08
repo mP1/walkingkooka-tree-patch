@@ -138,13 +138,12 @@ abstract class NodePatchNotEmptyNodePatchVisitor extends Visitor<JsonNode> {
     /**
      * Creates a {@link NodePointer} from the {@link JsonString} using the property name in any error messages.
      */
-    @SuppressWarnings("unchecked")
-    final NodePointer<?, ?> pathOrFail(final String path,
-                                       final JsonPropertyName property) {
+    @SuppressWarnings("unchecked") final NodePointer<?, ?> pathOrFail(final String path,
+                                                                      final JsonPropertyName property) {
         try {
             return NodePointer.parse(path,
-                    this.format.nameFactory(this, this.context),
-                    Node.class);
+                this.format.nameFactory(this, this.context),
+                Node.class);
         } catch (final RuntimeException cause) {
             throw new IllegalArgumentException("Invalid " + property + " in " + this.patch, cause);
         }

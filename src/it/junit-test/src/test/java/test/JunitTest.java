@@ -32,18 +32,18 @@ public class JunitTest {
         final JsonNode before = JsonNode.parse("{\"hello\": { \"colour\": \"replaced-1\", \"tree\": \"removed-3\"}}");
 
         final NodePatch<JsonNode, JsonPropertyName> patch = emptyPatch()
-                .add(pointer("/added-1"), JsonNode.number(1))
-                .add(pointer("/hello/colour"), JsonNode.string("green-2"))
-                .remove(pointer("/hello/tree"));
+            .add(pointer("/added-1"), JsonNode.number(1))
+            .add(pointer("/hello/colour"), JsonNode.string("green-2"))
+            .remove(pointer("/hello/tree"));
 
         final JsonNode after = patch.apply(before);
 
         final JsonNode expected = JsonNode.parse("{\n" +
-                "  \"hello\": {\n" +
-                "    \"colour\": \"green-2\"\n" +
-                "  },\n" +
-                "  \"added-1\": 1\n" +
-                "}");
+            "  \"hello\": {\n" +
+            "    \"colour\": \"green-2\"\n" +
+            "  },\n" +
+            "  \"added-1\": 1\n" +
+            "}");
 
         Assert.assertEquals(expected, after);
     }

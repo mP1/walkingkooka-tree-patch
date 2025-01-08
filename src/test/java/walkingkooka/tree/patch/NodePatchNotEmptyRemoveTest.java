@@ -20,7 +20,6 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonNodeException;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
@@ -29,59 +28,59 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     @Test
     public void testPathUnknownFails() {
         this.applyFails(this.createPatch("/a1/b2/c3"),
-                JsonNode.object());
+            JsonNode.object());
     }
 
     @Test
     public void testPathUnknownFails2() {
         this.applyFails(this.createPatch("/a1/b2/c3"),
-                "{\"a1\": {}}");
+            "{\"a1\": {}}");
     }
 
     @Test
     public void testRemoveChild() {
         this.applyAndCheck(this.createPatch(),
-                JsonNode.object()
-                        .set(this.property1(), this.value1()),
-                JsonNode.object());
+            JsonNode.object()
+                .set(this.property1(), this.value1()),
+            JsonNode.object());
     }
 
     @Test
     public void testRemoveTwoChildren() {
         this.applyAndCheck(this.createPatch().append0(this.createPatch(this.property2())),
-                "{\"a1\":\"value1\", \"b2\": \"value2\", \"c3\": \"value3\"}",
-                "{\"c3\": \"value3\"}");
+            "{\"a1\":\"value1\", \"b2\": \"value2\", \"c3\": \"value3\"}",
+            "{\"c3\": \"value3\"}");
     }
 
     @Test
     public void testRemoveGrandChild() {
         this.applyAndCheck(this.createPatch("/a1/b2"),
-                "{\"a1\": {\"b2\": \"value2\"}}",
-                "{\"a1\": {}}");
+            "{\"a1\": {\"b2\": \"value2\"}}",
+            "{\"a1\": {}}");
     }
 
     @Test
     public void testRemoveGreatGrandChild() {
         this.applyAndCheck(this.createPatch("/a1/b2/c3"),
-                "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}",
-                "{\"a1\": { \"b2\": {}}}");
+            "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}",
+            "{\"a1\": { \"b2\": {}}}");
     }
 
     @Test
     public void testRemoveMultiStep() {
         this.applyAndCheck(this.createPatch("/a1/b2").append0(this.createPatch("/a1")),
-                "{\"a1\": {\"b2\": \"value2\"}, \"c3\": \"value3\"}",
-                "{\"c3\": \"value3\"}");
+            "{\"a1\": {\"b2\": \"value2\"}, \"c3\": \"value3\"}",
+            "{\"c3\": \"value3\"}");
     }
 
     @Test
     public void testJsonNodeUnmarshallRequiredPathNameTypeMissingFails() {
         this.unmarshallAndCheck("[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/a1\"\n" +
-                        "}]",
-                this.createPatch());
+                "  \"op\": \"remove\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/a1\"\n" +
+                "}]",
+            this.createPatch());
     }
 
     // HasJsonNode..................................................................................................
@@ -89,77 +88,77 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     @Test
     public void testJsonNodeUnmarshallFromPropertyFails() {
         this.unmarshallFails("[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"from\": \"/123\"\n" +
-                        "}]");
+            "  \"op\": \"remove\",\n" +
+            "  \"from\": \"/123\"\n" +
+            "}]");
     }
 
     @Test
     public void testJsonNodeUnmarshallValueTypePropertyFails() {
         this.unmarshallFails("[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"value-type\": \"json-property-name\"\n" +
-                        "}]");
+            "  \"op\": \"remove\",\n" +
+            "  \"value-type\": \"json-property-name\"\n" +
+            "}]");
     }
 
     @Test
     public void testJsonNodeUnmarshallValuePropertyFails() {
         this.unmarshallFails("[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"value\": true\n" +
-                        "}]");
+            "  \"op\": \"remove\",\n" +
+            "  \"value\": true\n" +
+            "}]");
     }
 
     @Test
     public void testJsonNodeUnmarshallPathNameTypeMissing() {
         this.unmarshallAndCheck("[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/123\"\n" +
-                        "}]",
-                this.createPatch(NodePointer.indexed(123, JsonNode.class)));
+                "  \"op\": \"remove\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/123\"\n" +
+                "}]",
+            this.createPatch(NodePointer.indexed(123, JsonNode.class)));
     }
 
     @Test
     public void testJsonNodeMarshallPathNameTypeNotRequired() {
         this.marshallAndCheck(this.createPatch(NodePointer.indexed(123, JsonNode.class)),
-                "[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"path\": \"/123\"\n" +
-                        "}]");
+            "[{\n" +
+                "  \"op\": \"remove\",\n" +
+                "  \"path\": \"/123\"\n" +
+                "}]");
     }
 
     @Test
     public void testJsonNodeMarshallPathNameTypeRequired() {
         this.marshallAndCheck(this.createPatch(NodePointer.named(JsonPropertyName.with("abc"), JsonNode.class)),
-                "[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"path-name-type\": \"json-property-name\",\n" +
-                        "  \"path\": \"/abc\"\n" +
-                        "}]");
+            "[{\n" +
+                "  \"op\": \"remove\",\n" +
+                "  \"path-name-type\": \"json-property-name\",\n" +
+                "  \"path\": \"/abc\"\n" +
+                "}]");
     }
 
     @Test
     public void testJsonNodeMarshallPathNameTypeRequired2() {
         this.marshallAndCheck(this.createPatch(NodePointer.named(JsonPropertyName.with("abc"), JsonNode.class)),
-                "[{\n" +
-                        "  \"op\": \"remove\",\n" +
-                        "  \"path\": \"/abc\",\n" +
-                        "  \"path-name-type\": \"json-property-name\"\n" +
-                        "}]");
+            "[{\n" +
+                "  \"op\": \"remove\",\n" +
+                "  \"path\": \"/abc\",\n" +
+                "  \"path-name-type\": \"json-property-name\"\n" +
+                "}]");
     }
 
     @Test
     public void testJsonNodeMarshallRoundtrip() {
         this.marshallWithTypeRoundTripTwiceAndCheck(this.createPatch()
-                .remove(this.path2()));
+            .remove(this.path2()));
     }
 
     @Test
     public void testJsonNodeMarshallRoundtrip2() {
         this.marshallWithTypeRoundTripTwiceAndCheck(this.createPatch()
-                .remove(this.path2())
-                .remove(this.path3()));
+            .remove(this.path2())
+            .remove(this.path3()));
     }
 
     // fromJsonPatch/toJsonPatch..........................................................................................
@@ -167,19 +166,19 @@ public final class NodePatchNotEmptyRemoveTest extends NodePatchNonEmptyTestCase
     @Test
     public final void testFromJsonPatch() {
         this.fromJsonPatchAndCheck2("[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"path\": \"/a1\"\n" +
-                        "}]",
-                this.createPatch());
+                "  \"op\": \"$OP\",\n" +
+                "  \"path\": \"/a1\"\n" +
+                "}]",
+            this.createPatch());
     }
 
     @Test
     public final void testToJsonPatch() {
         this.toJsonPatchAndCheck2(this.createPatch(),
-                "[{\n" +
-                        "  \"op\": \"$OP\",\n" +
-                        "  \"path\": \"/a1\"\n" +
-                        "}]");
+            "[{\n" +
+                "  \"op\": \"$OP\",\n" +
+                "  \"path\": \"/a1\"\n" +
+                "}]");
     }
 
     @Test

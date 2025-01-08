@@ -41,27 +41,27 @@ public final class NodePatchEmptyTest extends NodePatchTestCase3<NodePatchEmpty<
     @Test
     public void testApply() {
         final JsonNode node = JsonNode.object()
-                .set(this.property1(), JsonNode.object()
-                        .set(this.property2(), this.value2()));
+            .set(this.property1(), JsonNode.object()
+                .set(this.property2(), this.value2()));
         this.applyAndCheck(this.createPatch(), node, node);
     }
 
     @Test
     public void testJsonNodeUnmarshall() {
         this.unmarshallAndCheck(JsonNode.array(),
-                NodePatchEmpty.get(JsonNode.class));
+            NodePatchEmpty.get(JsonNode.class));
     }
 
     @Test
     public void testJsonNodeMarshall() {
         this.marshallAndCheck(NodePatchEmpty.get(JsonNode.class),
-                JsonNode.array());
+            JsonNode.array());
     }
 
     @Test
     public void testToJsonPatch() {
         this.toJsonPatchAndCheck(NodePatchEmpty.get(JsonNode.class),
-                JsonNode.array());
+            JsonNode.array());
     }
 
     @Test
@@ -74,7 +74,7 @@ public final class NodePatchEmptyTest extends NodePatchTestCase3<NodePatchEmpty<
     @Test
     public void testFromEmptyJsonObject() {
         this.unmarshallAndCheck(JsonNode.array(),
-                NodePatch.empty(JsonNode.class));
+            NodePatch.empty(JsonNode.class));
     }
 
     // NodePatchTestCase3..................................................................................

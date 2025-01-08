@@ -21,7 +21,6 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
@@ -74,16 +73,16 @@ public abstract class NodePatchTestCase2<P> extends NodePatchTestCase<P> {
                              final String before,
                              final String expected) {
         this.applyAndCheck(patch,
-                JsonNode.parse(before),
-                JsonNode.parse(expected));
+            JsonNode.parse(before),
+            JsonNode.parse(expected));
     }
 
     final void applyAndCheck(final NodePatch<JsonNode, JsonPropertyName> patch,
                              final JsonNode before,
                              final JsonNode expected) {
         this.checkEquals(expected,
-                patch.apply(before),
-                () -> "patch " + patch + " failed");
+            patch.apply(before),
+            () -> "patch " + patch + " failed");
     }
 
     final ApplyNodePatchException applyFails(final NodePatch<JsonNode, JsonPropertyName> patch,

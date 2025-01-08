@@ -28,41 +28,41 @@ public final class NodePatchNotEmptyAddReplaceOrTestReplaceTest extends NodePatc
     @Test
     public void testPathUnknownFails() {
         this.applyFails(this.createPatch("/1/1/1", this.value1()),
-                JsonNode.object());
+            JsonNode.object());
     }
 
     @Test
     public void testReplacePathMissingFails() {
         this.applyFails(this.createPatch(),
-                "{\"b2\": \"value2\"}");
+            "{\"b2\": \"value2\"}");
     }
 
     @Test
     public void testReplaceChild() {
         this.applyAndCheck(this.createPatch(),
-                "{\"a1\": \"old-a1\"}",
-                "{\"a1\": \"value1\"}");
+            "{\"a1\": \"old-a1\"}",
+            "{\"a1\": \"value1\"}");
     }
 
     @Test
     public void testReplaceChild2() {
         this.applyAndCheck(this.createPatch(),
-                "{\"a1\": \"old-a1\", \"b2\": \"value2\"}",
-                "{\"a1\": \"value1\", \"b2\": \"value2\"}");
+            "{\"a1\": \"old-a1\", \"b2\": \"value2\"}",
+            "{\"a1\": \"value1\", \"b2\": \"value2\"}");
     }
 
     @Test
     public void testReplaceChildTwice() {
         this.applyAndCheck(this.createPatch().append0(this.createPatch(this.property2(), this.value2())),
-                "{\"a1\": \"old-a1\", \"b2\": \"old-b2\"}",
-                "{\"a1\":\"value1\", \"b2\": \"value2\"}");
+            "{\"a1\": \"old-a1\", \"b2\": \"old-b2\"}",
+            "{\"a1\":\"value1\", \"b2\": \"value2\"}");
     }
 
     @Test
     public void testReplaceGrandChild() {
         this.applyAndCheck(this.createPatch("/a1/b2"),
-                "{\"a1\": {\"b2\": \"old-b2\"}}",
-                "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}");
+            "{\"a1\": {\"b2\": \"old-b2\"}}",
+            "{\"a1\": {\"b2\": {\"c3\": \"value3\"}}}");
     }
 //
 //    @Test

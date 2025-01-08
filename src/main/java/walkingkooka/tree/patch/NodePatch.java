@@ -152,7 +152,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
      */
     final N traverseStartOrFail(final N node, final NodePointer<N, NAME> start) {
         return start.traverse(node.root())
-                .orElseThrow(() -> new NodePointerException("Unable to navigate to starting node: " + node));
+            .orElseThrow(() -> new NodePointerException("Unable to navigate to starting node: " + node));
     }
 
     /**
@@ -185,14 +185,14 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
         Objects.requireNonNull(valueFactory, "valueFactory");
 
         return Cast.to(
-                unmarshall0(
-                        node,
-                        NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
-                        JsonNodeUnmarshallContexts.basic(
-                                kind,
-                                context
-                        )
+            unmarshall0(
+                node,
+                NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
+                JsonNodeUnmarshallContexts.basic(
+                    kind,
+                    context
                 )
+            )
         );
     }
 
@@ -230,8 +230,8 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
         checkNode(node);
 
         return unmarshall0(node,
-                NodePatchFromJsonFormat.unmarshallContext(),
-                context);
+            NodePatchFromJsonFormat.unmarshallContext(),
+            context);
     }
 
     private static void checkNode(final JsonNode node) {
@@ -323,21 +323,21 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
     static {
         JsonNodeContext.register("patch",
-                NodePatch::unmarshall,
-                NodePatch::marshall,
-                NodePatch.class,
-                NodePatchNotEmptyAddReplaceOrTestAdd.class,
-                NodePatchNotEmptyCopyOrMoveCopy.class,
-                NodePatchEmpty.class,
-                NodePatchNotEmptyCopyOrMoveMove.class,
-                NodePatchNotEmptyRemove.class,
-                NodePatchNotEmptyAddReplaceOrTestReplace.class,
-                NodePatchNotEmptyAddReplaceOrTestTest.class);
+            NodePatch::unmarshall,
+            NodePatch::marshall,
+            NodePatch.class,
+            NodePatchNotEmptyAddReplaceOrTestAdd.class,
+            NodePatchNotEmptyCopyOrMoveCopy.class,
+            NodePatchEmpty.class,
+            NodePatchNotEmptyCopyOrMoveMove.class,
+            NodePatchNotEmptyRemove.class,
+            NodePatchNotEmptyAddReplaceOrTestReplace.class,
+            NodePatchNotEmptyAddReplaceOrTestTest.class);
     }
 
     private JsonArray marshall(final JsonNodeMarshallContext context) {
         return this.marshall0(NodePatchToJsonFormat.JSON_NODE_CONTEXT,
-                context);
+            context);
     }
 
     abstract JsonArray marshall0(final NodePatchToJsonFormat format, final JsonNodeMarshallContext context);
