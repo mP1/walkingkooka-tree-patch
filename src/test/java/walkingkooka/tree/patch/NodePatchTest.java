@@ -19,18 +19,24 @@ package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.currency.CanCurrencyForCurrencyCode;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 
 import java.math.MathContext;
+import java.util.Currency;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, JsonPropertyName>> {
 
+    private final static CanCurrencyForCurrencyCode CAN_CURRENCY_FOR_CURRENCY_CODE = (String cc) -> Optional.ofNullable(
+        Currency.getInstance(cc)
+    );
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static MathContext CONTEXT = MathContext.DECIMAL32;
 
@@ -42,6 +48,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 null,
                 this.nameFactory(),
                 this.valueFactory(),
+                CAN_CURRENCY_FOR_CURRENCY_CODE,
                 KIND,
                 CONTEXT
             )
@@ -56,6 +63,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 JsonNode.object(),
                 null,
                 this.valueFactory(),
+                CAN_CURRENCY_FOR_CURRENCY_CODE,
                 KIND,
                 CONTEXT
             )
@@ -69,6 +77,22 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
             () -> NodePatch.fromJsonPatch(
                 JsonNode.object(),
                 this.nameFactory(),
+                null,
+                CAN_CURRENCY_FOR_CURRENCY_CODE,
+                KIND,
+                CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testFromJsonPatchNullCanCurrencyForCurrencyCodeFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> NodePatch.fromJsonPatch(
+                JsonNode.object(),
+                this.nameFactory(),
+                this.valueFactory(),
                 null,
                 KIND,
                 CONTEXT
@@ -84,6 +108,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 JsonNode.object(),
                 this.nameFactory(),
                 this.valueFactory(),
+                CAN_CURRENCY_FOR_CURRENCY_CODE,
                 null,
                 CONTEXT
             )
@@ -98,6 +123,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 JsonNode.object(),
                 this.nameFactory(),
                 this.valueFactory(),
+                CAN_CURRENCY_FOR_CURRENCY_CODE,
                 KIND,
                 null
             )

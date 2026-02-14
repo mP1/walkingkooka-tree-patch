@@ -24,6 +24,8 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.pointer.NodePointer;
 
 import java.math.MathContext;
+import java.util.Currency;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -125,6 +127,9 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
             node,
             JsonPropertyName::with,
             Function.identity(),
+            (String cc) -> Optional.ofNullable(
+                Currency.getInstance(cc)
+            ),
             ExpressionNumberKind.DEFAULT,
             MathContext.DECIMAL32
         );
