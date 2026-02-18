@@ -20,6 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.currency.CanCurrencyForCurrencyCode;
+import walkingkooka.locale.CanLocaleForLanguageTag;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -180,6 +181,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                                                                                                       final Function<String, NAME> nameFactory,
                                                                                                       final Function<JsonNode, N> valueFactory,
                                                                                                       final CanCurrencyForCurrencyCode canCurrencyForCurrencyCode,
+                                                                                                      final CanLocaleForLanguageTag canLocaleForLanguageTag,
                                                                                                       final ExpressionNumberKind kind,
                                                                                                       final MathContext context) {
         checkNode(node);
@@ -192,6 +194,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
                 JsonNodeUnmarshallContexts.basic(
                     canCurrencyForCurrencyCode,
+                    canLocaleForLanguageTag,
                     kind,
                     context
                 )

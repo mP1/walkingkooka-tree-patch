@@ -20,6 +20,7 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.currency.CanCurrencyForCurrencyCode;
+import walkingkooka.locale.CanLocaleForLanguageTag;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
@@ -27,6 +28,7 @@ import walkingkooka.tree.json.JsonPropertyName;
 
 import java.math.MathContext;
 import java.util.Currency;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -37,6 +39,10 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
     private final static CanCurrencyForCurrencyCode CAN_CURRENCY_FOR_CURRENCY_CODE = (String cc) -> Optional.ofNullable(
         Currency.getInstance(cc)
     );
+    private final static CanLocaleForLanguageTag CAN_LOCALE_FOR_LANGUAGE_TAG = (String cc) -> Optional.ofNullable(
+        Locale.forLanguageTag(cc)
+    );
+
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static MathContext CONTEXT = MathContext.DECIMAL32;
 
@@ -49,6 +55,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 this.nameFactory(),
                 this.valueFactory(),
                 CAN_CURRENCY_FOR_CURRENCY_CODE,
+                CAN_LOCALE_FOR_LANGUAGE_TAG,
                 KIND,
                 CONTEXT
             )
@@ -64,6 +71,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 null,
                 this.valueFactory(),
                 CAN_CURRENCY_FOR_CURRENCY_CODE,
+                CAN_LOCALE_FOR_LANGUAGE_TAG,
                 KIND,
                 CONTEXT
             )
@@ -79,6 +87,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 this.nameFactory(),
                 null,
                 CAN_CURRENCY_FOR_CURRENCY_CODE,
+                CAN_LOCALE_FOR_LANGUAGE_TAG,
                 KIND,
                 CONTEXT
             )
@@ -93,6 +102,23 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 JsonNode.object(),
                 this.nameFactory(),
                 this.valueFactory(),
+                null,
+                CAN_LOCALE_FOR_LANGUAGE_TAG,
+                KIND,
+                CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testFromJsonPatchNullCanLocaleForLanguageTagFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> NodePatch.fromJsonPatch(
+                JsonNode.object(),
+                this.nameFactory(),
+                this.valueFactory(),
+                CAN_CURRENCY_FOR_CURRENCY_CODE,
                 null,
                 KIND,
                 CONTEXT
@@ -109,6 +135,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 this.nameFactory(),
                 this.valueFactory(),
                 CAN_CURRENCY_FOR_CURRENCY_CODE,
+                CAN_LOCALE_FOR_LANGUAGE_TAG,
                 null,
                 CONTEXT
             )
@@ -124,6 +151,7 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
                 this.nameFactory(),
                 this.valueFactory(),
                 CAN_CURRENCY_FOR_CURRENCY_CODE,
+                CAN_LOCALE_FOR_LANGUAGE_TAG,
                 KIND,
                 null
             )
