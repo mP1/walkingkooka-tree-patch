@@ -20,6 +20,7 @@ package walkingkooka.tree.patch;
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.currency.CanCurrencyForCurrencyCode;
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.locale.CanLocaleForLanguageTag;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
@@ -180,10 +181,9 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatch<N, NAME> fromJsonPatch(final JsonNode node,
                                                                                                       final Function<String, NAME> nameFactory,
                                                                                                       final Function<JsonNode, N> valueFactory,
-                                                                                                      final CanCurrencyForCurrencyCode canCurrencyForCurrencyCode,
-                                                                                                      final CanLocaleForLanguageTag canLocaleForLanguageTag,
                                                                                                       final ExpressionNumberKind kind,
-                                                                                                      final MathContext context) {
+                                                                                                      final CurrencyCodeLanguageTagContext currencyCodeLanguageTagContext,
+                                                                                                      final MathContext mathContext) {
         checkNode(node);
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(valueFactory, "valueFactory");
@@ -193,10 +193,9 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 node,
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
                 JsonNodeUnmarshallContexts.basic(
-                    canCurrencyForCurrencyCode,
-                    canLocaleForLanguageTag,
                     kind,
-                    context
+                    currencyCodeLanguageTagContext,
+                    mathContext
                 )
             )
         );
