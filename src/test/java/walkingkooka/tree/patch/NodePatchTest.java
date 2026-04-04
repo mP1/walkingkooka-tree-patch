@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
@@ -49,9 +50,11 @@ public final class NodePatchTest extends NodePatchTestCase2<NodePatch<JsonNode, 
         }
 
         @Override
-        public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
             return Optional.of(
-                Locale.forLanguageTag(languageTag)
+                Locale.forLanguageTag(
+                    languageTag.value()
+                )
             );
         }
     };

@@ -20,6 +20,7 @@ package walkingkooka.tree.patch;
 import org.junit.jupiter.api.Test;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -142,9 +143,11 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
                 }
 
                 @Override
-                public Optional<Locale> localeForLanguageTag(final String languageTag) {
+                public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
                     return Optional.of(
-                        Locale.forLanguageTag(languageTag)
+                        Locale.forLanguageTag(
+                            languageTag.value()
+                        )
                     );
                 }
             },
