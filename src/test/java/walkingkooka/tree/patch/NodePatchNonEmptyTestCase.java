@@ -18,6 +18,7 @@
 package walkingkooka.tree.patch;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
@@ -132,9 +133,11 @@ public abstract class NodePatchNonEmptyTestCase<P extends NodePatchNonEmpty<Json
             ExpressionNumberKind.DEFAULT,
             new CurrencyCodeLanguageTagContext() {
                 @Override
-                public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
                     return Optional.ofNullable(
-                        Currency.getInstance(currencyCode)
+                        Currency.getInstance(
+                            currencyCode.value()
+                        )
                     );
                 }
 
