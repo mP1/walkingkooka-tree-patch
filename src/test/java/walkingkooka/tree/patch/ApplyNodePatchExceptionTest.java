@@ -53,7 +53,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch);
         this.getMessageAndCheck(exception, MESSAGE);
         this.checkPatch(exception, patch);
-        this.checkCause(exception, null);
+        this.getCauseAndCheck(exception, null);
     }
 
     @Test
@@ -69,7 +69,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch, cause);
         this.getMessageAndCheck(exception, MESSAGE);
         this.checkPatch(exception, patch);
-        this.checkCause(exception, cause);
+        this.getCauseAndCheck(exception, cause);
     }
 
     private NodePatch<JsonNode, JsonPropertyName> empty() {
