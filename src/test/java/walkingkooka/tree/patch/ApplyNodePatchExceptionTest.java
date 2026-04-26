@@ -51,7 +51,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
     public void testWithPatch() {
         final NodePatch<JsonNode, JsonPropertyName> patch = this.empty();
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch);
-        this.checkMessage(exception, MESSAGE);
+        this.getMessageAndCheck(exception, MESSAGE);
         this.checkPatch(exception, patch);
         this.checkCause(exception, null);
     }
@@ -67,7 +67,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         final Exception cause = new Exception("cause!");
 
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch, cause);
-        this.checkMessage(exception, MESSAGE);
+        this.getMessageAndCheck(exception, MESSAGE);
         this.checkPatch(exception, patch);
         this.checkCause(exception, cause);
     }
