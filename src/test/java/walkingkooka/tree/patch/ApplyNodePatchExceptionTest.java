@@ -32,7 +32,13 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
 
     @Test
     public void testWithNullPatchFails() {
-        assertThrows(NullPointerException.class, () -> new ApplyNodePatchException("message", null));
+        assertThrows(
+            NullPointerException.class,
+            () -> new ApplyNodePatchException(
+                "message",
+                null
+            )
+        );
     }
 
     @Override
@@ -52,13 +58,20 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         final NodePatch<JsonNode, JsonPropertyName> patch = this.empty();
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch);
         this.getMessageAndCheck(exception, MESSAGE);
-        this.checkPatch(exception, patch);
+        this.patchAndCheck(exception, patch);
         this.getCauseAndCheck(exception, null);
     }
 
     @Test
     public void testWithMessageAndNullPathAndCause() {
-        assertThrows(NullPointerException.class, () -> new ApplyNodePatchException(MESSAGE, null, new Exception()));
+        assertThrows(
+            NullPointerException.class,
+            () -> new ApplyNodePatchException(
+                MESSAGE,
+                null,
+                new Exception()
+            )
+        );
     }
 
     @Test
@@ -68,7 +81,7 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
 
         final ApplyNodePatchException exception = new ApplyNodePatchException(MESSAGE, patch, cause);
         this.getMessageAndCheck(exception, MESSAGE);
-        this.checkPatch(exception, patch);
+        this.patchAndCheck(exception, patch);
         this.getCauseAndCheck(exception, cause);
     }
 
@@ -76,19 +89,31 @@ public final class ApplyNodePatchExceptionTest implements StandardThrowableTesti
         return NodePatch.empty(JsonNode.class);
     }
 
-    private void checkPatch(final ApplyNodePatchException exception,
-                            final NodePatch<JsonNode, JsonPropertyName> patch) {
-        assertSame(patch, exception.patch(), "patch");
+    private void patchAndCheck(final ApplyNodePatchException exception,
+                               final NodePatch<JsonNode, JsonPropertyName> patch) {
+        assertSame(
+            patch,
+            exception.patch(),
+            "patch"
+        );
     }
 
     @Override
     public ApplyNodePatchException createThrowable(final String message) {
-        return new ApplyNodePatchException(message, this.empty());
+        return new ApplyNodePatchException(
+            message,
+            this.empty()
+        );
     }
 
     @Override
-    public ApplyNodePatchException createThrowable(final String message, final Throwable cause) {
-        return new ApplyNodePatchException(message, this.empty(), cause);
+    public ApplyNodePatchException createThrowable(final String message,
+                                                   final Throwable cause) {
+        return new ApplyNodePatchException(
+            message,
+            this.empty(),
+            cause
+        );
     }
 
     @Override
