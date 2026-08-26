@@ -51,7 +51,7 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
     /**
      * Returns an empty patch.
      */
-    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatchEmpty<N, NAME> empty(final Class<N> type) {
+    public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePatch<N, NAME> empty(final Class<N> type) {
         return NodePatchEmpty.get(type);
     }
 
