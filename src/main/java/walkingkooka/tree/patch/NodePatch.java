@@ -194,6 +194,9 @@ public abstract class NodePatch<N extends Node<N, NAME, ?, ?>, NAME extends Name
                 NodePatchFromJsonFormat.jsonPatch(nameFactory, valueFactory),
                 JsonNodeUnmarshallContexts.basic(
                     kind,
+                    (final String name) -> {
+                        throw new UnsupportedOperationException();
+                    },
                     currencyCodeLanguageTagContext,
                     mathContext
                 )
