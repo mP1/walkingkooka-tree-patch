@@ -20,10 +20,6 @@ package walkingkooka.tree.patch;
 public final class NodePatchFromJsonFormatTest extends NodePatchTestCase4<NodePatchFromJsonFormat> {
 
     @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    @Override
     public Class<NodePatchFromJsonFormat> type() {
         return NodePatchFromJsonFormat.class;
     }
